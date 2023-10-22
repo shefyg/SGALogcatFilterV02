@@ -1,0 +1,10 @@
+Status file:ACTIVE_NO_UPLOADStatus file:ACTIVE_NO_UPLOADStarting PreProcess for BgUpload    -> Reloading batchesStarting PreProcess for BgUpload    -> Starting PreprocessBatchesCoroutineStarting PreProcess Coroutine for BgUpload    -> on batch.timeStamp 2023-10-22_04-43-53
+    -> finished processing batchStatus file:ACTIVE_CAN_UPLOADStatus file:ACTIVE_CAN_UPLOAD    -> on batch.timeStamp 2023-10-22_04-42-09
+    -> finished processing batch    -> on batch.timeStamp 2023-10-22_04-41-50
+    -> finished processing batch    -> on batch.timeStamp 2023-10-21_16-30-14
+    -> finished processing batch    -> preprocessed Batches -> About to upload from plugin    -> StartKeepingTrackOnBgUpload    -> Unity called plugin func UploadBatchesToFB    -> DONE PreProcessing Batches    -> info file(1): Session_2023-10-21_16-30-14.batchUpInfo
+    -> info file(2): Session_2023-10-22_04-41-50.batchUpInfo
+    -> info file(3): Session_2023-10-22_04-42-09.batchUpInfo
+    -> info file(4): Session_2023-10-22_04-43-53.batchUpInfo
+    -> onStartCommand with commandKey: 10
+    -> changed scan info files:            --->  Session_2023-10-22_04-43-53.batchUpInfo
