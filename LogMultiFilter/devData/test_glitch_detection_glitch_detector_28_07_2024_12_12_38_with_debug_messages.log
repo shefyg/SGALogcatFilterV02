@@ -1,0 +1,552 @@
+[28/07/2024 12:12:38.331]  INFO: [PreTest.py->run_pre_test()] Start Pre Test Method
+[28/07/2024 12:12:38.340]  INFO: [PreTest.py->run_pre_test()] Test [test_glitch_detection_glitch detector] Running on Host [ILHERTDCN3584CB] with the following IP Address [10.67.65.166, 172.16.4.99]
+[28/07/2024 12:12:38.348]  INFO: [PreTest.py->run_pre_test()] Starting Pre Test Method
+[28/07/2024 12:12:38.355] DEBUG: [VpmPrePostTest.py->run_rvc_pre_test()] VCU HIGH PRE TEST *****************************************
+[28/07/2024 12:12:38.364]  INFO: [VpmPrePostTest.py->run_rvc_pre_test()] Configuration File was loaded for: [vcuh_sb_my24] with values: BenchConf(VCU=VcuConf(active=True, dut_type='VCU_HIGH', dut_connection=HostConnection(dut_ip_address='172.16.4.101', host_user_name='root', host_user_password=''), hw_platform_type='C2_High', hw_platform_level='HIGH', hw_config_pn='0070002601010000', product_flavor='8195_la_VCU', release_overrides_baseline_path='\\\\nam.isrisln01a.iha.eup.gm.com\\nam_gpd_0000000_data001\\IPCG_TRC\\Validation_Team\\RVC_Release_Default_Overrides\\overrides_baselines'), ACP3=AcpConf(active=False, dut_type='ACP3.1', dut_connection=HostConnection(dut_ip_address='172.16.4.246', host_user_name='root', host_user_password='root')), General=GeneralConf(vehicle_simulator_type='VSPY_SLIM', vehicle_simulator_enabled=True, external_camera_enabled=True, external_camera_port=0, full_bench=False, full_bench_global_b=False, slim_bench_with_relay=True, lvds_switch_enabled=False, vspy_model='\\\\nam.isrisln01a.iha.eup.gm.com\\nam_gpd_0000000_data001\\IPCG_TRC\\Users\\4_VSPY_Model\\MY24_VCS_168_Thin_Bench 0.23f-gateway.vs3zip', vspy_input='Infra\\VSPY\\Data\\VehicleSpyInput_VehicleSpyInput_MY24_VCS_168_Thin_Bench_for_0.23f.json', vpm=False, print_console_log_content=True), LVDS=LvdsConf(Rear=LvdsSwitchConf(lvds_switch_com_port=0, channel_map={'channel 1': None, 'channel 2': None, 'channel 3': None, 'channel 4': None, 'channel 5': None, 'channel 6': None, 'channel 7': None, 'channel 8': None})))
+[28/07/2024 12:12:38.411] DEBUG: [VpmPrePostTest.py->ecu_health_check()] ---- Start ECU health check
+[28/07/2024 12:12:38.421] DEBUG: [ACP3.py->bring_acp3_up()] ACP3 System is not active
+[28/07/2024 12:12:38.429] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "echo telnet_available" on VCU
+[28/07/2024 12:12:38.552] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: telnet_available
+[28/07/2024 12:12:38.563]  INFO: [qnx_commands.py->check_qnx_available()] QNX connection [VCU] is Available.
+[28/07/2024 12:12:38.573] DEBUG: [adb_wrapper.py->__check_connected_to_adb()] Failed to connect to ADB device. Reconnecting...
+[28/07/2024 12:12:38.583] DEBUG: [adb_wrapper.py->de_init_adb()] adb de-init done
+[28/07/2024 12:12:38.591] DEBUG: [adb_wrapper.py->__set_adb_device()] Connecting to ADB Device at IP Address [172.16.4.100]
+[28/07/2024 12:12:38.600] DEBUG: [adb_wrapper.py->__adb_device_connect()] Trying to connect to ADB
+[28/07/2024 12:12:38.672] DEBUG: [adb_wrapper.py->__check_connected_to_adb()] Failed to connect to ADB device. Reconnecting...
+[28/07/2024 12:12:38.682] DEBUG: [adb_wrapper.py->de_init_adb()] adb de-init done
+[28/07/2024 12:12:38.690] DEBUG: [adb_wrapper.py->__set_adb_device()] Connecting to ADB Device at IP Address [172.16.4.100]
+[28/07/2024 12:12:38.698] DEBUG: [adb_wrapper.py->__adb_device_connect()] Unable to connect to ADB - retry 1 of 5
+[28/07/2024 12:12:38.706] DEBUG: [testing_logs_utils.py->logged_sleep()] Sleeping for 60 seconds
+[28/07/2024 12:12:50.315] DEBUG: [infra_thread.py->run()] Thread is paused
+[28/07/2024 12:13:38.716] DEBUG: [testing_logs_utils.py->logged_sleep()] Done sleeping
+[28/07/2024 12:13:38.763] DEBUG: [adb_wrapper.py->run_command()] ADB: Trying to run: "echo ADB available"
+[28/07/2024 12:13:38.810] DEBUG: [adb_wrapper.py->run_command()] ADB shell command returned: ADB available
+[28/07/2024 12:13:38.821] DEBUG: [VCU_controller.py->check_vcu_available()] VCU ADB is available
+[28/07/2024 12:13:38.829] DEBUG: [VCU_controller.py->check_vcu_available()] Skip "display is on" verification
+[28/07/2024 12:13:38.839] DEBUG: [VCU_controller.py->bring_vcu_to_adb()] VCU is available
+[28/07/2024 12:13:38.847] DEBUG: [VSPY_commands.py->init()] Vehicle Spy already initialized, no need to re-init...
+[28/07/2024 12:13:38.857] DEBUG: [VSPY_commands.py->send_app_signal_value_and_verify()] Sending App Signal [LinkSpeed] with Value [0]
+[28/07/2024 12:13:38.866] DEBUG: [VSPY_commands.py->set_app_signal_value()] Set APP Signal LinkSpeed-> new value: 0 with command: as(sig46).value 0
+[28/07/2024 12:13:39.076] DEBUG: [VSPY_commands.py->get_app_signal_value()] Get APP Signal LinkSpeed. with command [as(sig46).value?]
+[28/07/2024 12:13:39.086] DEBUG: [VSPY_commands.py->get_out_command()] Get TX Signal SysPwrMode_Prtctd_PDU->SPMP_SysPwrModeAuth with command: tx(out115).sg(13).value?
+[28/07/2024 12:13:39.094] DEBUG: [VSPY_commands.py->get_signal_out_current_value()] Actual signal value [Propulsion]. Check OUT Signal SysPwrMode_Prtctd_PDU->SPMP_SysPwrModeAuth  with command: [tx(out115).sg(13).value?]
+[28/07/2024 12:13:39.102] DEBUG: [VSPY_commands.py->check_out_signal_in_current_values()] Signal value [Propulsion] found in expected values: ['Run', 'Propulsion']
+[28/07/2024 12:13:39.110] DEBUG: [VSPY_commands.py->check_in_signal_in_current_values()] Run Command [mg(in11).sg(3).value?] Signal value [Propulsion] found in expected values: ['Run', 'Propulsion']
+[28/07/2024 12:13:39.118]  INFO: [VehicleSimulatorVspySlimModel.py->is_bench_in_run_or_propulsion_mode()] Power Mode and Infotainment status are in valid mode [Run/Propulsion]
+[28/07/2024 12:13:39.126]  INFO: [dut.py->print_connected_device()] Successfully Wakeup Vehicle Simulator Wrapper and Connected to EcoMate
+[28/07/2024 12:13:39.133] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "echo "[28-07-2024_12-13-39] [Automation execution] [info] vcuh-low-level-772 Starting test_glitch_detection[glitch detector]" > /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:13:39.260] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "chown gm_vpervc:gm_vpervc /tmp/vpe_cli.txt && chmod +w /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:13:39.487] DEBUG: [VpmPrePostTest.py->ecu_health_check()] ---- End ECU health check. Estimated time 61.064264499931596
+[28/07/2024 12:13:39.496] DEBUG: [DLTFilesCollector.py->_remove_dlt_files_from_dut()] Delete all files in /var/log/dlt
+[28/07/2024 12:13:39.504] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt" on VCU
+[28/07/2024 12:13:39.744] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: Audio.019.dlt.2024-07-25_18-08-39.logAudio.020.dlt.2024-07-25_18-17-25.logAudio.021.dlt.2024-07-25_18-23-53.logAudio.022.dlt.2024-07-25_18-30-00.logCriticalSoc.003.dlt.2024-07-24_22-30-50.logNVRawDLT.Vip.006.dlt.2024-07-24_22-31-16.logNVRawDLT.Vip.007.dlt.2024-07-25_16-35-19.logNVRawDLT.Vip.008.dlt.2024-07-25_17-44-31.logNVRawDLT.Vip.009.dlt.2024-07-25_18-07-47.logSoc.177.dlt.2024-07-25_18-37-52.logSoc.178.dlt.2024-07-25_18-38-47.logSoc.179.dlt.2024-07-25_18-39-11.logSoc.180.dlt.2024-07-25_18-40-04.logSoc.181.dlt.2024-07-25_18-42-01.logSoc.182.dlt.2024-07-25_18-42-51.logSoc.183.dlt.2024-07-25_18-43-38.logSoc.184.dlt.2024-07-25_18-45-30.logSoc.185.dlt.2024-07-25_18-48-28.logSoc.186.dlt.2024-07-25_18-51-25.logVip.006.dlt.2024-07-24_22-31-16.logVip.007.dlt.2024-07-25_16-35-19.logVip.008.dlt.2024-07-25_17-44-31.logVip.009.dlt.2024-07-25_18-07-47.log
+[28/07/2024 12:13:39.754] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt | wc -l" on VCU
+[28/07/2024 12:13:39.976] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: 23
+[28/07/2024 12:13:39.986] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt/Soc.*.dlt" on VCU
+[28/07/2024 12:13:40.217] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/var/log/dlt/Soc.*.dlt)
+[28/07/2024 12:13:40.227] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt/Vip.*.dlt" on VCU
+[28/07/2024 12:13:40.458] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/var/log/dlt/Vip.*.dlt)
+[28/07/2024 12:13:40.467] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt/CriticalSoc.*.dlt" on VCU
+[28/07/2024 12:13:40.686] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/var/log/dlt/CriticalSoc.*.dlt)
+[28/07/2024 12:13:40.696] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt/Audio.*.dlt" on VCU
+[28/07/2024 12:13:40.935] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/var/log/dlt/Audio.*.dlt)
+[28/07/2024 12:13:40.945] DEBUG: [DLTFilesCollector.py->_remove_dlt_files_from_dut()] the list of files to delete after sorting and remove the latest from each group: []
+[28/07/2024 12:13:40.953] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "rm -r " on VCU
+[28/07/2024 12:13:41.167] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: rm: Must specify file[s] for removal.
+[28/07/2024 12:13:41.177] DEBUG: [DLTFilesCollector.py->_remove_dlt_files_from_dut()] Delete all files in /var/log/dlt_raw
+[28/07/2024 12:13:41.185] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt_raw" on VCU
+[28/07/2024 12:13:41.402] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: Audio.027.dltCriticalSoc.005.dltPARSE_RAW_DLT.READMESoc.211.dltSoc.212.dltVip.011.dltdlt_logstorage.confparse_dlt.sh
+[28/07/2024 12:13:41.412] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt_raw | wc -l" on VCU
+[28/07/2024 12:13:41.639] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: 8
+[28/07/2024 12:13:41.648] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt_raw/Soc.*.dlt" on VCU
+[28/07/2024 12:13:41.871] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /var/log/dlt_raw/Soc.211.dlt/var/log/dlt_raw/Soc.212.dlt
+[28/07/2024 12:13:41.881] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt_raw/Vip.*.dlt" on VCU
+[28/07/2024 12:13:42.098] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /var/log/dlt_raw/Vip.011.dlt
+[28/07/2024 12:13:42.108] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt_raw/CriticalSoc.*.dlt" on VCU
+[28/07/2024 12:13:42.334] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /var/log/dlt_raw/CriticalSoc.005.dlt
+[28/07/2024 12:13:42.344] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt_raw/Audio.*.dlt" on VCU
+[28/07/2024 12:13:42.566] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /var/log/dlt_raw/Audio.027.dlt
+[28/07/2024 12:13:42.575] DEBUG: [DLTFilesCollector.py->_remove_dlt_files_from_dut()] the list of files to delete after sorting and remove the latest from each group: ['/var/log/dlt_raw/Soc.211.dlt']
+[28/07/2024 12:13:42.583] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "rm -r /var/log/dlt_raw/Soc.211.dlt" on VCU
+[28/07/2024 12:13:42.803]  INFO: [dlt_ongoing_collector.py->_create_backup_dir()] backup directory: [C:\Users\R_ATCIVAL01\Jenkins\workspace\vcuh-low-level\VPM_Automation_Logs\test_glitch_detection_glitch detector\DLTLogs]
+[28/07/2024 12:13:42.813]  INFO: [dlt_ongoing_collector.py->start()] Started DLT logs backup thread
+[28/07/2024 12:13:42.821] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "echo telnet_available" on VCU
+[28/07/2024 12:13:42.823] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: " ps | grep sh | grep -v '\-sh' | awk '{print $1}' | xargs slay -9 " on VCU
+[28/07/2024 12:13:43.038] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: telnet_available
+[28/07/2024 12:13:43.038]  INFO: [qnx_commands.py->check_qnx_available()] QNX connection [VCU] is Available.
+[28/07/2024 12:13:43.039]  INFO: [dlt_ongoing_collector.py->__fetch_logs()] fetching new dlt logs
+[28/07/2024 12:13:43.039] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt_raw | grep .dlt" on VCU
+[28/07/2024 12:13:43.301] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: Audio.027.dltCriticalSoc.005.dltSoc.212.dltVip.011.dltparse_dlt.sh
+[28/07/2024 12:13:44.057] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "slay -9 tail" on VCU
+[28/07/2024 12:13:44.183] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: slay: Unable to find process 'tail'
+[28/07/2024 12:13:44.693] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "slay -9 tail" on VCU
+[28/07/2024 12:13:44.821] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: slay: Unable to find process 'tail'
+[28/07/2024 12:13:44.831]  INFO: [glitch_detector_manager.py->enable_detection()] Glitch Detector Enabled!
+[28/07/2024 12:13:45.147] DEBUG: [SlimBenchRelay.py->set_relay()] Changed channel Hardwire_reverse to On successfully
+[28/07/2024 12:13:45.466] DEBUG: [SlimBenchRelay.py->set_relay()] Changed channel Hardwire_reverse to Off successfully
+[28/07/2024 12:13:45.477] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "rm /ota_update/vpe/captured_frames/*.bmp" on VCU
+[28/07/2024 12:13:45.524] DEBUG: [infra_thread.py->run()] Thread is resumed
+[28/07/2024 12:13:45.526] DEBUG: [SerialCommands.py->read_console_log()] [serial console] [2024-07-28 14:12:28.547] [cli_53336] [error] <t_18>error failed to open the cli file: /tmp/vpe_cli.txt (err: permission denied)
+[28/07/2024 12:13:45.602] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /ota_update/vpe/captured_frames/*.bmp: No such file or directory
+[28/07/2024 12:13:45.611] DEBUG: [CoreDumpCollector.py->check_for_core_dumps()] Looking for core dumps at /persist/em/coredumpdir/*.core*
+[28/07/2024 12:13:45.619] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /persist/em/coredumpdir/*.core*" on VCU
+[28/07/2024 12:13:45.797] DEBUG: [infra_thread.py->run()] Thread is resumed
+[28/07/2024 12:13:45.797] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "pidin -p RtosAppMain -f a | grep -v pid" on VCU
+[28/07/2024 12:13:45.848] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/persist/em/coredumpdir/*.core*)
+[28/07/2024 12:13:45.857] DEBUG: [CoreDumpCollector.py->check_for_core_dumps()] List of files on /persist/em/coredumpdir/*.core* is: ls: No such file or directory (/persist/em/coredumpdir/*.core*)
+[28/07/2024 12:13:45.865] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /persist/em/coredumpdir/*.core*" on VCU
+[28/07/2024 12:13:45.886] DEBUG: [infra_thread.py->run()] Thread is resumed
+[28/07/2024 12:13:45.886] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "pidin -p service_vpe -f a | grep -v pid" on VCU
+[28/07/2024 12:13:46.119] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/persist/em/coredumpdir/*.core*)
+[28/07/2024 12:13:46.128] DEBUG: [CoreDumpCollector.py->check_for_core_dumps()] Looking for core dumps at /var/log/noivi_logs/otherLogs/coredumps/*.core*
+[28/07/2024 12:13:46.136] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/noivi_logs/otherLogs/coredumps/*.core*" on VCU
+[28/07/2024 12:13:46.185] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: 1482843
+[28/07/2024 12:13:46.220] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: 53336
+[28/07/2024 12:13:46.301] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/var/log/noivi_logs/otherLogs/coredumps/*.core*)
+[28/07/2024 12:13:46.310] DEBUG: [CoreDumpCollector.py->check_for_core_dumps()] List of files on /var/log/noivi_logs/otherLogs/coredumps/*.core* is: ls: No such file or directory (/var/log/noivi_logs/otherLogs/coredumps/*.core*)
+[28/07/2024 12:13:46.318] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/noivi_logs/otherLogs/coredumps/*.core*" on VCU
+[28/07/2024 12:13:46.539] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/var/log/noivi_logs/otherLogs/coredumps/*.core*)
+[28/07/2024 12:13:46.549] DEBUG: [CoreDumpCollector.py->check_for_core_dumps()] Looking for core dumps at /var/log/*.core*
+[28/07/2024 12:13:46.557] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/*.core*" on VCU
+[28/07/2024 12:13:46.775] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/var/log/*.core*)
+[28/07/2024 12:13:46.785] DEBUG: [CoreDumpCollector.py->check_for_core_dumps()] List of files on /var/log/*.core* is: ls: No such file or directory (/var/log/*.core*)
+[28/07/2024 12:13:46.792] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/*.core*" on VCU
+[28/07/2024 12:13:47.014] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/var/log/*.core*)
+[28/07/2024 12:13:47.024] DEBUG: [CoreDumpCollector.py->check_for_core_dumps()] Looking for core dumps at /var/log/ham_coredumps/*.core*
+[28/07/2024 12:13:47.031] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/ham_coredumps/*.core*" on VCU
+[28/07/2024 12:13:47.249] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/var/log/ham_coredumps/*.core*)
+[28/07/2024 12:13:47.258] DEBUG: [CoreDumpCollector.py->check_for_core_dumps()] List of files on /var/log/ham_coredumps/*.core* is: ls: No such file or directory (/var/log/ham_coredumps/*.core*)
+[28/07/2024 12:13:47.266] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/ham_coredumps/*.core*" on VCU
+[28/07/2024 12:13:47.484] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/var/log/ham_coredumps/*.core*)
+[28/07/2024 12:13:47.493] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "pidin -p service_vpe" on VCU
+[28/07/2024 12:13:47.716] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: pid tid name               prio STATE       Blocked                        53336   1 sr/bin/service_vpe  15r NANOSLEEP                                  53336   2 sr/bin/service_vpe  15r NANOSLEEP                                  53336   3 sr/bin/service_vpe  63r RECEIVE     2                              53336   4 sr/bin/service_vpe  15r CONDVAR     (0x3114d6ff10)                 53336   5 sr/bin/service_vpe  10r REPLY       49193                          53336   6 sr/bin/service_vpe  10r CONDVAR     (0x122e057a18)                 53336   7 sr/bin/service_vpe  10r NANOSLEEP                                  53336   8 sr/bin/service_vpe  20r RECEIVE     4                              53336   9 sr/bin/service_vpe  15r CONDVAR     (0x3114955220)                 53336  10 sr/bin/service_vpe  21r RECEIVE     6                              53336  11 sr/bin/service_vpe  15r DEAD                                       53336  12 sr/bin/service_vpe  15r CONDVAR     (0x3114537234)                 53336  13 sr/bin/service_vpe  15r DEAD                                       53336  14 sr/bin/service_vpe  15r CONDVAR     (0x3114537294)                 53336  15 sr/bin/service_vpe  15r DEAD                                       53336  16 sr/bin/service_vpe  15r CONDVAR     (0x3114537354)                 53336  17 sr/bin/service_vpe  15r DEAD                                       53336  18 sr/bin/service_vpe  15r CONDVAR     (0x31145372f4)                 53336  19 sr/bin/service_vpe  15r DEAD                                       53336  20 sr/bin/service_vpe  10r RECEIVE     7                              53336  21 sr/bin/service_vpe  15r CONDVAR     (0x3114537594)                 53336  22 sr/bin/service_vpe  15r DEAD                                       53336  23 sr/bin/service_vpe  15r DEAD                                       53336  24 sr/bin/service_vpe  15r CONDVAR     (0x3114a62d00)                 53336  25 sr/bin/service_vpe  15r CONDVAR     (0x311451e3a0)                 53336  26 sr/bin/service_vpe  15r CONDVAR     (0x311451fd14)                 53336  27 sr/bin/service_vpe  10r REPLY       49193                          53336  28 sr/bin/service_vpe  10r CONDVAR     (0x122e058020)                 53336  29 sr/bin/service_vpe  15r NANOSLEEP                                  53336  30 sr/bin/service_vpe  15r DEAD                                       53336  31 sr/bin/service_vpe  15r DEAD                                       53336  32 sr/bin/service_vpe  15r DEAD                                       53336  33 sr/bin/service_vpe  10r REPLY       49193                          53336  34 sr/bin/service_vpe  10r CONDVAR     (0x122e058628)                 53336  35 sr/bin/service_vpe  21r NANOSLEEP                                  53336  36 sr/bin/service_vpe  15r CONDVAR     (0x2d885aa4c8)                 53336  37 sr/bin/service_vpe  15r CONDVAR     (0x3114b0b234)                 53336  38 sr/bin/service_vpe  15r CONDVAR     (0x2d885a4ba8)                 53336  39 sr/bin/service_vpe  15r CONDVAR     (0x2d885a8248)                 53336  40 sr/bin/service_vpe  15r CONDVAR     (0x2d885a5410)                 53336  41 sr/bin/service_vpe  15r DEAD                                       53336  42 sr/bin/service_vpe  15r NANOSLEEP                                  53336  43 sr/bin/service_vpe  15r REPLY       49193                          53336  44 sr/bin/service_vpe  15r CONDVAR     (0x31143a1000)                 53336  45 sr/bin/service_vpe  15r DEAD                                       53336  46 sr/bin/service_vpe  15r DEAD                                       53336  47 sr/bin/service_vpe  15r NANOSLEEP                                  53336  48 sr/bin/service_vpe  10r REPLY       49193                          53336  49 sr/bin/service_vpe  10r CONDVAR     (0x122e058c30)                 53336  50 sr/bin/service_vpe  15r DEAD                                       53336  52 sr/bin/service_vpe  10r REPLY       49193                          53336  53 sr/bin/service_vpe  10r CONDVAR     (0x122e059238)                 53336  54 sr/bin/service_vpe  15r DEAD                                       53336  55 sr/bin/service_vpe  15r DEAD                                       53336  56 sr/bin/service_vpe  15r SIGWAITINFO                                53336  57 sr/bin/service_vpe  15r REPLY       49193                          53336  58 sr/bin/service_vpe  15r REPLY       49193                          53336  59 sr/bin/service_vpe  15r NANOSLEEP                                  53336  60 sr/bin/service_vpe  15r REPLY       49193                          53336  62 sr/bin/service_vpe  15r DEAD                                       53336  63 sr/bin/service_vpe  15r DEAD                                       53336  64 sr/bin/service_vpe  10r REPLY       49193                          53336  65 sr/bin/service_vpe  10r CONDVAR     (0x122e059840)                 53336  66 sr/bin/service_vpe  15r DEAD                                       53336  67 sr/bin/service_vpe  12r DEAD                                       53336  70 sr/bin/service_vpe  15r CONDVAR     (0x3e149b038)                  53336  71 sr/bin/service_vpe  15r CONDVAR     (0x3e3196038)                  53336  72 sr/bin/service_vpe  15r CONDVAR     (0x31178dbe94)                 53336  73 sr/bin/service_vpe  15r CONDVAR     (0x31178dbdd4)                 53336  74 sr/bin/service_vpe  15r CONDVAR     (0x31178dbd14)                 53336  75 sr/bin/service_vpe  15r CONDVAR     (0x31178dbcb4)                 53336  76 sr/bin/service_vpe  15r CONDVAR     (0x31178db834)                 53336  77 sr/bin/service_vpe  15r CONDVAR     (0x3117c64b10)                 53336  78 sr/bin/service_vpe  15r CONDVAR     (0x311788f4a8)                 53336  79 sr/bin/service_vpe  45r RECEIVE     16                             53336  80 sr/bin/service_vpe  12r SEM         fff8089e7d600b4c               53336  81 sr/bin/service_vpe  12r CONDVAR     (0x12313857cc)                 53336  82 sr/bin/service_vpe  12r DEAD                                       53336  83 sr/bin/service_vpe  12r DEAD
+[28/07/2024 12:13:47.726]  INFO: [VpmPrePostTest.py->run_rvc_pre_test()] VPE Service on VCU High is running at start of Test
+[28/07/2024 12:13:47.733] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "pidin -p service_vpe" on VCU
+[28/07/2024 12:13:48.013] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: pid tid name               prio STATE       Blocked                        53336   1 sr/bin/service_vpe  15r NANOSLEEP                                  53336   2 sr/bin/service_vpe  15r NANOSLEEP                                  53336   3 sr/bin/service_vpe  63r RECEIVE     2                              53336   4 sr/bin/service_vpe  15r CONDVAR     (0x3114d6ff10)                 53336   5 sr/bin/service_vpe  10r REPLY       49193                          53336   6 sr/bin/service_vpe  10r CONDVAR     (0x122e057a18)                 53336   7 sr/bin/service_vpe  10r NANOSLEEP                                  53336   8 sr/bin/service_vpe  20r RECEIVE     4                              53336   9 sr/bin/service_vpe  15r CONDVAR     (0x3114955220)                 53336  10 sr/bin/service_vpe  21r RECEIVE     6                              53336  11 sr/bin/service_vpe  15r DEAD                                       53336  12 sr/bin/service_vpe  15r CONDVAR     (0x3114537234)                 53336  13 sr/bin/service_vpe  15r DEAD                                       53336  14 sr/bin/service_vpe  15r CONDVAR     (0x3114537294)                 53336  15 sr/bin/service_vpe  15r DEAD                                       53336  16 sr/bin/service_vpe  15r CONDVAR     (0x3114537354)                 53336  17 sr/bin/service_vpe  15r DEAD                                       53336  18 sr/bin/service_vpe  15r CONDVAR     (0x31145372f4)                 53336  19 sr/bin/service_vpe  15r DEAD                                       53336  20 sr/bin/service_vpe  10r RECEIVE     7                              53336  21 sr/bin/service_vpe  15r CONDVAR     (0x3114537594)                 53336  22 sr/bin/service_vpe  15r DEAD                                       53336  23 sr/bin/service_vpe  15r DEAD                                       53336  24 sr/bin/service_vpe  15r CONDVAR     (0x3114a62d00)                 53336  25 sr/bin/service_vpe  15r CONDVAR     (0x311451e3a0)                 53336  26 sr/bin/service_vpe  15r CONDVAR     (0x311451fd14)                 53336  27 sr/bin/service_vpe  10r REPLY       49193                          53336  28 sr/bin/service_vpe  10r CONDVAR     (0x122e058020)                 53336  29 sr/bin/service_vpe  15r NANOSLEEP                                  53336  30 sr/bin/service_vpe  15r DEAD                                       53336  31 sr/bin/service_vpe  15r DEAD                                       53336  32 sr/bin/service_vpe  15r DEAD                                       53336  33 sr/bin/service_vpe  10r REPLY       49193                          53336  34 sr/bin/service_vpe  10r CONDVAR     (0x122e058628)                 53336  35 sr/bin/service_vpe  21r NANOSLEEP                                  53336  36 sr/bin/service_vpe  15r CONDVAR     (0x2d885aa4c8)                 53336  37 sr/bin/service_vpe  15r CONDVAR     (0x3114b0b234)                 53336  38 sr/bin/service_vpe  15r CONDVAR     (0x2d885a4ba8)                 53336  39 sr/bin/service_vpe  15r CONDVAR     (0x2d885a8248)                 53336  40 sr/bin/service_vpe  15r CONDVAR     (0x2d885a5410)                 53336  41 sr/bin/service_vpe  15r DEAD                                       53336  42 sr/bin/service_vpe  15r NANOSLEEP                                  53336  43 sr/bin/service_vpe  15r REPLY       49193                          53336  44 sr/bin/service_vpe  15r CONDVAR     (0x31143a1000)                 53336  45 sr/bin/service_vpe  15r DEAD                                       53336  46 sr/bin/service_vpe  15r DEAD                                       53336  47 sr/bin/service_vpe  15r NANOSLEEP                                  53336  48 sr/bin/service_vpe  10r REPLY       49193                          53336  49 sr/bin/service_vpe  10r CONDVAR     (0x122e058c30)                 53336  50 sr/bin/service_vpe  15r DEAD                                       53336  52 sr/bin/service_vpe  10r REPLY       49193                          53336  53 sr/bin/service_vpe  10r CONDVAR     (0x122e059238)                 53336  54 sr/bin/service_vpe  15r DEAD                                       53336  55 sr/bin/service_vpe  15r DEAD                                       53336  56 sr/bin/service_vpe  15r SIGWAITINFO                                53336  57 sr/bin/service_vpe  15r REPLY       49193                          53336  58 sr/bin/service_vpe  15r REPLY       49193                          53336  59 sr/bin/service_vpe  15r NANOSLEEP                                  53336  60 sr/bin/service_vpe  15r REPLY       49193                          53336  62 sr/bin/service_vpe  15r DEAD                                       53336  63 sr/bin/service_vpe  15r DEAD                                       53336  64 sr/bin/service_vpe  10r REPLY       49193                          53336  65 sr/bin/service_vpe  10r CONDVAR     (0x122e059840)                 53336  66 sr/bin/service_vpe  15r DEAD                                       53336  67 sr/bin/service_vpe  12r DEAD                                       53336  70 sr/bin/service_vpe  15r CONDVAR     (0x3e149b038)                  53336  71 sr/bin/service_vpe  15r CONDVAR     (0x3e3196038)                  53336  72 sr/bin/service_vpe  15r CONDVAR     (0x31178dbe94)                 53336  73 sr/bin/service_vpe  15r CONDVAR     (0x31178dbdd4)                 53336  74 sr/bin/service_vpe  15r CONDVAR     (0x31178dbd14)                 53336  75 sr/bin/service_vpe  15r CONDVAR     (0x31178dbcb4)                 53336  76 sr/bin/service_vpe  15r CONDVAR     (0x31178db834)                 53336  77 sr/bin/service_vpe  15r CONDVAR     (0x3117c64b10)                 53336  78 sr/bin/service_vpe  15r CONDVAR     (0x311788f4a8)                 53336  79 sr/bin/service_vpe  45r RECEIVE     16                             53336  80 sr/bin/service_vpe  12r SEM         fff8089e7d600b4c               53336  81 sr/bin/service_vpe  12r CONDVAR     (0x12313857cc)                 53336  82 sr/bin/service_vpe  12r DEAD                                       53336  83 sr/bin/service_vpe  12r DEAD
+[28/07/2024 12:13:48.024]  INFO: [VpmPrePostTest.py->run_rvc_pre_test()] VPE Service on VCU High is running at start of Test
+[28/07/2024 12:13:48.031] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "date" on VCU
+[28/07/2024 12:13:48.289] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: Sun Jul 28 14:13:46  2024
+[28/07/2024 12:13:48.298]  INFO: [VpmPrePostTest.py->run_rvc_pre_test()] VCU Date and time: Sun Jul 28 14:13:46  2024
+[28/07/2024 12:13:48.306] DEBUG: [signal_buffer_reader.py->enable()] Enabling signals and events buffer are not enabled already
+[28/07/2024 12:13:48.314] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/vpe/signal_status.csv" on VCU
+[28/07/2024 12:13:48.525] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /var/log/vpe/signal_status.csv
+[28/07/2024 12:13:48.535] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/vpe/events.csv" on VCU
+[28/07/2024 12:13:48.766] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /var/log/vpe/events.csv
+[28/07/2024 12:13:48.775] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/vpe/enable_signals_buffer" on VCU
+[28/07/2024 12:13:49.004] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /var/log/vpe/enable_signals_buffer
+[28/07/2024 12:13:49.014] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/vpe/enable_events_csv" on VCU
+[28/07/2024 12:13:49.230] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /var/log/vpe/enable_events_csv
+[28/07/2024 12:13:49.239]  INFO: [signal_buffer_reader.py->enable()] Signals and Events buffer are already enabled
+[28/07/2024 12:13:49.248] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "grep . /var/log/vpe/signal_status.csv" on VCU
+[28/07/2024 12:13:49.480] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: Signal,Current Value,Time StampFRONT_360_CAMERA_SWITCH_ACTIVE,0,0VIEWING_VIEWPORT_SELECTION,0,0CAMERA_VIDEO_ICS_DISPLAY_ACTIVE,0,2024_07_28_14_11_32VIEWING_VIEWPORT_TOP_DOWN_VIEW_SELECTION,0,0VIEWING_GUIDELINE_SELECTION_DYNAMIC_ACTIVE,0,0VIEWING_GUIDELINE_SELECTION_TRAILER_ACTIVE,0,0VIEWING_CONTROL_BUTTON_PRESENCE_FRONT_PERSPECTIVE,1,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_PRESENCE_FRONT_JUNCTION,0,0VIEWING_CONTROL_BUTTON_PRESENCE_FRONT_OVERHEAD,1,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_PRESENCE_SIDE_FORWARD,1,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_PRESENCE_REAR_PERSPECTIVE,1,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_PRESENCE_REAR_JUNCTION,0,0VIEWING_CONTROL_BUTTON_PRESENCE_REAR_OVERHEAD,1,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_PRESENCE_SIDE_REARWARD,1,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_PRESENCE_TOP_DOWN_VIEW,1,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_PRESENCE_REAR_HITCH,1,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_PRESENCE_REAR_TRAILER,0,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_PRESENCE_INTERIOR_TRAILER,0,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_PRESENCE_CARGO_BED,1,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_PRESENCE_360_SURROUND_3D_BOWL,0,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_PRESENCE_360_SURROUND_OVERHEAD,0,0VIEWING_CONTROL_BUTTON_PRESENCE_BED_HITCH,0,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_PRESENCE_TRAILERING_SPLIT_MIRRORS,0,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_PRESENCE_TRAILERING_COMBO,0,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_PRESENCE_TRANSPARENT_TRAILER,0,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_PRESENCE_VEHICLE_GUIDELINES,1,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_PRESENCE_TRAILER_GUIDELINES,1,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_AVAILABILITY_FRONT_PERSPECTIVE,1,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_AVAILABILITY_FRONT_JUNCTION,0,0VIEWING_CONTROL_BUTTON_AVAILABILITY_FRONT_OVERHEAD,1,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_AVAILABILITY_SIDE_FORWARD,1,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_AVAILABILITY_REAR_PERSPECTIVE,1,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_AVAILABILITY_REAR_JUNCTION,0,0VIEWING_CONTROL_BUTTON_AVAILABILITY_REAR_OVERHEAD,1,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_AVAILABILITY_SIDE_REARWARD,1,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_AVAILABILITY_TOP_DOWN_VIEW,0,2024_07_28_14_11_32VIEWING_CONTROL_BUTTON_AVAILABILITY_VEHICLE_GUIDELINES,0,2024_07_28_14_11_32VIEWING_CONTROL_BUTTON_AVAILABILITY_TRAILER_GUIDELINES,0,2024_07_28_14_11_32VIEWING_CONTROL_BUTTON_AVAILABILITY_REAR_HITCH,1,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_AVAILABILITY_REAR_TRAILER,0,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_AVAILABILITY_CARGO_BED,0,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_AVAILABILITY_INTERIOR_TRAILER,0,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_AVAILABILITY_360_SURROUND_3D_BOWL,0,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_AVAILABILITY_360_SURROUND_OVERHEAD,0,0VIEWING_CONTROL_BUTTON_AVAILABILITY_BED_HITCH,0,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_AVAILABILITY_TRAILERING_SPLIT_MIRRORS,0,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_AVAILABILITY_TRAILERING_COMBO,0,2020_01_01_03_00_11VIEWING_CONTROL_BUTTON_AVAILABILITY_TRANSPARENT_TRAILER,0,2020_01_01_03_00_11VIEWING_VIEWPORT_STATUS,23,2024_07_28_14_11_32DISPLAY_SMART_TOW_VIDEO_ON,0,2024_07_28_14_11_32DISPLAY_FRONT_360_CAMERA_ON,0,2020_01_01_03_00_11VIEWING_VIEWPORT_STATUS_TOP_DOWN_VIEW_ACTIVE,0,2024_07_28_14_11_32VIEWING_GUIDELINE_VIEW_STATUS_DYNAMIC_VEHICLE_ACTIVE,0,2024_07_28_14_11_32VIEWING_GUIDELINE_VIEW_STATUS_TRAILER_ACTIVE,0,2024_07_28_14_11_32JACKKNIFE_VISUAL_ALERT,0,2020_01_01_03_00_11RPCM_VISUAL_ALERT,0,0RES_VEHICLEGEAR_INFO,0,2024_07_28_14_11_32VPE_TAA_STATE_INACTIVE,0,0VPE_TAA_STATE_ACTIVE,0,0VPE_TRAILER_PROFILE_SAVE_TO_FILE,0,0VPE_TRAILER_PROFILE_SAVE_TO_FILE_WITH_CORRECT_PATH,0,0TAA_WHEEL_ANGLE,0,0DYNAMIC_ALIGNMENT,0,0TAA_TRAILER_ANGLE_INDICATOR_NODE_NAME,0,0CAN_HITCH_VIEW_PARK_BRAKE_APPLY,0,1970_01_01_00_00_03CAN_HMI_BUTTON_PRESENCE_CURB,0,2020_01_01_03_00_11CAN_HMI_BUTTON_PRESENCE_CURB_OVERHEAD,0,2020_01_01_03_00_11CAN_HMI_BUTTON_AVAILABILITY_CURB,0,2020_01_01_03_00_11CAN_HMI_BUTTON_AVAILABILITY_CURB_OVERHEAD,0,2020_01_01_03_00_11
+[28/07/2024 12:13:49.490]  INFO: [PreTest.py->run_pre_test()] End Pre Test Method Successfully
+[28/07/2024 12:13:49.497] DEBUG: [conftest.py->pytest_report_teststatus()] Running tests content post, when: setup, test content: True
+[28/07/2024 12:13:49.504]  INFO: [RemotePowerController.py->get_power_controller()] Remote Power Controller. Bench system type [SLIM_BENCH_RELAY]
+[28/07/2024 12:13:49.513]  INFO: [TestUtilsManager.py->set_test_utils()] TestUtilsManager: Selected Test Util: <class 'Infra.StateMachine.SV.sv_test_utils.SvTestUtils'>
+[28/07/2024 12:13:49.520]  INFO: [state_machine_manager.py->create_fsm_by_request()] Create state machine by request - StateMachineTypes.SV
+[28/07/2024 12:13:49.528]  INFO: [sv_viewing_sys_vehicle_speed.py->set_speed_avrg_nondriven()] Set Speed Non-Driven to 0.0
+[28/07/2024 12:13:49.535]  INFO: [sv_viewing_sys_vehicle_speed.py->set_speed_avrg_driven()] Set Speed Driven to 0.0
+[28/07/2024 12:13:49.547] DEBUG: [state_machine_manager.py->create_fsm_by_request()] -----------
+[28/07/2024 12:13:49.555]  INFO: [state_machine_manager.py->create_fsm_by_request()] --- StateMachineTypes.SV State Machine initialized! ---
+[28/07/2024 12:13:49.562] DEBUG: [state_machine_manager.py->create_fsm_by_request()] -----------
+[28/07/2024 12:13:49.569]  INFO: [state_machine_manager.py->create_fsm_by_request()] Create state machine by request - StateMachineTypes.MY24
+[28/07/2024 12:13:49.576] DEBUG: [state_machine_manager.py->create_fsm_by_request()] -----------
+[28/07/2024 12:13:49.583]  INFO: [state_machine_manager.py->create_fsm_by_request()] --- StateMachineTypes.MY24 State Machine initialized! ---
+[28/07/2024 12:13:49.591] DEBUG: [state_machine_manager.py->create_fsm_by_request()] -----------
+[28/07/2024 12:13:49.598]  INFO: [sv_viewing_sys_vehicle_speed.py->set_speed_avrg_nondriven()] Set Speed Non-Driven to 0.0
+[28/07/2024 12:13:49.606]  INFO: [sv_viewing_sys_vehicle_speed.py->set_speed_avrg_driven()] Set Speed Driven to 0.0
+[28/07/2024 12:13:49.613]  INFO: [sv_viewing_sys_vehicle_speed.py->set_K_MIN_NONDRIVEN_VSPEED()] self.__K_MIN_NONDRIVEN_VSPEED=1
+[28/07/2024 12:13:49.621]  INFO: [sv_viewing_sys_vehicle_speed.py->set_K_MAX_DRIVEN_VSPEED()] self.__K_MAX_DRIVEN_VSPEED=3
+[28/07/2024 12:13:49.628]  INFO: [sv_viewing_sys_vehicle_speed.py->set_K_SMART_HITCH_SPEED_THRESHOLD()] self.__K_SMART_HITCH_SPEED_THRES=14
+[28/07/2024 12:13:49.636]  INFO: [sv_viewing_sys_vehicle_speed.py->set_RVS_DISABLE_HYSTERESIS_SPEED()] self.__RVS_DISABLE_HYSTERESIS_SPEED=12.0
+[28/07/2024 12:13:49.643]  INFO: [sv_viewing_sys_vehicle_speed.py->set_K_TRAILERING_PARK_BRAKE_SPEED_THRES()] self.__VPE_K_TRAILERING_PARK_BRAKE_SPEED_THRES=6
+[28/07/2024 12:13:49.650]  INFO: [sv_viewing_sys_vehicle_speed.py->set_speed_avrg_nondriven()] Set Speed Non-Driven to 0.0
+[28/07/2024 12:13:49.658]  INFO: [sv_viewing_sys_vehicle_speed.py->set_speed_avrg_driven()] Set Speed Driven to 0.0
+[28/07/2024 12:13:49.665]  INFO: [SVFG_model.py->set_K_360_CAMERA_ON_HYSTERESIS()] self._K_360_CAMERA_ON_HYSTERESIS=0
+[28/07/2024 12:13:49.673]  INFO: [SVFG_model.py->set_RVS_OFF_HYSTERESIS()] self._RVS_OFF_HYSTERESIS=0
+[28/07/2024 12:13:49.680]  INFO: [SVFG_model.py->set_RVS_PARK_LINGER_HYSTERESIS()] self._RVS_PARK_LINGER_HYSTERESIS=1
+[28/07/2024 12:13:49.689]  INFO: [SVFG_model.py->set_K_VIEWINGOFFVIDEOHYSTERESIS()] self._K_VIEWINGOFFVIDEOHYSTERESIS=0
+[28/07/2024 12:13:49.696]  INFO: [SVFG_model.py->set_RVS_ON_HYSTERESIS()] self._RVS_ON_HYSTERESIS=1.512
+[28/07/2024 12:13:49.704]  INFO: [sv_viewing_sys_vehicle_speed.py->set_speed_avrg_nondriven()] Set Speed Non-Driven to 0.0
+[28/07/2024 12:13:49.712]  INFO: [sv_viewing_sys_vehicle_speed.py->set_speed_avrg_driven()] Set Speed Driven to 0.0
+[28/07/2024 12:13:49.720]  INFO: [SVFG_model.py->set_RVS_ON_HYSTERESIS()] self._RVS_ON_HYSTERESIS=0.512
+[28/07/2024 12:13:49.727]  INFO: [SVFG_model.py->set_K_360_CAMERA_ON_HYSTERESIS()] self._K_360_CAMERA_ON_HYSTERESIS=0.512
+[28/07/2024 12:13:49.734]  INFO: [SVFG_model.py->set_RVS_OFF_HYSTERESIS()] self._RVS_OFF_HYSTERESIS=0.003
+[28/07/2024 12:13:49.741]  INFO: [SVFG_model.py->set_K_VIEWINGOFFVIDEOHYSTERESIS()] self._K_VIEWINGOFFVIDEOHYSTERESIS=0.75
+[28/07/2024 12:13:49.749]  INFO: [SVFG_model.py->set_RVS_PARK_LINGER_HYSTERESIS()] self._RVS_PARK_LINGER_HYSTERESIS=3.0
+[28/07/2024 12:13:49.757]  INFO: [SVFG_model.py->set_RVS_RECOVERY_HYSTERESIS1()] self._RVS_RECOVERY_HYSTERESIS1=0.3
+[28/07/2024 12:13:49.764]  INFO: [SVFG_model.py->set_RVS_RECOVERY_HYSTERESIS2()] self._RVS_RECOVERY_HYSTERESIS2=1.0
+[28/07/2024 12:13:49.771]  INFO: [sv_viewing_sys_vehicle_speed.py->set_K_MIN_NONDRIVEN_VSPEED()] self.__K_MIN_NONDRIVEN_VSPEED=1
+[28/07/2024 12:13:49.779]  INFO: [sv_viewing_sys_vehicle_speed.py->set_K_MAX_DRIVEN_VSPEED()] self.__K_MAX_DRIVEN_VSPEED=3
+[28/07/2024 12:13:49.786]  INFO: [sv_viewing_sys_vehicle_speed.py->set_K_SMART_HITCH_SPEED_THRESHOLD()] self.__K_SMART_HITCH_SPEED_THRES=12
+[28/07/2024 12:13:49.794]  INFO: [sv_viewing_sys_vehicle_speed.py->set_RVS_DISABLE_HYSTERESIS_SPEED()] self.__RVS_DISABLE_HYSTERESIS_SPEED=12
+[28/07/2024 12:13:49.801]  INFO: [sv_viewing_sys_vehicle_speed.py->set_K_TRAILERING_PARK_BRAKE_SPEED_THRES()] self.__VPE_K_TRAILERING_PARK_BRAKE_SPEED_THRES=6
+[28/07/2024 12:13:49.810] DEBUG: [CoreDumpEvent.py->is_set()] Check if VPE core dump in process
+[28/07/2024 12:13:49.818]  INFO: [sv_execute_case.py->test_description()] Test description: Glitch Detection Test
+[28/07/2024 12:13:49.825]  INFO: [sv_test_utils.py->set_environment_before_precondition()] Setting environment ready for precondition
+[28/07/2024 12:13:49.832]  INFO: [sv_viewing_sys_vehicle_speed.py->set_K_MIN_NONDRIVEN_VSPEED()] self.__K_MIN_NONDRIVEN_VSPEED=1
+[28/07/2024 12:13:49.840]  INFO: [sv_viewing_sys_vehicle_speed.py->set_K_MAX_DRIVEN_VSPEED()] self.__K_MAX_DRIVEN_VSPEED=3
+[28/07/2024 12:13:49.847]  INFO: [sv_viewing_sys_vehicle_speed.py->set_K_SMART_HITCH_SPEED_THRESHOLD()] self.__K_SMART_HITCH_SPEED_THRES=14
+[28/07/2024 12:13:49.854]  INFO: [sv_viewing_sys_vehicle_speed.py->set_RVS_DISABLE_HYSTERESIS_SPEED()] self.__RVS_DISABLE_HYSTERESIS_SPEED=12.0
+[28/07/2024 12:13:49.861]  INFO: [SVFG_model.py->set_K_360_CAMERA_ON_HYSTERESIS()] self._K_360_CAMERA_ON_HYSTERESIS=0
+[28/07/2024 12:13:49.869]  INFO: [SVFG_model.py->set_RVS_OFF_HYSTERESIS()] self._RVS_OFF_HYSTERESIS=0
+[28/07/2024 12:13:49.877]  INFO: [SVFG_model.py->set_K_VIEWINGOFFVIDEOHYSTERESIS()] self._K_VIEWINGOFFVIDEOHYSTERESIS=0
+[28/07/2024 12:13:49.884]  INFO: [SVFG_model.py->set_RVS_ON_HYSTERESIS()] self._RVS_ON_HYSTERESIS=1.512
+[28/07/2024 12:13:49.892]  INFO: [SVFG_model.py->set_RVS_RECOVERY_HYSTERESIS1()] self._RVS_RECOVERY_HYSTERESIS1=1
+[28/07/2024 12:13:49.899]  INFO: [SVFG_model.py->set_RVS_RECOVERY_HYSTERESIS2()] self._RVS_RECOVERY_HYSTERESIS2=1
+[28/07/2024 12:13:49.907] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "echo "[28-07-2024_12-13-49] [Automation execution] [info] vcuh-low-level-772 Calling send_parked_signal()" > /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:13:50.025] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "chown gm_vpervc:gm_vpervc /tmp/vpe_cli.txt && chmod +w /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:13:50.253]  INFO: [VehicleSimulatorVspySlimModel.py->set_vehicle_movement_state()] Sending Vehicle Movement State Parked via VSPY
+[28/07/2024 12:13:50.263] DEBUG: [VSPY_commands.py->set_out_signal_value()] Set TX Signal SrlDat6_Prtctd_PDU->VMMP_VehMtnMvmtStatAuth new value: Parked with command: tx(out138).sg(8).value Parked
+[28/07/2024 12:13:50.471] DEBUG: [VSPY_commands.py->get_out_command()] Get TX Signal SrlDat6_Prtctd_PDU->VMMP_VehMtnMvmtStatAuth with command: tx(out138).sg(8).value?
+[28/07/2024 12:13:50.480] DEBUG: [VSPY_commands.py->check_signal_out_value()] Check message value with signal name: [VMMP_VehMtnMvmtStatAuth]. Expected response [Parked] Command: tx(out138).sg(8).value? 
+[28/07/2024 12:13:50.690] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "echo "[28-07-2024_12-13-50] [Automation execution] [info] vcuh-low-level-772 Calling send_steering_angle_auth_invalid_signal()" > /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:13:50.818] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "chown gm_vpervc:gm_vpervc /tmp/vpe_cli.txt && chmod +w /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:13:51.039]  INFO: [VehicleSimulatorVspy.py->send_steering_angle_auth_invalid_signal()] Sending Steering angle authenticated invalid signal [SWIP_StrgWhlAngAuth_Inv] with value StrgWhlAngAuthInv.Valid [False] - Periodic
+[28/07/2024 12:13:51.048] DEBUG: [VSPY_commands.py->set_out_signal_value()] Set TX Signal PDU_5012->SWIP_StrgWhlAngAuth_Inv new value: 0 with command: tx(out140).sg(4).value 0
+[28/07/2024 12:13:51.256] DEBUG: [VSPY_commands.py->get_out_command()] Get TX Signal PDU_5012->SWIP_StrgWhlAngAuth_Inv with command: tx(out140).sg(4).value?
+[28/07/2024 12:13:51.265] DEBUG: [VSPY_commands.py->check_signal_out_value()] Check message value with signal name: [SWIP_StrgWhlAngAuth_Inv]. Expected response [False] Command: tx(out140).sg(4).value? 
+[28/07/2024 12:13:51.475] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "echo "[28-07-2024_12-13-51] [Automation execution] [info] vcuh-low-level-772 Calling send_steering_angle_auth_cals_status()" > /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:13:51.603] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "chown gm_vpervc:gm_vpervc /tmp/vpe_cli.txt && chmod +w /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:13:51.831]  INFO: [VehicleSimulatorVspy.py->send_steering_angle_auth_cals_status()] Sending Steering angle authenticated cals signal [SWIP_StrgWhlAngCalStsAuth] with value StrgWhlAngCalStatus.Calibrated [2] - Periodic
+[28/07/2024 12:13:51.840] DEBUG: [VSPY_commands.py->set_out_signal_value()] Set TX Signal PDU_5012->SWIP_StrgWhlAngCalStsAuth new value: Calibrated with command: tx(out140).sg(3).value Calibrated
+[28/07/2024 12:13:52.049] DEBUG: [VSPY_commands.py->get_out_command()] Get TX Signal PDU_5012->SWIP_StrgWhlAngCalStsAuth with command: tx(out140).sg(3).value?
+[28/07/2024 12:13:52.058] DEBUG: [VSPY_commands.py->check_signal_out_value()] Check message value with signal name: [SWIP_StrgWhlAngCalStsAuth]. Expected response [Calibrated] Command: tx(out140).sg(3).value? 
+[28/07/2024 12:13:52.267]  INFO: [VehicleSimulatorVspy.py->send_steering_angle_signal()] Sending Steering Angle signal [0.0 degrees] via VSPY
+[28/07/2024 12:13:52.277] DEBUG: [VSPY_commands.py->set_out_signal_value()] Set TX Signal PDU_5012->SWIP_StrgWhlAngAuth new value: 0.0 with command: tx(out140).sg(0).value 0.0
+[28/07/2024 12:13:52.486] DEBUG: [VSPY_commands.py->check_signal_number()] Check TX Signal value: [PDU_5012]->[SWIP_StrgWhlAngAuth] matches number value: [0.0] with command: [tx(out140).sg(0).value?]
+[28/07/2024 12:13:52.496] DEBUG: [VSPY_commands.py->compare_signal_number()] Signal name [SWIP_StrgWhlAngAuth] Actual [0.0] Expected [0.0] Threshold value [0.5]
+[28/07/2024 12:13:52.503] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "echo "[28-07-2024_12-13-52] [Automation execution] [info] vcuh-low-level-772 Calling send_vehicle_speed_signal()" > /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:13:52.631] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "chown gm_vpervc:gm_vpervc /tmp/vpe_cli.txt && chmod +w /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:13:52.853]  INFO: [VehicleSimulatorVspy.py->send_vehicle_speed_signal()] Sending Vehicle Speed Signal [0 Km/h] via VSPY
+[28/07/2024 12:13:52.862] DEBUG: [VSPY_commands.py->set_out_signal_value()] Set TX Signal VehSpdAvgDrvn_Prtctd_PDU->VSADP_VehSpdAvgDrvnAuth new value: 0 with command: tx(out114).sg(2).value 0
+[28/07/2024 12:13:53.071] DEBUG: [VSPY_commands.py->set_out_signal_value()] Set TX Signal VehSpdAvgNDrvn_Prtctd_PDU->VSANDP_VehSpdAvgNDrvnAuth new value: 0 with command: tx(out156).sg(0).value 0
+[28/07/2024 12:13:53.282] DEBUG: [VSPY_commands.py->check_signal_number()] Check TX Signal value: [VehSpdAvgDrvn_Prtctd_PDU]->[VSADP_VehSpdAvgDrvnAuth] matches number value: [0] with command: [tx(out114).sg(2).value?]
+[28/07/2024 12:13:53.291] DEBUG: [VSPY_commands.py->compare_signal_number()] Signal name [VSADP_VehSpdAvgDrvnAuth] Actual [0.0] Expected [0.0] Threshold value [0.5]
+[28/07/2024 12:13:53.299]  INFO: [sv_viewing_sys_vehicle_speed.py->set_speed_avrg_nondriven()] Set Speed Non-Driven to 0.0
+[28/07/2024 12:13:53.307]  INFO: [sv_viewing_sys_vehicle_speed.py->set_speed_avrg_driven()] Set Speed Driven to 0.0
+[28/07/2024 12:13:53.315]  INFO: [sv_test_utils.py->set_environment_before_precondition()] Finish setting environment ready for precondition
+[28/07/2024 12:13:53.323] DEBUG: [sv_execute_case.py->enumerate_test_steps()] -----------
+[28/07/2024 12:13:53.330]  INFO: [sv_execute_case.py->enumerate_test_steps()] Test Step 1 - ['RunGlitchDetection: True'] stress_step_index='0'
+[28/07/2024 12:13:53.337] DEBUG: [sv_execute_case.py->enumerate_test_steps()] -----------
+[28/07/2024 12:13:53.344] DEBUG: [CoreDumpEvent.py->is_set()] Check if VPE core dump in process
+[28/07/2024 12:13:53.354]  INFO: [sv_execute_case.py->run_glitch_detection()] About to create Glitch Detection report
+[28/07/2024 12:13:53.361]  INFO: [glitch_detector_manager.py->build_results_list()] checking [C:\Users\R_ATCIVAL01\Jenkins\workspace\vcuh-low-level\VPM_Automation_Logs]
+[28/07/2024 12:13:53.368]  INFO: [glitch_detector_manager.py->build_results_list()] Checking for glitches in: test_cold_boot_sv_new_gen_AVVP171263-30933
+[28/07/2024 12:13:53.376]  INFO: [glitch_detector_manager.py->build_results_list()] Checking file: bmetrics_graph.png
+[28/07/2024 12:13:53.383]  INFO: [glitch_detector_manager.py->build_results_list()] Checking file: bmetrics_results.csv
+[28/07/2024 12:13:53.390]  INFO: [glitch_detector_manager.py->build_results_list()] Checking file: bmetrics_reverse_to_first_frame_histogram.png
+[28/07/2024 12:13:53.398]  INFO: [glitch_detector_manager.py->build_results_list()] Checking file: console_log.log
+[28/07/2024 12:13:53.406]  INFO: [glitch_detector_manager.py->build_results_list()] Checking file: DLTLogs
+[28/07/2024 12:13:53.414]  INFO: [glitch_detector_manager.py->build_results_list()] Checking file: glitch_detector_report_file.csv
+[28/07/2024 12:13:53.421]  INFO: [glitch_detector_manager.py->build_results_list()] Glitches found in: test_cold_boot_sv_new_gen_AVVP171263-30933
+[28/07/2024 12:13:53.429]  INFO: [glitch_detector_manager.py->build_results_list()] Checking for glitches in: test_glitch_detection_glitch detector
+[28/07/2024 12:13:53.437]  INFO: [glitch_detector_manager.py->build_results_list()] Checking file: DLTLogs
+[28/07/2024 12:13:53.445]  INFO: [glitch_detector_manager.py->build_results_list()] Checking file: precondition_artifacts
+[28/07/2024 12:13:53.453]  INFO: [glitch_detector_manager.py->build_results_list()] Checking file: test_glitch_detection_glitch_detector_28_07_2024_12_12_38_with_debug_messages.log
+[28/07/2024 12:13:53.460]  INFO: [glitch_detector_manager.py->build_results_list()] Checking file: Test_Step_1__RunGlitchDetection_True
+[28/07/2024 12:13:53.468]  INFO: [glitch_detector_manager.py->report_glitch_results()] Glitches found in: ['C:\\Users\\R_ATCIVAL01\\Jenkins\\workspace\\vcuh-low-level\\VPM_Automation_Logs\\test_cold_boot_sv_new_gen_AVVP171263-30933\\glitch_detector_report_file.csv']
+[28/07/2024 12:13:53.475]  FAIL: [sv_execute_case.py->run_glitch_detection()] [Test Fail] Glitch Detection failed
+NoneType: None
+[28/07/2024 12:13:53.484]  INFO: [sv_execute_case.py->__run_flow()] ------------------------------------------ Test Finally ------------------------------------------
+[28/07/2024 12:13:53.491]  INFO: [VSPY_commands.py->send_function_block()] Sending function block for [WAKEUP] via VSPY
+[28/07/2024 12:13:53.499] DEBUG: [VSPY_commands.py->get_function_block()] Get function block for [WAKEUP].Command value is [fb(tst72).start]
+[28/07/2024 12:13:53.708] DEBUG: [VSPY_commands.py->get_out_command()] Get TX Signal SysPwrMode_Prtctd_PDU->SPMP_SysPwrModeAuth with command: tx(out115).sg(13).value?
+[28/07/2024 12:13:53.717] DEBUG: [VSPY_commands.py->get_signal_out_current_value()] Actual signal value [Propulsion]. Check OUT Signal SysPwrMode_Prtctd_PDU->SPMP_SysPwrModeAuth  with command: [tx(out115).sg(13).value?]
+[28/07/2024 12:13:53.725] DEBUG: [VSPY_commands.py->check_out_signal_in_current_values()] Signal value [Propulsion] found in expected values: ['Run', 'Propulsion']
+[28/07/2024 12:13:53.732] DEBUG: [VSPY_commands.py->check_in_signal_in_current_values()] Run Command [mg(in11).sg(3).value?] Signal value [Propulsion] found in expected values: ['Run', 'Propulsion']
+[28/07/2024 12:13:53.740]  INFO: [VehicleSimulatorVspySlimModel.py->is_bench_in_run_or_propulsion_mode()] Power Mode and Infotainment status are in valid mode [Run/Propulsion]
+[28/07/2024 12:13:53.747] DEBUG: [VSPY_commands.py->get_out_command()] Get TX Signal SysPwrMode_Prtctd_PDU->SPMP_SysPwrModeAuth with command: tx(out115).sg(13).value?
+[28/07/2024 12:13:53.755] DEBUG: [VSPY_commands.py->get_signal_out_current_value()] Actual signal value [Propulsion]. Check OUT Signal SysPwrMode_Prtctd_PDU->SPMP_SysPwrModeAuth  with command: [tx(out115).sg(13).value?]
+[28/07/2024 12:13:53.763] DEBUG: [VSPY_commands.py->check_out_signal_in_current_values()] Signal value [Propulsion] found in expected values: ['Run', 'Propulsion']
+[28/07/2024 12:13:53.771] DEBUG: [VSPY_commands.py->check_in_signal_in_current_values()] Run Command [mg(in11).sg(3).value?] Signal value [Propulsion] found in expected values: ['Run', 'Propulsion']
+[28/07/2024 12:13:53.778]  INFO: [VehicleSimulatorVspySlimModel.py->is_bench_in_run_or_propulsion_mode()] Power Mode and Infotainment status are in valid mode [Run/Propulsion]
+[28/07/2024 12:13:53.786] DEBUG: [VSPY_commands.py->get_out_command()] Get TX Signal SysPwrMode_Prtctd_PDU->SPMP_SysPwrModeAuth with command: tx(out115).sg(13).value?
+[28/07/2024 12:13:53.793] DEBUG: [VSPY_commands.py->get_signal_out_current_value()] Actual signal value [Propulsion]. Check OUT Signal SysPwrMode_Prtctd_PDU->SPMP_SysPwrModeAuth  with command: [tx(out115).sg(13).value?]
+[28/07/2024 12:13:53.801] DEBUG: [VSPY_commands.py->check_out_signal_in_current_values()] Signal value [Propulsion] found in expected values: ['Run', 'Propulsion']
+[28/07/2024 12:13:53.809] DEBUG: [VSPY_commands.py->check_in_signal_in_current_values()] Run Command [mg(in11).sg(3).value?] Signal value [Propulsion] found in expected values: ['Run', 'Propulsion']
+[28/07/2024 12:13:53.818]  INFO: [VehicleSimulatorVspySlimModel.py->is_bench_in_run_or_propulsion_mode()] Power Mode and Infotainment status are in valid mode [Run/Propulsion]
+[28/07/2024 12:13:53.825] DEBUG: [web_cam_util.py->take_screenshot()] Taking screenshot using the external camera.
+[28/07/2024 12:13:54.194] DEBUG: [SlimBenchRelay.py->set_relay()] Changed channel Hardwire_reverse to On successfully
+[28/07/2024 12:13:54.515] DEBUG: [SlimBenchRelay.py->set_relay()] Changed channel Hardwire_reverse to Off successfully
+[28/07/2024 12:13:54.524]  INFO: [sv_execute_case.py->__run_flow()] Resetting Speed and Steering Wheel Sweep Actions
+[28/07/2024 12:13:54.532] DEBUG: [VSPY_commands.py->get_app_signal_value()] Get APP Signal DrivenSweepEnable. with command [as(sig39).value?]
+[28/07/2024 12:13:54.539] DEBUG: [VSPY_commands.py->get_app_signal_value()] Get APP Signal NonDrivenSweepEnable. with command [as(sig38).value?]
+[28/07/2024 12:13:54.547] DEBUG: [VSPY_commands.py->get_app_signal_value()] Get APP Signal Sweep_enable. with command [as(sig30).value?]
+[28/07/2024 12:13:54.555] DEBUG: [VSPY_commands.py->send_app_signal_value_and_verify()] Sending App Signal [LinkSpeed] with Value [0]
+[28/07/2024 12:13:54.563] DEBUG: [VSPY_commands.py->set_app_signal_value()] Set APP Signal LinkSpeed-> new value: 0 with command: as(sig46).value 0
+[28/07/2024 12:13:54.701] DEBUG: [SerialCommands.py->read_console_log()] [serial console] lcm_inc_dispatcher system state, current:8, previous:6
+[28/07/2024 12:13:54.703] DEBUG: [SerialCommands.py->read_console_log()] [serial console] lcm_inc_dispatcher system state, current:susd_sys_state_localinfotain
+[28/07/2024 12:13:54.772] DEBUG: [VSPY_commands.py->get_app_signal_value()] Get APP Signal LinkSpeed. with command [as(sig46).value?]
+[28/07/2024 12:13:54.781]  INFO: [sv_execute_case.py->__run_flow()] Resetting vehicle speed
+[28/07/2024 12:13:54.788] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "echo "[28-07-2024_12-13-54] [Automation execution] [info] vcuh-low-level-772 Calling send_vehicle_speed_signal()" > /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:13:54.919] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "chown gm_vpervc:gm_vpervc /tmp/vpe_cli.txt && chmod +w /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:13:55.159]  INFO: [VehicleSimulatorVspy.py->send_vehicle_speed_signal()] Sending Vehicle Speed Signal [0 Km/h] via VSPY
+[28/07/2024 12:13:55.168] DEBUG: [VSPY_commands.py->set_out_signal_value()] Set TX Signal VehSpdAvgDrvn_Prtctd_PDU->VSADP_VehSpdAvgDrvnAuth new value: 0 with command: tx(out114).sg(2).value 0
+[28/07/2024 12:13:55.377] DEBUG: [VSPY_commands.py->set_out_signal_value()] Set TX Signal VehSpdAvgNDrvn_Prtctd_PDU->VSANDP_VehSpdAvgNDrvnAuth new value: 0 with command: tx(out156).sg(0).value 0
+[28/07/2024 12:13:55.587] DEBUG: [VSPY_commands.py->check_signal_number()] Check TX Signal value: [VehSpdAvgDrvn_Prtctd_PDU]->[VSADP_VehSpdAvgDrvnAuth] matches number value: [0] with command: [tx(out114).sg(2).value?]
+[28/07/2024 12:13:55.596] DEBUG: [VSPY_commands.py->compare_signal_number()] Signal name [VSADP_VehSpdAvgDrvnAuth] Actual [0.0] Expected [0.0] Threshold value [0.5]
+[28/07/2024 12:13:55.604]  INFO: [sv_viewing_sys_vehicle_speed.py->set_speed_avrg_nondriven()] Set Speed Non-Driven to 0.0
+[28/07/2024 12:13:55.612]  INFO: [sv_viewing_sys_vehicle_speed.py->set_speed_avrg_driven()] Set Speed Driven to 0.0
+[28/07/2024 12:13:55.620]  INFO: [sv_execute_case.py->__run_flow()] Resetting Steering Wheel Angle
+[28/07/2024 12:13:55.630] DEBUG: [SerialCommands.py->read_console_log()] [serial console] underflow in omreactive less then 0 null configs
+[28/07/2024 12:13:55.628] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "echo "[28-07-2024_12-13-55] [Automation execution] [info] vcuh-low-level-772 Calling send_steering_angle_auth_invalid_signal()" > /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:13:55.635] DEBUG: [SerialCommands.py->read_console_log()] [serial console] lcm_inc_dispatcher system state, current:3, previous:8
+[28/07/2024 12:13:55.645] DEBUG: [SerialCommands.py->read_console_log()] [serial console] lcm_inc_dispatcher system state, current:susd_sys_state_hmiinactive
+[28/07/2024 12:13:55.646] DEBUG: [SerialCommands.py->read_console_log()] [serial console] plc state changed from 4 to 16
+[28/07/2024 12:13:55.803] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "chown gm_vpervc:gm_vpervc /tmp/vpe_cli.txt && chmod +w /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:13:56.423]  INFO: [VehicleSimulatorVspy.py->send_steering_angle_auth_invalid_signal()] Sending Steering angle authenticated invalid signal [SWIP_StrgWhlAngAuth_Inv] with value StrgWhlAngAuthInv.Valid [False] - Periodic
+[28/07/2024 12:13:56.432] DEBUG: [VSPY_commands.py->set_out_signal_value()] Set TX Signal PDU_5012->SWIP_StrgWhlAngAuth_Inv new value: 0 with command: tx(out140).sg(4).value 0
+[28/07/2024 12:13:56.640] DEBUG: [VSPY_commands.py->get_out_command()] Get TX Signal PDU_5012->SWIP_StrgWhlAngAuth_Inv with command: tx(out140).sg(4).value?
+[28/07/2024 12:13:56.649] DEBUG: [VSPY_commands.py->check_signal_out_value()] Check message value with signal name: [SWIP_StrgWhlAngAuth_Inv]. Expected response [False] Command: tx(out140).sg(4).value? 
+[28/07/2024 12:13:56.859]  INFO: [VehicleSimulatorVspy.py->send_steering_angle_signal()] Sending Steering Angle signal [0 degrees] via VSPY
+[28/07/2024 12:13:56.868] DEBUG: [VSPY_commands.py->set_out_signal_value()] Set TX Signal PDU_5012->SWIP_StrgWhlAngAuth new value: 0 with command: tx(out140).sg(0).value 0
+[28/07/2024 12:13:57.076] DEBUG: [VSPY_commands.py->check_signal_number()] Check TX Signal value: [PDU_5012]->[SWIP_StrgWhlAngAuth] matches number value: [0] with command: [tx(out140).sg(0).value?]
+[28/07/2024 12:13:57.085] DEBUG: [VSPY_commands.py->compare_signal_number()] Signal name [SWIP_StrgWhlAngAuth] Actual [0.0] Expected [0.0] Threshold value [0.5]
+[28/07/2024 12:13:57.093]  INFO: [sv_execute_case.py->__run_flow()] Ensuring closed vehicle driver and co-driver doors
+[28/07/2024 12:13:57.100] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "echo "[28-07-2024_12-13-57] [Automation execution] [info] vcuh-low-level-772 Calling co_driver_door_close()" > /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:13:57.235] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "chown gm_vpervc:gm_vpervc /tmp/vpe_cli.txt && chmod +w /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:13:57.488]  INFO: [VehicleSimulatorVspySlimModel.py->send_co_door_ajar_state()] Sending Driver Door Ajar Status Signal [PDU_5039] with Value [FALSE]
+[28/07/2024 12:13:57.497] DEBUG: [VSPY_commands.py->set_out_signal_value()] Set TX Signal PDU_5039->CoDrvDrAjrStat new value: FALSE with command: tx(out107).sg(9).value FALSE
+[28/07/2024 12:13:57.706] DEBUG: [VSPY_commands.py->get_out_command()] Get TX Signal PDU_5039->CoDrvDrAjrStat with command: tx(out107).sg(9).value?
+[28/07/2024 12:13:57.715] DEBUG: [VSPY_commands.py->check_signal_out_value()] Check message value with signal name: [CoDrvDrAjrStat]. Expected response [FALSE] Command: tx(out107).sg(9).value? 
+[28/07/2024 12:13:57.924] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "echo "[28-07-2024_12-13-57] [Automation execution] [info] vcuh-low-level-772 Calling driver_door_close()" > /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:13:58.052] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "chown gm_vpervc:gm_vpervc /tmp/vpe_cli.txt && chmod +w /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:13:58.285]  INFO: [VehicleSimulatorVspySlimModel.py->send_door_ajar_state()] Sending Driver Door Ajar Status Signal [PDU_5039] with Value [FALSE]
+[28/07/2024 12:13:58.294] DEBUG: [VSPY_commands.py->set_out_signal_value()] Set TX Signal PDU_5039->DrvDrAjrStat new value: FALSE with command: tx(out107).sg(7).value FALSE
+[28/07/2024 12:13:58.502] DEBUG: [VSPY_commands.py->get_out_command()] Get TX Signal PDU_5039->DrvDrAjrStat with command: tx(out107).sg(7).value?
+[28/07/2024 12:13:58.511] DEBUG: [VSPY_commands.py->check_signal_out_value()] Check message value with signal name: [DrvDrAjrStat]. Expected response [FALSE] Command: tx(out107).sg(7).value? 
+[28/07/2024 12:13:58.784] DEBUG: [adb_wrapper.py->run_command()] ADB: Trying to run: "settings get global suspend_to_ram_enabled"
+[28/07/2024 12:13:58.846] DEBUG: [adb_wrapper.py->run_command()] ADB shell command returned: 1
+[28/07/2024 12:13:58.855] DEBUG: [quick_startup_settings_control.py->set_quick_startup_settings_by_command()] Quick Startup Settings is already set to 1
+[28/07/2024 12:13:58.862] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "echo "[28-07-2024_12-13-58] [Automation execution] [info] vcuh-low-level-772 Calling send_parked_signal()" > /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:13:58.985] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "chown gm_vpervc:gm_vpervc /tmp/vpe_cli.txt && chmod +w /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:13:59.215]  INFO: [VehicleSimulatorVspySlimModel.py->set_vehicle_movement_state()] Sending Vehicle Movement State Parked via VSPY
+[28/07/2024 12:13:59.224] DEBUG: [VSPY_commands.py->set_out_signal_value()] Set TX Signal SrlDat6_Prtctd_PDU->VMMP_VehMtnMvmtStatAuth new value: Parked with command: tx(out138).sg(8).value Parked
+[28/07/2024 12:13:59.434] DEBUG: [VSPY_commands.py->get_out_command()] Get TX Signal SrlDat6_Prtctd_PDU->VMMP_VehMtnMvmtStatAuth with command: tx(out138).sg(8).value?
+[28/07/2024 12:13:59.443] DEBUG: [VSPY_commands.py->check_signal_out_value()] Check message value with signal name: [VMMP_VehMtnMvmtStatAuth]. Expected response [Parked] Command: tx(out138).sg(8).value? 
+[28/07/2024 12:13:59.651] DEBUG: [vpe_service_monitor.py->fail_if_pid_changed()] VPE PID Was not changed during the test!
+[28/07/2024 12:13:59.660] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "echo "[28-07-2024_12-13-59] [Automation execution] [info] vcuh-low-level-772 End of test_glitch_detection[glitch detector]" > /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:13:59.785] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "chown gm_vpervc:gm_vpervc /tmp/vpe_cli.txt && chmod +w /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:14:00.021] DEBUG: [conftest.py->pytest_report_teststatus()] Running tests content post, when: call, test content: True
+[28/07/2024 12:14:00.031] DEBUG: [collect_test_data.py->store_test_data_from_report()] store_test_data_from_report - done
+[28/07/2024 12:14:00.038]  INFO: [PostTest.py->run_post_test()] Start Post Test Method
+[28/07/2024 12:14:00.861] DEBUG: [SerialCommands.py->read_console_log()] [serial console] lcm_inc_dispatcher system state, current:2, previous:3
+[28/07/2024 12:14:00.864] DEBUG: [SerialCommands.py->read_console_log()] [serial console] lcm_inc_dispatcher system state, current:susd_sys_state_hmiinit
+[28/07/2024 12:14:00.865] DEBUG: [SerialCommands.py->read_console_log()] [serial console] exception - infinite loop of null transitions found
+[28/07/2024 12:14:00.877] DEBUG: [SerialCommands.py->read_console_log()] [serial console] plc state changed from 16 to 4
+[28/07/2024 12:14:01.005] DEBUG: [SerialCommands.py->read_console_log()] [serial console] underflow in omreactive less then 0 null configs
+[28/07/2024 12:14:01.006] DEBUG: [SerialCommands.py->read_console_log()] [serial console] exception - infinite loop of null transitions found
+[28/07/2024 12:14:01.070] DEBUG: [SerialCommands.py->read_console_log()] [serial console] lcm_inc_dispatcher system state, current:6, previous:2
+[28/07/2024 12:14:01.085] DEBUG: [SerialCommands.py->read_console_log()] [serial console] lcm_inc_dispatcher system state, current:susd_sys_state_propulsion
+[28/07/2024 12:14:16.187] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "pidin -p RtosAppMain -f a | grep -v pid" on VCU
+[28/07/2024 12:14:16.222] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "pidin -p service_vpe -f a | grep -v pid" on VCU
+[28/07/2024 12:14:16.508] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: 1482843
+[28/07/2024 12:14:16.551] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: 53336
+[28/07/2024 12:14:43.303]  INFO: [dlt_ongoing_collector.py->stop()] Closing DLT logs backup thread
+[28/07/2024 12:14:43.312]  INFO: [dlt_ongoing_collector.py->__fetch_logs()] fetching new dlt logs
+[28/07/2024 12:14:43.319] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt_raw | grep .dlt" on VCU
+[28/07/2024 12:14:43.449] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: Audio.027.dltCriticalSoc.005.dltSoc.212.dltVip.011.dltparse_dlt.sh
+[28/07/2024 12:14:43.458]  INFO: [dlt_ongoing_collector.py->backup_uncompleted_by_end_of_test()] About to backup: [{'Soc.212.dlt'}]
+[28/07/2024 12:14:46.037]  INFO: [dlt_ongoing_collector.py->_backup_dlt_files()] finished backup: [Soc.212.dlt]
+[28/07/2024 12:14:46.048]  INFO: [dlt_ongoing_collector.py->backup_uncompleted_by_end_of_test()] About to backup: [{'CriticalSoc.005.dlt'}]
+[28/07/2024 12:14:46.510] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "pidin -p RtosAppMain -f a | grep -v pid" on VCU
+[28/07/2024 12:14:46.553] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "pidin -p service_vpe -f a | grep -v pid" on VCU
+[28/07/2024 12:14:46.831] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: 1482843
+[28/07/2024 12:14:46.897]  INFO: [dlt_ongoing_collector.py->_backup_dlt_files()] finished backup: [CriticalSoc.005.dlt]
+[28/07/2024 12:14:46.899] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: 53336
+[28/07/2024 12:14:46.906]  INFO: [dlt_ongoing_collector.py->backup_uncompleted_by_end_of_test()] About to backup: [{'Vip.011.dlt'}]
+[28/07/2024 12:14:48.743]  INFO: [dlt_ongoing_collector.py->_backup_dlt_files()] finished backup: [Vip.011.dlt]
+[28/07/2024 12:14:48.752]  INFO: [glitch_detector_process.py->start_analysis()] Video already analyzed; skipping Glitch Detector
+[28/07/2024 12:14:48.760] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "slay -f sh" on VCU
+[28/07/2024 12:14:48.884] DEBUG: [CoreDumpCollector.py->collect_core_dumps()] Collecting core dumps (if any):
+[28/07/2024 12:14:48.893] DEBUG: [CoreDumpCollector.py->check_for_core_dumps()] Looking for core dumps at /persist/em/coredumpdir/*.core*
+[28/07/2024 12:14:48.901] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /persist/em/coredumpdir/*.core*" on VCU
+[28/07/2024 12:14:49.159] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/persist/em/coredumpdir/*.core*)
+[28/07/2024 12:14:49.168] DEBUG: [CoreDumpCollector.py->check_for_core_dumps()] List of files on /persist/em/coredumpdir/*.core* is: ls: No such file or directory (/persist/em/coredumpdir/*.core*)
+[28/07/2024 12:14:49.175] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /persist/em/coredumpdir/*.core*" on VCU
+[28/07/2024 12:14:49.408] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/persist/em/coredumpdir/*.core*)
+[28/07/2024 12:14:49.418] DEBUG: [CoreDumpCollector.py->check_for_core_dumps()] Looking for core dumps at /var/log/noivi_logs/otherLogs/coredumps/*.core*
+[28/07/2024 12:14:49.425] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/noivi_logs/otherLogs/coredumps/*.core*" on VCU
+[28/07/2024 12:14:49.637] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/var/log/noivi_logs/otherLogs/coredumps/*.core*)
+[28/07/2024 12:14:49.646] DEBUG: [CoreDumpCollector.py->check_for_core_dumps()] List of files on /var/log/noivi_logs/otherLogs/coredumps/*.core* is: ls: No such file or directory (/var/log/noivi_logs/otherLogs/coredumps/*.core*)
+[28/07/2024 12:14:49.654] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/noivi_logs/otherLogs/coredumps/*.core*" on VCU
+[28/07/2024 12:14:49.870] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/var/log/noivi_logs/otherLogs/coredumps/*.core*)
+[28/07/2024 12:14:49.880] DEBUG: [CoreDumpCollector.py->check_for_core_dumps()] Looking for core dumps at /var/log/*.core*
+[28/07/2024 12:14:49.887] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/*.core*" on VCU
+[28/07/2024 12:14:50.104] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/var/log/*.core*)
+[28/07/2024 12:14:50.113] DEBUG: [CoreDumpCollector.py->check_for_core_dumps()] List of files on /var/log/*.core* is: ls: No such file or directory (/var/log/*.core*)
+[28/07/2024 12:14:50.120] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/*.core*" on VCU
+[28/07/2024 12:14:50.341] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/var/log/*.core*)
+[28/07/2024 12:14:50.350] DEBUG: [CoreDumpCollector.py->check_for_core_dumps()] Looking for core dumps at /var/log/ham_coredumps/*.core*
+[28/07/2024 12:14:50.357] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/ham_coredumps/*.core*" on VCU
+[28/07/2024 12:14:50.584] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/var/log/ham_coredumps/*.core*)
+[28/07/2024 12:14:50.593] DEBUG: [CoreDumpCollector.py->check_for_core_dumps()] List of files on /var/log/ham_coredumps/*.core* is: ls: No such file or directory (/var/log/ham_coredumps/*.core*)
+[28/07/2024 12:14:50.600] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/ham_coredumps/*.core*" on VCU
+[28/07/2024 12:14:50.818] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/var/log/ham_coredumps/*.core*)
+[28/07/2024 12:14:50.828] DEBUG: [CoreDumpCollector.py->collect_core_dumps()] Collect core dumps done.
+[28/07/2024 12:14:50.835] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /persist/em/coredumpdir/*.core*" on VCU
+[28/07/2024 12:14:51.054] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/persist/em/coredumpdir/*.core*)
+[28/07/2024 12:14:51.064]  INFO: [CoreDumpCollector.py->clear_core_dumps()] No core dumps found at /persist/em/coredumpdir/*.core*
+[28/07/2024 12:14:51.071] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/noivi_logs/otherLogs/coredumps/*.core*" on VCU
+[28/07/2024 12:14:51.287] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/var/log/noivi_logs/otherLogs/coredumps/*.core*)
+[28/07/2024 12:14:51.297]  INFO: [CoreDumpCollector.py->clear_core_dumps()] No core dumps found at /var/log/noivi_logs/otherLogs/coredumps/*.core*
+[28/07/2024 12:14:51.305] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/*.core*" on VCU
+[28/07/2024 12:14:51.524] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/var/log/*.core*)
+[28/07/2024 12:14:51.534]  INFO: [CoreDumpCollector.py->clear_core_dumps()] No core dumps found at /var/log/*.core*
+[28/07/2024 12:14:51.543] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/ham_coredumps/*.core*" on VCU
+[28/07/2024 12:14:51.768] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/var/log/ham_coredumps/*.core*)
+[28/07/2024 12:14:51.777]  INFO: [CoreDumpCollector.py->clear_core_dumps()] No core dumps found at /var/log/ham_coredumps/*.core*
+[28/07/2024 12:14:51.784] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "rm /persist/em/*_core_dumps_*.tgz" on VCU
+[28/07/2024 12:14:52.012] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /persist/em/*_core_dumps_*.tgz: No such file or directory
+[28/07/2024 12:14:52.022] DEBUG: [CoreDumpCollector.py->clear_core_dumps()] Zip files delete command output: /persist/em/*_core_dumps_*.tgz: No such file or directory
+[28/07/2024 12:14:52.030] DEBUG: [adb_wrapper.py->de_init_adb()] adb de-init done
+[28/07/2024 12:14:52.038] DEBUG: [DutLogsHandler.py->export_all_log_files()] Exporting log files
+[28/07/2024 12:14:52.045] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/vpe/signal_status.csv" on VCU
+[28/07/2024 12:14:52.277] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /var/log/vpe/signal_status.csv
+[28/07/2024 12:14:52.287] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/vpe/events.csv" on VCU
+[28/07/2024 12:14:52.509] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /var/log/vpe/events.csv
+[28/07/2024 12:14:52.518] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/vpe/enable_signals_buffer" on VCU
+[28/07/2024 12:14:52.738] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /var/log/vpe/enable_signals_buffer
+[28/07/2024 12:14:52.747] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/vpe/enable_events_csv" on VCU
+[28/07/2024 12:14:52.975] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /var/log/vpe/enable_events_csv
+[28/07/2024 12:14:52.984] DEBUG: [signal_buffer_reader.py->dump_signals_status()] Dumping signal status:
+[28/07/2024 12:14:53.550] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt_raw" on VCU
+[28/07/2024 12:14:53.673] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: Audio.027.dltCriticalSoc.005.dltPARSE_RAW_DLT.READMESoc.212.dltSoc.213.dltVip.011.dltdlt_logstorage.confparse_dlt.sh
+[28/07/2024 12:14:53.682] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt_raw | wc -l" on VCU
+[28/07/2024 12:14:53.907] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: 8
+[28/07/2024 12:14:53.916] DEBUG: [DLTFilesCollector.py->_collect_dlt_from_dut()] Exporting dlt files from VCU on IP [172.16.4.101] to directory [C:\Users\R_ATCIVAL01\Jenkins\workspace\vcuh-low-level\VPM_Automation_Logs\test_glitch_detection_glitch detector\Logs]
+[28/07/2024 12:14:53.924] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt_raw/*" on VCU
+[28/07/2024 12:14:54.142] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /var/log/dlt_raw/Audio.027.dlt/var/log/dlt_raw/CriticalSoc.005.dlt/var/log/dlt_raw/PARSE_RAW_DLT.README/var/log/dlt_raw/Soc.212.dlt/var/log/dlt_raw/Soc.213.dlt/var/log/dlt_raw/Vip.011.dlt/var/log/dlt_raw/dlt_logstorage.conf/var/log/dlt_raw/parse_dlt.sh
+[28/07/2024 12:14:54.152] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "tar -czvf /var/data/VCU_dlt_files_20240728121453.tgz /var/log/dlt_raw/Soc*.dlt /var/log/dlt_raw/CriticalSoc*.dlt /var/log/dlt_raw/Vip*.dlt" on VCU
+[28/07/2024 12:14:54.993] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: tar: Removing leading '/' from member namesa var/log/dlt_raw/Soc.212.dlta var/log/dlt_raw/Soc.213.dlta var/log/dlt_raw/CriticalSoc.005.dlta var/log/dlt_raw/Vip.011.dlt
+[28/07/2024 12:14:55.854] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "rm /var/data/*_dlt_files_*.tgz" on VCU
+[28/07/2024 12:14:55.980] DEBUG: [DLTFilesCollector.py->collect_and_remove_dlt_files()] Collect dlt files done!
+[28/07/2024 12:14:55.989] DEBUG: [DLTFilesCollector.py->collect_and_remove_dlt_files()] remove the dlt file from the device
+[28/07/2024 12:14:55.996] DEBUG: [DLTFilesCollector.py->_remove_dlt_files_from_dut()] Delete all files in /var/log/dlt
+[28/07/2024 12:14:56.003] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt" on VCU
+[28/07/2024 12:14:56.213] DEBUG: [DLTFilesCollector.py->_remove_dlt_files_from_dut()] No dlt files found at /var/log/dlt
+[28/07/2024 12:14:56.222] DEBUG: [DLTFilesCollector.py->_remove_dlt_files_from_dut()] Delete all files in /var/log/dlt_raw
+[28/07/2024 12:14:56.229] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt_raw" on VCU
+[28/07/2024 12:14:56.466] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: Audio.027.dltCriticalSoc.005.dltPARSE_RAW_DLT.READMESoc.212.dltSoc.213.dltVip.011.dltVip.012.dltdlt_logstorage.confparse_dlt.sh
+[28/07/2024 12:14:56.475] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt_raw | wc -l" on VCU
+[28/07/2024 12:14:56.717] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: 9
+[28/07/2024 12:14:56.726] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt_raw/Soc.*.dlt" on VCU
+[28/07/2024 12:14:56.948] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /var/log/dlt_raw/Soc.212.dlt/var/log/dlt_raw/Soc.213.dlt
+[28/07/2024 12:14:56.958] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt_raw/Vip.*.dlt" on VCU
+[28/07/2024 12:14:57.184] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /var/log/dlt_raw/Vip.011.dlt/var/log/dlt_raw/Vip.012.dlt
+[28/07/2024 12:14:57.193] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt_raw/CriticalSoc.*.dlt" on VCU
+[28/07/2024 12:14:57.422] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /var/log/dlt_raw/CriticalSoc.005.dlt
+[28/07/2024 12:14:57.431] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/dlt_raw/Audio.*.dlt" on VCU
+[28/07/2024 12:14:57.656] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /var/log/dlt_raw/Audio.027.dlt
+[28/07/2024 12:14:57.665] DEBUG: [DLTFilesCollector.py->_remove_dlt_files_from_dut()] the list of files to delete after sorting and remove the latest from each group: ['/var/log/dlt_raw/Soc.212.dlt', '/var/log/dlt_raw/Vip.011.dlt']
+[28/07/2024 12:14:57.672] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "rm -r /var/log/dlt_raw/Soc.212.dlt /var/log/dlt_raw/Vip.011.dlt" on VCU
+[28/07/2024 12:14:57.891] DEBUG: [DLTFilesCollector.py->collect_and_remove_dlt_files()] Delete dlt files done!
+[28/07/2024 12:14:57.900] DEBUG: [DebugInfo.py->collect_bmetrics_log()] collect the bmetrics log file to C:\Users\R_ATCIVAL01\Jenkins\workspace\vcuh-low-level\VPM_Automation_Logs\test_glitch_detection_glitch detector\Logs...
+[28/07/2024 12:14:57.907] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "cat /dev/bmetrics > /var/log/bmetrics.log" on VCU
+[28/07/2024 12:14:58.127] DEBUG: [DebugInfo.py->collect_bmetrics_log()] bmetrics: 
+[28/07/2024 12:14:58.626] DEBUG: [DebugInfo.py->collect_slog2info_log()] collect Slog2info log file to C:\Users\R_ATCIVAL01\Jenkins\workspace\vcuh-low-level\VPM_Automation_Logs\test_glitch_detection_glitch detector\Logs...
+[28/07/2024 12:14:58.636] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "slog2info > /tmp/slog2info.log" on VCU
+[28/07/2024 12:14:59.861] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "slog2info -c" on VCU
+[28/07/2024 12:15:00.193] DEBUG: [DebugInfo.py->collect_slog2info_log()] Slog2info: 
+[28/07/2024 12:15:01.280] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/data/vpe/resources/*" on VCU
+[28/07/2024 12:15:01.405] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /var/data/vpe/resources/Cargo_Bed.yml/var/data/vpe/resources/Front.yml/var/data/vpe/resources/Left.yml/var/data/vpe/resources/Rear.yml/var/data/vpe/resources/Right.yml/var/data/vpe/resources/SvAlignment.yml/var/data/vpe/resources/user_customization_settings.txt/var/data/vpe/resources/user_settings.txt/var/data/vpe/resources/pal_data_storage:Front.jsonLeft.jsonRear.jsonRight.json
+[28/07/2024 12:15:03.475]  WARN: [file_transfer_wrapper.py->copy_files_from_host()] Failed to Copy file [] from host [172.16.4.101] to destination dir [C:\Users\R_ATCIVAL01\Jenkins\workspace\vcuh-low-level\VPM_Automation_Logs\test_glitch_detection_glitch detector\Logs\Logs_VCU\var\data\vpe\resources]Exception:[WinError 5] Access is denied: 'C:\\Users\\R_ATCIVAL01\\Jenkins\\workspace\\vcuh-low-level\\VPM_Automation_Logs\\test_glitch_detection_glitch detector\\Logs\\Logs_VCU\\var\\data\\vpe\\resources\\'
+[28/07/2024 12:15:03.715] DEBUG: [file_transfer_wrapper.py->copy_files_from_host()] /var/data/vpe/resources/pal_data_storage: not exist, skip!
+[28/07/2024 12:15:03.959] DEBUG: [file_transfer_wrapper.py->copy_files_from_host()] Front.json not exist, skip!
+[28/07/2024 12:15:04.215] DEBUG: [file_transfer_wrapper.py->copy_files_from_host()] Left.json not exist, skip!
+[28/07/2024 12:15:04.475] DEBUG: [file_transfer_wrapper.py->copy_files_from_host()] Rear.json not exist, skip!
+[28/07/2024 12:15:04.737] DEBUG: [file_transfer_wrapper.py->copy_files_from_host()] Right.json not exist, skip!
+[28/07/2024 12:15:04.747] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/data/vpe/resources/*" on VCU
+[28/07/2024 12:15:04.869] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /var/data/vpe/resources/Cargo_Bed.yml/var/data/vpe/resources/Front.yml/var/data/vpe/resources/Left.yml/var/data/vpe/resources/Rear.yml/var/data/vpe/resources/Right.yml/var/data/vpe/resources/SvAlignment.yml/var/data/vpe/resources/user_customization_settings.txt/var/data/vpe/resources/user_settings.txt/var/data/vpe/resources/pal_data_storage:Front.jsonLeft.jsonRear.jsonRight.json
+[28/07/2024 12:15:04.879] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "tar -czvf /var/data/vpe_service_logs.tgz /var/log/vpe/*" on VCU
+[28/07/2024 12:15:05.092] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: tar: Removing leading '/' from member namesa var/log/vpe/enable_events_csva var/log/vpe/enable_signals_buffera var/log/vpe/events.csva var/log/vpe/signal_status.csva var/log/vpe/vpe_service.loga var/log/vpe/vpe_service.sh
+[28/07/2024 12:15:05.101] DEBUG: [DutLogsHandler.py->tar_files()] Log files zip command output: tar: Removing leading '/' from member namesa var/log/vpe/enable_events_csva var/log/vpe/enable_signals_buffera var/log/vpe/events.csva var/log/vpe/signal_status.csva var/log/vpe/vpe_service.loga var/log/vpe/vpe_service.sh
+[28/07/2024 12:15:05.602] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "rm /var/data/vpe_service_logs.tgz" on VCU
+[28/07/2024 12:15:05.731] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/vpe/*" on VCU
+[28/07/2024 12:15:05.970] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /var/log/vpe/enable_events_csv/var/log/vpe/enable_signals_buffer/var/log/vpe/events.csv/var/log/vpe/signal_status.csv/var/log/vpe/vpe_service.log/var/log/vpe/vpe_service.sh
+[28/07/2024 12:15:05.979] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "tar -czvf /var/data/bench_overrides.tgz /data/calibration/overrides/*" on VCU
+[28/07/2024 12:15:06.202] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: tar: Removing leading '/' from member namesa data/calibration/overrides/APPLICATION_HOMESCREEN_DRIVEMODE_ENABLED.overridea data/calibration/overrides/AudioConfig1_Analog_MIC.overridea data/calibration/overrides/Camera_Common.overridea data/calibration/overrides/ChevyFF_Display.overridea data/calibration/overrides/ChevyFF_Valeo1M_viewing.overridea data/calibration/overrides/Common_SV.overridea data/calibration/overrides/Feature_Cargo_Bed.overridea data/calibration/overrides/Feature_Hitch.overridea data/calibration/overrides/Feature_NV_AR_Disabled.overridea data/calibration/overrides/Feature_SVR_Disabled.overridea data/calibration/overrides/KGroup_SVS_Valeo1MP_YSAT.overridea data/calibration/overrides/Vehicle_Info_BT1CC_C234.overridea data/calibration/overrides/WirelessProjection.overridea data/calibration/overrides/default_value_corrections.overridea data/calibration/overrides/energy_cals.overridea data/calibration/overrides/gmbrand.overridea data/calibration/overrides/overrides.md5a data/calibration/overrides/topology.override
+[28/07/2024 12:15:06.212] DEBUG: [DutLogsHandler.py->tar_files()] Log files zip command output: tar: Removing leading '/' from member namesa data/calibration/overrides/APPLICATION_HOMESCREEN_DRIVEMODE_ENABLED.overridea data/calibration/overrides/AudioConfig1_Analog_MIC.overridea data/calibration/overrides/Camera_Common.overridea data/calibration/overrides/ChevyFF_Display.overridea data/calibration/overrides/ChevyFF_Valeo1M_viewing.overridea data/calibration/overrides/Common_SV.overridea data/calibration/overrides/Feature_Cargo_Bed.overridea data/calibration/overrides/Feature_Hitch.overridea data/calibration/overrides/Feature_NV_AR_Disabled.overridea data/calibration/overrides/Feature_SVR_Disabled.overridea data/calibration/overrides/KGroup_SVS_Valeo1MP_YSAT.overridea data/calibration/overrides/Vehicle_Info_BT1CC_C234.overridea data/calibration/overrides/WirelessProjection.overridea data/calibration/overrides/default_value_corrections.overridea data/calibration/overrides/energy_cals.overridea data/calibration/overrides/gmbrand.overridea data/calibration/overrides/overrides.md5a data/calibration/overrides/topology.override
+[28/07/2024 12:15:06.679] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "rm /var/data/bench_overrides.tgz" on VCU
+[28/07/2024 12:15:06.806] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /data/calibration/overrides/*" on VCU
+[28/07/2024 12:15:07.040] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /data/calibration/overrides/APPLICATION_HOMESCREEN_DRIVEMODE_ENABLED.override/data/calibration/overrides/AudioConfig1_Analog_MIC.override/data/calibration/overrides/Camera_Common.override/data/calibration/overrides/ChevyFF_Display.override/data/calibration/overrides/ChevyFF_Valeo1M_viewing.override/data/calibration/overrides/Common_SV.override/data/calibration/overrides/Feature_Cargo_Bed.override/data/calibration/overrides/Feature_Hitch.override/data/calibration/overrides/Feature_NV_AR_Disabled.override/data/calibration/overrides/Feature_SVR_Disabled.override/data/calibration/overrides/KGroup_SVS_Valeo1MP_YSAT.override/data/calibration/overrides/Vehicle_Info_BT1CC_C234.override/data/calibration/overrides/WirelessProjection.override/data/calibration/overrides/default_value_corrections.override/data/calibration/overrides/energy_cals.override/data/calibration/overrides/gmbrand.override/data/calibration/overrides/overrides.md5/data/calibration/overrides/topology.override
+[28/07/2024 12:15:07.628] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /tmp/vpe_service_cfg.log" on VCU
+[28/07/2024 12:15:07.752] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /tmp/vpe_service_cfg.log
+[28/07/2024 12:15:08.228] DEBUG: [file_transfer_wrapper.py->copy_files_from_host()] /var/log/vpe/vpe_service_cfg.log not exist, skip!
+[28/07/2024 12:15:08.239] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/vpe/vpe_service_cfg.log" on VCU
+[28/07/2024 12:15:08.365] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/var/log/vpe/vpe_service_cfg.log)
+[28/07/2024 12:15:08.374] DEBUG: [DutLogsHandler.py->clear_log_files_before_test()] Clearing log files
+[28/07/2024 12:15:08.381] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/data/vpe/resources/*" on VCU
+[28/07/2024 12:15:08.594] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /var/data/vpe/resources/Cargo_Bed.yml/var/data/vpe/resources/Front.yml/var/data/vpe/resources/Left.yml/var/data/vpe/resources/Rear.yml/var/data/vpe/resources/Right.yml/var/data/vpe/resources/SvAlignment.yml/var/data/vpe/resources/user_customization_settings.txt/var/data/vpe/resources/user_settings.txt/var/data/vpe/resources/pal_data_storage:Front.jsonLeft.jsonRear.jsonRight.json
+[28/07/2024 12:15:08.603] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/vpe/*" on VCU
+[28/07/2024 12:15:08.835] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /var/log/vpe/enable_events_csv/var/log/vpe/enable_signals_buffer/var/log/vpe/events.csv/var/log/vpe/signal_status.csv/var/log/vpe/vpe_service.log/var/log/vpe/vpe_service.sh
+[28/07/2024 12:15:08.844] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "echo > /var/log/vpe/vpe_service.log" on VCU
+[28/07/2024 12:15:09.082] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "chown gm_vpervc:gm_vpervc /tmp/vpe_cli.txt && chmod +w /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:15:09.306] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /data/calibration/overrides/*" on VCU
+[28/07/2024 12:15:09.548] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /data/calibration/overrides/APPLICATION_HOMESCREEN_DRIVEMODE_ENABLED.override/data/calibration/overrides/AudioConfig1_Analog_MIC.override/data/calibration/overrides/Camera_Common.override/data/calibration/overrides/ChevyFF_Display.override/data/calibration/overrides/ChevyFF_Valeo1M_viewing.override/data/calibration/overrides/Common_SV.override/data/calibration/overrides/Feature_Cargo_Bed.override/data/calibration/overrides/Feature_Hitch.override/data/calibration/overrides/Feature_NV_AR_Disabled.override/data/calibration/overrides/Feature_SVR_Disabled.override/data/calibration/overrides/KGroup_SVS_Valeo1MP_YSAT.override/data/calibration/overrides/Vehicle_Info_BT1CC_C234.override/data/calibration/overrides/WirelessProjection.override/data/calibration/overrides/default_value_corrections.override/data/calibration/overrides/energy_cals.override/data/calibration/overrides/gmbrand.override/data/calibration/overrides/overrides.md5/data/calibration/overrides/topology.override
+[28/07/2024 12:15:09.557] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /tmp/vpe_service_cfg*.log" on VCU
+[28/07/2024 12:15:09.796] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: /tmp/vpe_service_cfg.log
+[28/07/2024 12:15:09.805] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls /var/log/vpe/vpe_service_cfg*.log" on VCU
+[28/07/2024 12:15:10.036] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: ls: No such file or directory (/var/log/vpe/vpe_service_cfg*.log)
+[28/07/2024 12:15:10.045] DEBUG: [qnx_commands.py->delete_file()] Deleting file [ls: No such file or directory (/var/log/vpe/vpe_service_cfg*.log)] from QNX os on VCU
+[28/07/2024 12:15:10.052] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "rm ls: No such file or directory (/var/log/vpe/vpe_service_cfg*.log)" on VCU
+[28/07/2024 12:15:10.274] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: sh: syntax error: `(' unexpected
+[28/07/2024 12:15:10.283] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "ls ls: No such file or directory (/var/log/vpe/vpe_service_cfg*.log)" on VCU
+[28/07/2024 12:15:10.506] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: sh: syntax error: `(' unexpected
+[28/07/2024 12:15:10.515] DEBUG: [qnx_commands.py->delete_file()] Failed Deleting file [ls: No such file or directory (/var/log/vpe/vpe_service_cfg*.log)] from QNX os on VCU
+[28/07/2024 12:15:10.522] DEBUG: [ping_util.py->close_tcp_monitor()] Closing the VCU TCP monitor thread...
+[28/07/2024 12:15:12.333] DEBUG: [Utils.py->copy_file_to_test_log_folder()] Copied file to Test Log Folder:	source_file_path=C:\Users\R_ATCIVAL01\Jenkins\workspace\vcuh-low-level\console_log.log	destination_path=C:\Users\R_ATCIVAL01\Jenkins\workspace\vcuh-low-level\VPM_Automation_Logs\test_glitch_detection_glitch detector\console_log.log
+[28/07/2024 12:15:12.343]  INFO: [vpe_service_monitor.py->test_summary()] ---- VPE Service Monitor test Summary ----
+[28/07/2024 12:15:12.350]  INFO: [vpe_service_monitor.py->test_summary()] Total VPE PID Changed counter in test: 0
+[28/07/2024 12:15:12.357]  INFO: [hmi_service_monitor.py->test_summary()] ---- HMI Service Monitor test Summary ----
+[28/07/2024 12:15:12.364]  INFO: [hmi_service_monitor.py->test_summary()] Total HMI PID Changed counter in test: 0
+[28/07/2024 12:15:12.371]  INFO: [PostTest.py->run_post_test()] End Post Test Method
+[28/07/2024 12:15:12.378]  INFO: [PostTest.py->run_post_test()] --------Summary--------
+[28/07/2024 12:15:12.385]  INFO: [PostTest.py->run_post_test()] Test Package: test_glitch_detection.py
+[28/07/2024 12:15:12.392] DEBUG: [PostTest.py->run_post_test()] Test result text is: test_result_text='test [test_glitch_detection[glitch detector]]: failed'
+[28/07/2024 12:15:12.399] ERROR: [PostTest.py->run_post_test()] Test [test_glitch_detection[glitch detector]]: Failed
+NoneType: None
+[28/07/2024 12:15:12.406]  WARN: [VpmPrePostTest.py->reboot_vcu_high()] VCU-H Doing Power Off, Powering On...
+[28/07/2024 12:15:12.413]  INFO: [ClientPowerSlimBench.py->reset_vcu()] Reset VCU - reset slim bench system via Relay
+[28/07/2024 12:15:12.477] DEBUG: [infra_thread.py->run()] Thread is paused
+[28/07/2024 12:15:12.731] DEBUG: [SlimBenchRelay.py->set_relay()] Changed channel Eco_Mate_Power to Off successfully
+[28/07/2024 12:15:13.050] DEBUG: [SlimBenchRelay.py->set_relay()] Changed channel Snowy_power to Off successfully
+[28/07/2024 12:15:13.369] DEBUG: [SlimBenchRelay.py->set_relay()] Changed channel Eco_Mate_Button to Off successfully
+[28/07/2024 12:15:13.378] DEBUG: [testing_logs_utils.py->logged_sleep()] Sleeping for 1 seconds
+[28/07/2024 12:15:14.386] DEBUG: [testing_logs_utils.py->logged_sleep()] Done sleeping
+[28/07/2024 12:15:14.711] DEBUG: [SlimBenchRelay.py->set_relay()] Changed channel Eco_Mate_Power to On successfully
+[28/07/2024 12:15:15.030] DEBUG: [SlimBenchRelay.py->set_relay()] Changed channel Snowy_power to On successfully
+[28/07/2024 12:15:15.350] DEBUG: [SlimBenchRelay.py->set_relay()] Changed channel Eco_Mate_Button to On successfully
+[28/07/2024 12:15:16.833] DEBUG: [infra_thread.py->run()] Thread is paused
+[28/07/2024 12:15:16.908] DEBUG: [infra_thread.py->run()] Thread is paused
+[28/07/2024 12:15:25.361] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "echo telnet_available" on VCU
+[28/07/2024 12:15:26.226] DEBUG: [ssh_command.py->__run_ssh_command_core()] New Connection has been created to 172.16.4.101
+[28/07/2024 12:15:26.627] DEBUG: [qnx_commands.py->run_qnx_command()] SystemType.VCU shell command returned: telnet_available
+[28/07/2024 12:15:26.636]  INFO: [qnx_commands.py->check_qnx_available()] QNX connection [VCU] is Available.
+[28/07/2024 12:15:26.643] DEBUG: [adb_wrapper.py->__check_connected_to_adb()] Failed to connect to ADB device. Reconnecting...
+[28/07/2024 12:15:26.651] DEBUG: [adb_wrapper.py->de_init_adb()] adb de-init done
+[28/07/2024 12:15:26.658] DEBUG: [adb_wrapper.py->__set_adb_device()] Connecting to ADB Device at IP Address [172.16.4.100]
+[28/07/2024 12:15:26.665] DEBUG: [adb_wrapper.py->__adb_device_connect()] Trying to connect to ADB
+[28/07/2024 12:15:29.117] DEBUG: [adb_wrapper.py->__check_connected_to_adb()] Failed to connect to ADB device. Reconnecting...
+[28/07/2024 12:15:29.128] DEBUG: [adb_wrapper.py->de_init_adb()] adb de-init done
+[28/07/2024 12:15:29.137] DEBUG: [adb_wrapper.py->__set_adb_device()] Connecting to ADB Device at IP Address [172.16.4.100]
+[28/07/2024 12:15:29.147] DEBUG: [adb_wrapper.py->__adb_device_connect()] Unable to connect to ADB - retry 1 of 5
+[28/07/2024 12:15:29.155] DEBUG: [testing_logs_utils.py->logged_sleep()] Sleeping for 60 seconds
+[28/07/2024 12:16:29.164] DEBUG: [testing_logs_utils.py->logged_sleep()] Done sleeping
+[28/07/2024 12:16:29.234] DEBUG: [adb_wrapper.py->__check_connected_to_adb()] Failed to connect to ADB device. Reconnecting...
+[28/07/2024 12:16:29.243] DEBUG: [adb_wrapper.py->de_init_adb()] adb de-init done
+[28/07/2024 12:16:29.251] DEBUG: [adb_wrapper.py->__set_adb_device()] Connecting to ADB Device at IP Address [172.16.4.100]
+[28/07/2024 12:16:29.258] DEBUG: [adb_wrapper.py->__adb_device_connect()] Unable to connect to ADB - retry 2 of 5
+[28/07/2024 12:16:29.265] DEBUG: [testing_logs_utils.py->logged_sleep()] Sleeping for 60 seconds
+[28/07/2024 12:17:29.275] DEBUG: [testing_logs_utils.py->logged_sleep()] Done sleeping
+[28/07/2024 12:17:29.321] DEBUG: [adb_wrapper.py->run_command()] ADB: Trying to run: "echo ADB available"
+[28/07/2024 12:17:29.371] DEBUG: [adb_wrapper.py->run_command()] ADB shell command returned: ADB available
+[28/07/2024 12:17:29.379] DEBUG: [VCU_controller.py->check_vcu_available()] VCU ADB is available
+[28/07/2024 12:17:29.386] DEBUG: [VCU_controller.py->check_vcu_available()] Skip "display is on" verification
+[28/07/2024 12:17:29.393] DEBUG: [VCU_controller.py->bring_vcu_to_adb()] VCU is available
+[28/07/2024 12:17:29.400]  INFO: [PostTest.py->run_post_test()] The log folder path: C:\Users\R_ATCIVAL01\Jenkins\workspace\vcuh-low-level\VPM_Automation_Logs\test_glitch_detection_glitch detector
+[28/07/2024 12:17:29.406]  INFO: [PostTest.py->run_post_test()] Test Duration: [0:04:51.092052]
+[28/07/2024 12:17:29.413] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "echo "[28-07-2024_12-17-29] [Automation execution] [info] vcuh-low-level-772 End of test_glitch_detection[glitch detector]" > /tmp/vpe_cli.txt" on VCU
+[28/07/2024 12:17:29.536] DEBUG: [qnx_commands.py->run_qnx_command()] Trying to run: "chown gm_vpervc:gm_vpervc /tmp/vpe_cli.txt && chmod +w /tmp/vpe_cli.txt" on VCU
+[38;5;208m[28/07/2024 12:17:29.767] DEBUG: [collect_test_data.py->post_files_to_shared_drive()] Copying C:\Users\R_ATCIVAL01\Jenkins\workspace\vcuh-low-level\VPM_Automation_Logs\test_glitch_detection_glitch detector to \\nam.isrisln01a.iha.eup.gm.com\nam_gpd_0000000_data001\IPCG_TRC\Validation_Team\jenkins_artifacts\vcuh-low-level\772\VPM_Automation_Logs\test_glitch_detection_glitch detector[0m
