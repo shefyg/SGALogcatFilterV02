@@ -19,9 +19,11 @@ class SGAUtils():
         "#FFFACD",  # Lemon Chiffon
         "#AFEEEE"  # Pale Turquoise
     ]
+
     def __init__(self):
         pass
 
+    @staticmethod
     def string_to_int_with_hashlib(s):
         # Create a hash object
         hash_object = hashlib.sha256()
@@ -30,15 +32,18 @@ class SGAUtils():
         # Get the hexadecimal digest and convert it to an integer
         return int(hash_object.hexdigest(), 16)
 
+    @staticmethod
     def rgb_to_hex(r, g, b):
         """ Convert RGB color to hexadecimal format. """
         return f'#{r:02x}{g:02x}{b:02x}'
 
+    @staticmethod
     def bg_color_from_string(s):
         color_code = SGAUtils.string_to_int_with_hashlib(s)
         bg_color = SGAUtils.bg_colors[color_code % len(SGAUtils.bg_colors)]
         return bg_color
 
+    @staticmethod
     def read_file_lines_generator(filename):
         with open(filename, 'r', encoding='utf-16') as file:
             for line in file:
