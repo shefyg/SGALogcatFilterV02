@@ -21,6 +21,13 @@ class LogSpecificFilterTop(Toplevel):
         LogSpecificFilterTop.filters_top_count += 1
         x_pos = (self.instance_id%4) * 640
 
+        # Get screen width
+        screen_width = self.winfo_screenwidth()
+
+        # Ensure the x position is within the screen width
+        if x_pos + 640 > screen_width:
+            x_pos %= screen_width # Adjust x_pos to fit within screen
+
         self.title(id)
         self.geometry(f"640x1280+{x_pos}+0")
         self.bg_color = SGAUtils.bg_color_from_string(id)
@@ -99,8 +106,13 @@ class LogSpecificFilterTop(Toplevel):
                 end_ind_pos = f"{start_pos.split('.')[0]}.{colon_index}"
                 self.text_widget.tag_add("indexes_filter_tag", start_ind_pos, end_ind_pos)
 
-
-
-
         # Scroll to the bottom
         self.text_widget.see("end")
+
+    def clear_log(self):
+        # Clear all text from the text widget
+        self.text_widget.delete("1.0", tk.END)
+
+        # Remove all tags from the text widget
+        for tag in self.text_widget.tag_names():
+            self.text_widget.tag_remove(tag, "1.0", tk.END)

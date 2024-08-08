@@ -16,6 +16,34 @@ def print_class_and_method(func):
     return wrapper
 
 
+def hex_to_rgb(hex_color):
+    """Convert hex color string to RGB tuple."""
+    hex_color = hex_color.lstrip('#')
+    return tuple(int(hex_color[i:i + 2], 16) for i in (0, 2, 4))
+
+
+def calculate_luminance(rgb):
+    """Calculate the relative luminance of an RGB color."""
+    r, g, b = [x / 255.0 for x in rgb]
+
+    # Apply sRGB conversion formula
+    r = r / 12.92 if r <= 0.03928 else ((r + 0.055) / 1.055) ** 2.4
+    g = g / 12.92 if g <= 0.03928 else ((g + 0.055) / 1.055) ** 2.4
+    b = b / 12.92 if b <= 0.03928 else ((b + 0.055) / 1.055) ** 2.4
+
+    # Calculate luminance
+    luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b
+    return luminance
+
+
+def get_contrast_color(hex_color):
+    """Return black or white based on the luminance of the background color."""
+    rgb = hex_to_rgb(hex_color)
+    luminance = calculate_luminance(rgb)
+
+    # Use a threshold of 0.5 for luminance to decide the contrast color
+    return 'black' if luminance > 0.5 else 'white'
+
 class TagRangeConf(Flag):
     '''
     SUB_FILTER - is for the filter substring we're looking for
@@ -28,6 +56,7 @@ class TagRangeConf(Flag):
 
 class LMFNotifType(Enum):
     SPECIFIC_FILTER_LINE_PRESSED = "SPECIFIC_FILTER_LINE_PRESSED"
+    FILTER_CREATED = "FILTER_CREATED"
 
 
 class LMFNotifInfoKey(Enum):

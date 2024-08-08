@@ -2,12 +2,15 @@ import threading
 import tkinter as tk
 from tkinter import filedialog
 
+from FilterConfigWin import FilterConfigWin
+from BaseFilterConfig import BaseFilterConfig
+from BaseFilterDispFrm import BaseFilterDispFrm
 from NotificationsMngPack.NotifMng import NotifMng
 from NotificationsMngPack.NotifMngClient import NotifMngClient
 from SpecificFiltersUIMng import SpecificFiltersUIMng
 from Utils import print_class_and_method, LMFNotifType, LMFNotifInfoKey
 
-DEFAULT_TEXT_WIDGET_WIDTH = 140
+DEFAULT_TEXT_WIDGET_WIDTH = 120
 
 
 class LogMultiFilterUI(NotifMngClient):
@@ -18,11 +21,14 @@ class LogMultiFilterUI(NotifMngClient):
         # create root window
         self.open_log_button_test2 = None
         self.main_log_txt_widget = None
+        self.ui_panel_frm = None
         self.ui_bts_frame = None
+        self.filters_disps_frame = None
+
         self.open_log_button = None
         self.root = tk.Tk()
         self.root.title("LogCat Filtering Dashboard")
-        self.root.geometry("1280x760")
+        self.root.geometry("1440x760")
 
         # to handle filters Tops
         self.specific_filters_mng = SpecificFiltersUIMng(self.root)
@@ -40,6 +46,9 @@ class LogMultiFilterUI(NotifMngClient):
         self.add_main_log_to_ui()
 
         # setup ui bts
+        self.ui_panel_frm = tk.Frame(self.root, bg='orange')
+        self.ui_panel_frm.pack(side=tk.RIGHT, padx=25, pady=25, fill=tk.BOTH, expand=True)
+
         self.add_ui_bts(**kwargs)
 
     def add_main_log_to_ui(self):
@@ -64,13 +73,39 @@ class LogMultiFilterUI(NotifMngClient):
     @print_class_and_method
     def add_ui_bts(self, **kwargs):
         # frame for bts
-        self.ui_bts_frame = tk.Frame(self.root, bg='white')
-        self.ui_bts_frame.pack(side=tk.RIGHT, padx=25, pady=25, fill=tk.BOTH)
+        self.ui_bts_frame = tk.Frame(self.ui_panel_frm, bg='white')
+        self.ui_bts_frame.pack(side=tk.TOP, padx=25, pady=25, fill=tk.BOTH)
 
         # Open Log  bt
         self.open_log_button = tk.Button(self.ui_bts_frame, text="Open Log File",
                                          command=self.select_log_file_to_filter)
         self.open_log_button.pack(pady=5)
+
+        # Add Filter bt
+        self.add_filter_bt =  tk.Button(self.ui_bts_frame, text="Add Filter",
+                                         command=self.open_add_filter_dialog)
+        self.add_filter_bt.pack(pady=5)
+
+    def open_add_filter_dialog(self):
+        FilterConfigWin(self.root, self.set_filter, None)
+
+    def set_filter(self, filter_config:BaseFilterConfig):
+        print(f"Filter Name: {filter_config.filter_name}")
+        print(f"Sub Filters: {filter_config.sub_filters}")
+        print(f"Selected Color: {filter_config.selected_color}")
+
+        # check if ther is frame for filters
+        if not self.filters_disps_frame:
+            self.filters_disps_frame = tk.Frame(self.ui_panel_frm, bg='white')
+            self.filters_disps_frame.pack(side=tk.TOP, padx=25, pady=25, fill=tk.BOTH)
+
+        ffrm = BaseFilterDispFrm(self.filters_disps_frame, filter_config)
+        ffrm.pack(pady=5)
+
+        self.clear_log()
+        NotifMng.notify(LMFNotifType.FILTER_CREATED, filter_config)
+
+
 
     @print_class_and_method
     def start_gui_and_filtering(self, activate_main_loop=True):
@@ -145,7 +180,7 @@ class LogMultiFilterUI(NotifMngClient):
         self.main_log_txt_widget.see(tk.END)
 
     def HandleNotif(self, notif_type, notif_info) -> None:
-        if(notif_type == LMFNotifType.SPECIFIC_FILTER_LINE_PRESSED):
+        if notif_type == LMFNotifType.SPECIFIC_FILTER_LINE_PRESSED:
             # finding the line with global ind and going to it
             global_line_index = notif_info[LMFNotifInfoKey.GLOBAL_LINE_IND]
 
@@ -157,6 +192,12 @@ class LogMultiFilterUI(NotifMngClient):
                 self.main_log_txt_widget.see(line_start)
                 # Optionally, you can also highlight the line or do other actions here
 
+    def clear_log(self):
+        # Clear all text from the text widget
+        self.main_log_txt_widget.delete("1.0", tk.END)
 
+        # Remove all tags from the text widget
+        for tag in self.main_log_txt_widget.tag_names():
+            self.main_log_txt_widget.tag_remove(tag, "1.0", tk.END)
 
     # endregion
