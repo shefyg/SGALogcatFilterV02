@@ -50,10 +50,7 @@ class LogMultiFilterProcessor(NotifMngClient):
                                              "indexes_filter_tag": {"font": ("TkDefaultFont", 10, "bold"), "foreground": f"{fg}", "background": f'{filter_config.selected_color}'}},
                                     sub_filter_to_tags = {f'{filter_config.sub_filters}': ["bold", "filter_color"]},
                                     sub_filter_to_range_conf = {"all": TagRangeConf.SUB_FILTER_TO_END | TagRangeConf.TAG_MARK_INDEXES})
-            if not filter_config.filter_name in self.filters:
-                self.filters[filter_config.filter_name] = log_filter
-            else:
-                self.filters[filter_config.filter_name].expand_with_filter(log_filter)
+            self.filters[filter_config.filter_name] = log_filter
 
             # reprocess log file - after delay
             # Call `my_function` after a 5-second delay
