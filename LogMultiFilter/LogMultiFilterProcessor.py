@@ -20,12 +20,12 @@ class LogMultiFilterProcessor(NotifMngClient):
     def setup_filters(self):
         self.filters = {}
         filter_name = 'Errors or Exceptions'
-        log_filter = BaseFilter(filter_name, sub_filters=['ERROR:', 'Exception:'],
+        log_filter = BaseFilter(filter_name, sub_filters=['ERROR:', 'Exception:', 'FAIL:'],
                                 tag_configs={"bold": {"font": ("TkDefaultFont", 10, "bold")},
                                              "danger": {"foreground": "red"},
                                              "indexes_filter_tag": {"font": ("TkDefaultFont", 10, "bold"), "foreground": "white", "background": "red"}},
                                 # sub_filter_to_tags={"error": ["bold", "danger"], "ERROR": ["bold", "danger"], "exception": ["bold", "danger"], "Exception": ["bold", "danger"]},
-                                sub_filter_to_tags={"ERROR:": ["bold", "danger"], "Exception:": ["bold", "danger"]},
+                                sub_filter_to_tags={"ERROR:": ["bold", "danger"], "Exception:": ["bold", "danger"], "FAIL:": ["bold", "danger"] },
                                 sub_filter_to_range_conf={"all": TagRangeConf.SUB_FILTER_TO_END | TagRangeConf.TAG_MARK_INDEXES})
         self.filters[filter_name] = log_filter
 
@@ -50,7 +50,10 @@ class LogMultiFilterProcessor(NotifMngClient):
                                              "indexes_filter_tag": {"font": ("TkDefaultFont", 10, "bold"), "foreground": f"{fg}", "background": f'{filter_config.selected_color}'}},
                                     sub_filter_to_tags = {f'{filter_config.sub_filters}': ["bold", "filter_color"]},
                                     sub_filter_to_range_conf = {"all": TagRangeConf.SUB_FILTER_TO_END | TagRangeConf.TAG_MARK_INDEXES})
-            self.filters[filter_config.filter_name] = log_filter
+            if not filter_config.filter_name in self.filters:
+                self.filters[filter_config.filter_name] = log_filter
+            else:
+                self.filters[filter_config.filter_name].expand_with_filter(log_filter)
 
             # reprocess log file - after delay
             # Call `my_function` after a 5-second delay
