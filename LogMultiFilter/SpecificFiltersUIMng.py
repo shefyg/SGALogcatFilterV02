@@ -32,7 +32,7 @@ class SpecificFiltersUIMng(tk.Frame, NotifMngClient):
 
 
     def add_line(self, log_filter:BaseFilter, line):
-        filtered_log_id = log_filter.filter_name
+        filtered_log_id = log_filter.filter_win_name
         if filtered_log_id not in self.id_to_filter_top_window:
             self.id_to_filter_top_window[filtered_log_id] = LogSpecificFilterTop(self, filtered_log_id, tag_configs=log_filter.tag_configs)
 

@@ -1,12 +1,14 @@
 class BaseFilter:
 
-    def __init__(self,filter_name, main_filter=None, sub_filters=None, tag_configs=None, sub_filter_to_tags=None, sub_filter_to_range_conf=None):
+    def __init__(self, filter_win_name, filter_name, main_filter=None, sub_filters=None, tag_configs=None, sub_filter_to_tags=None, sub_filter_to_range_conf=None):
+        self.filter_win_name = filter_win_name
         self.filter_name = filter_name
         self.main_filter = main_filter
         self.sub_filters = sub_filters
         self.tag_configs = tag_configs
         self.sub_filter_to_tags = sub_filter_to_tags
         self.sub_filter_to_range_conf = sub_filter_to_range_conf
+        self.filter_config = None
         self.sub_ind = 0
 
     def filter_line_match(self, main_ind, line):

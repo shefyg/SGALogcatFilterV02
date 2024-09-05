@@ -90,6 +90,7 @@ class LogMultiFilterUI(NotifMngClient):
         FilterConfigWin(self.root, self.set_filter, None)
 
     def set_filter(self, filter_config:BaseFilterConfig):
+        print(f"Filter Win Name: {filter_config.filter_win_name}")
         print(f"Filter Name: {filter_config.filter_name}")
         print(f"Sub Filters: {filter_config.sub_filters}")
         print(f"Selected Color: {filter_config.selected_color}")

@@ -20,7 +20,7 @@ class LogMultiFilterProcessor(NotifMngClient):
     def setup_filters(self):
         self.filters = {}
         filter_name = 'Errors or Exceptions'
-        log_filter = BaseFilter(filter_name, sub_filters=['ERROR:', 'Exception:', 'FAIL:'],
+        log_filter = BaseFilter(filter_win_name=filter_name, filter_name=filter_name, sub_filters=['ERROR:', 'Exception:', 'FAIL:'],
                                 tag_configs={"bold": {"font": ("TkDefaultFont", 10, "bold")},
                                              "danger": {"foreground": "red"},
                                              "indexes_filter_tag": {"font": ("TkDefaultFont", 10, "bold"), "foreground": "white", "background": "red"}},
@@ -30,7 +30,7 @@ class LogMultiFilterProcessor(NotifMngClient):
         self.filters[filter_name] = log_filter
 
         filter_name = 'INFO'
-        log_filter = BaseFilter(filter_name, sub_filters=['INFO:'],
+        log_filter = BaseFilter(filter_win_name=filter_name, filter_name=filter_name, sub_filters=['INFO:'],
                                 tag_configs={"bold": {"font": ("TkDefaultFont", 10, "bold")},
                                              "info": {"foreground": "green"},
                                              "indexes_filter_tag": {"font": ("TkDefaultFont", 10, "bold"), "foreground": "white", "background": "green"}},
@@ -44,11 +44,11 @@ class LogMultiFilterProcessor(NotifMngClient):
         fg = get_contrast_color(filter_config.selected_color)
 
         if(notif_type == LMFNotifType.FILTER_CREATED):
-            log_filter = BaseFilter(filter_config.filter_name, sub_filters=[f'{filter_config.sub_filters}'],
-                                    tag_configs={"bold": {"font": ("TkDefaultFont", 10, "bold")},
-                                             "filter_color": {"foreground": f'{filter_config.selected_color}'},
-                                             "indexes_filter_tag": {"font": ("TkDefaultFont", 10, "bold"), "foreground": f"{fg}", "background": f'{filter_config.selected_color}'}},
-                                    sub_filter_to_tags = {f'{filter_config.sub_filters}': ["bold", "filter_color"]},
+            log_filter = BaseFilter(filter_win_name=filter_config.filter_win_name, filter_name=filter_config.filter_name, sub_filters=[f'{filter_config.sub_filters}'],
+                                    tag_configs={f"bold_{filter_config.filter_name}": {"font": ("TkDefaultFont", 10, "bold")},
+                                             f"filter_color_{filter_config.filter_name}": {"foreground": f'{filter_config.selected_color}'},
+                                             f"indexes_filter_tag": {"font": ("TkDefaultFont", 10, "bold"), "foreground": f"{fg}", "background": f'{filter_config.selected_color}'}},
+                                    sub_filter_to_tags = {f'{filter_config.sub_filters}': [f"bold_{filter_config.filter_name}", f"filter_color_{filter_config.filter_name}"]},
                                     sub_filter_to_range_conf = {"all": TagRangeConf.SUB_FILTER_TO_END | TagRangeConf.TAG_MARK_INDEXES})
             self.filters[filter_config.filter_name] = log_filter
 
