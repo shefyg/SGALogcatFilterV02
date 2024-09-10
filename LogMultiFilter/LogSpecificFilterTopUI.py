@@ -11,9 +11,13 @@ TEXT_WIDGET_HEIGHT = 75
 
 class LogSpecificFilterTop(Toplevel):
     filters_top_count = 0
+    log_specific_filter_tops = []
 
     def __init__(self, parent, id="Log Filter", tag_configs=None):
         super().__init__(parent)
+
+        LogSpecificFilterTop.log_specific_filter_tops.append(self)
+        self.title(id)
 
         self.text_widget = None
 
@@ -116,3 +120,10 @@ class LogSpecificFilterTop(Toplevel):
         # Remove all tags from the text widget
         for tag in self.text_widget.tag_names():
             self.text_widget.tag_remove(tag, "1.0", tk.END)
+
+    @staticmethod
+    def clear_all_logs():
+        for log_top in LogSpecificFilterTop.log_specific_filter_tops:
+            log_top.clear_log()
+            log_top.destroy()
+

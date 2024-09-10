@@ -1,3 +1,5 @@
+import threading
+
 
 class NotifMng:
 
@@ -23,7 +25,15 @@ class NotifMng:
         nm.notifType2clients[notif_type].append(client)
 
     @staticmethod
-    def notify(notif_type, notif_info):
+    def notify(notif_type, notif_info, delay=0):
+        if delay and delay > 0:
+            timer = threading.Timer(delay, NotifMng.notify_clients, args=(notif_type, notif_info))
+            timer.start()
+        else:
+            NotifMng.notify_clients(notif_type, notif_info)
+
+    @staticmethod
+    def notify_clients(notif_type, notif_info):
         nm = NotifMng.get_instance()
         if notif_type in nm.notifType2clients:
             for client in nm.notifType2clients[notif_type]:

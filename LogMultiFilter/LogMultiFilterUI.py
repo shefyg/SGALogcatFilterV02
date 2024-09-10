@@ -5,6 +5,7 @@ from tkinter import filedialog
 from FilterConfigWin import FilterConfigWin
 from BaseFilterConfig import BaseFilterConfig
 from BaseFilterDispFrm import BaseFilterDispFrm
+from LogSpecificFilterTopUI import LogSpecificFilterTop
 from NotificationsMngPack.NotifMng import NotifMng
 from NotificationsMngPack.NotifMngClient import NotifMngClient
 from SpecificFiltersUIMng import SpecificFiltersUIMng
@@ -40,6 +41,7 @@ class LogMultiFilterUI(NotifMngClient):
         self.setup_main_ui(**kwargs)
 
         NotifMng.register_client(LMFNotifType.SPECIFIC_FILTER_LINE_PRESSED, self)
+        NotifMng.register_client(LMFNotifType.FILTER_CREATED_FROM_CONFIG, self)
 
     def setup_main_ui(self, **kwargs):
         # setup main log ui
@@ -86,27 +88,42 @@ class LogMultiFilterUI(NotifMngClient):
                                          command=self.open_add_filter_dialog)
         self.add_filter_bt.pack(pady=5)
 
+        # Clear custom filters bt
+        self.add_filter_bt = tk.Button(self.ui_bts_frame, text="Clear custom Filters",
+                                       command=self.clear_custom_filters)
+        self.add_filter_bt.pack(pady=5)
+
     def open_add_filter_dialog(self):
         FilterConfigWin(self.root, self.set_filter, None)
 
-    def set_filter(self, filter_config:BaseFilterConfig):
+    def clear_custom_filters(self):
+        self.specific_filters_mng.clear_filters()
+        for widget in self.filters_disps_frame.winfo_children():
+            widget.destroy()
+        LogSpecificFilterTop.clear_all_logs()
+
+    def set_filter(self, filter_config:BaseFilterConfig, from_config=False):
         print(f"Filter Win Name: {filter_config.filter_win_name}")
         print(f"Filter Name: {filter_config.filter_name}")
         print(f"Sub Filters: {filter_config.sub_filters}")
         print(f"Selected Color: {filter_config.selected_color}")
 
-        # check if ther is frame for filters
+        self.add_filter_frame_to_ui(filter_config)
+
+        if not from_config:
+            self.clear_log()
+            NotifMng.notify(LMFNotifType.FILTER_CREATED, filter_config)
+
+    # TODO: function to add frame for custom filter
+
+    def add_filter_frame_to_ui(self, filter_config:BaseFilterConfig):
+        # check if there is frame for filters
         if not self.filters_disps_frame:
             self.filters_disps_frame = tk.Frame(self.ui_panel_frm, bg='white')
             self.filters_disps_frame.pack(side=tk.TOP, padx=25, pady=25, fill=tk.BOTH)
 
         ffrm = BaseFilterDispFrm(self.filters_disps_frame, filter_config)
         ffrm.pack(pady=5)
-
-        self.clear_log()
-        NotifMng.notify(LMFNotifType.FILTER_CREATED, filter_config)
-
-
 
     @print_class_and_method
     def start_gui_and_filtering(self, activate_main_loop=True):
@@ -131,9 +148,11 @@ class LogMultiFilterUI(NotifMngClient):
         if to_default:
             self.add_line_to_main_log(ind, line)
         for log_filter in filter_to_line_msgs:
-            print(f'\n\n ========= {log_filter.filter_name} ======\n')
+            if False:
+                print(f'\n\n ========= {log_filter.filter_name} ======\n')
             for msg in filter_to_line_msgs[log_filter]:
-                print(f'       {msg}')
+                if False:
+                    print(f'       {msg}')
                 self.specific_filters_mng.add_line(log_filter, msg)
 
     def add_line_to_main_log(self, ind, line):
@@ -192,6 +211,11 @@ class LogMultiFilterUI(NotifMngClient):
                 # Scroll to the line
                 self.main_log_txt_widget.see(line_start)
                 # Optionally, you can also highlight the line or do other actions here
+        elif notif_type == LMFNotifType.FILTER_CREATED_FROM_CONFIG:
+            filter_config_info = notif_info[LMFNotifInfoKey.FILTER_CONFIG]
+            fc = BaseFilterConfig(filter_config_info)
+
+            self.set_filter(fc, from_config=True)
 
     def clear_log(self):
         # Clear all text from the text widget

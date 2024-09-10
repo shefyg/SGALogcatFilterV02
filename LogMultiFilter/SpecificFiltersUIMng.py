@@ -42,3 +42,6 @@ class SpecificFiltersUIMng(tk.Frame, NotifMngClient):
         if(notif_type == LMFNotifType.FILTER_CREATED):
             for spec_filter_top in self.id_to_filter_top_window.values():
                 spec_filter_top.clear_log()
+
+    def clear_filters(self):
+        NotifMng.notify(LMFNotifType.CLEAR_FILTERS, None)
