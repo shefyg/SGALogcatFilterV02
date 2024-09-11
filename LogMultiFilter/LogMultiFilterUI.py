@@ -1,3 +1,4 @@
+import os
 import tkinter as tk
 from tkinter import filedialog
 from typing import Optional
@@ -45,6 +46,10 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
         self.root = tk.Tk()
         self.root.title("LogCat Filtering Dashboard")
         self.root.geometry("1440x760")
+
+        # tkinter vars
+        self.start_line_tkstr = tk.StringVar()
+        self.end_line_tkstr = tk.StringVar()
 
         # to handle filters Tops
         self.specific_filters_mng = SpecificFiltersUIMng(self.root)
@@ -100,13 +105,13 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
 
         # Label and input for Start Line
         tk.Label(self.ui_lines_range_frame, text="Process Start Line:").grid(row=0, column=0, padx=5, pady=5, sticky='e')
-        self.start_line_entry = tk.Entry(self.ui_lines_range_frame)
+        self.start_line_entry = tk.Entry(self.ui_lines_range_frame, textvariable=self.start_line_tkstr)
         self.start_line_entry.grid(row=0, column=1, padx=5, pady=5, sticky='ew')
         self.start_line_entry.bind("<KeyRelease>", self.on_log_lines_process_range_input_change)
 
         # Label and input for End Line
         tk.Label(self.ui_lines_range_frame, text="Process End Line:").grid(row=1, column=0, padx=5, pady=5, sticky='e')
-        self.end_line_entry = tk.Entry(self.ui_lines_range_frame)
+        self.end_line_entry = tk.Entry(self.ui_lines_range_frame, textvariable=self.end_line_tkstr)
         self.end_line_entry.grid(row=1, column=1, padx=5, pady=5, sticky='ew')
         self.end_line_entry.bind("<KeyRelease>", self.on_log_lines_process_range_input_change)
 
@@ -141,24 +146,52 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
         self.ui_config_frame = tk.Frame(self.ui_panel_frm, bg='#d3d3d3')
         self.ui_config_frame.pack(side=tk.TOP, padx=25, pady=25, fill=tk.BOTH, expand=True)
 
-        # Label and input for Config Name
-        tk.Label(self.ui_config_frame, text="Config Name:").grid(row=0, column=0, padx=5, pady=5, sticky='e')
-        self.config_name_entry = tk.Entry(self.ui_config_frame)
-        self.config_name_entry.grid(row=0, column=1, padx=5, pady=5, sticky='ew')
+        # Button to load the configuration
+        self.load_config_button = tk.Button(self.ui_config_frame, text="Load Config", command=self.load_config)
+        self.load_config_button.grid(row=0, column=0, columnspan=2, pady=10)
+
+        # # Label and input for Config Name
+        # tk.Label(self.ui_config_frame, text="Config Name:").grid(row=1, column=0, padx=5, pady=5, sticky='e')
+        # self.config_name_entry = tk.Entry(self.ui_config_frame)
+        # self.config_name_entry.grid(row=1, column=1, padx=5, pady=5, sticky='ew')
 
         # Button to save the configuration
         self.save_config_button = tk.Button(self.ui_config_frame, text="Save Config", command=self.save_config)
-        self.save_config_button.grid(row=1, column=0, columnspan=2, pady=10)
+        self.save_config_button.grid(row=2, column=0, columnspan=2, pady=10)
 
         # Configure column 1 to expand to fill available space
         self.ui_config_frame.grid_columnconfigure(1, weight=1)
-
     #endrange
 
     #region ui actions and commands ---------------------------------------------
+    def load_config(self):
+        """Opens a file dialog to load a .multiLogConf file."""
+        file_path = filedialog.askopenfilename(
+            title="Select Configuration File",
+            filetypes=[("Multi Log Config Files", "*.multiLogConf"), ("All Files", "*.*")]
+        )
+
+        if file_path:
+            config = MultiLogFilterConfig.load_from_file(file_path)
+            print(config)
+            self.log_processor.setup_filters() # for defaults, override if exists
+            self.log_processor.add_custom_filters(config.filters)
+            # The range
+            self.start_line_tkstr.set(config.log_range.range_start)
+            self.end_line_tkstr.set(config.log_range.range_end)
+            self.log_processor.log_start_process_line = config.log_range.range_start
+            self.log_processor.log_stop_process_line = config.log_range.range_end
+
     def save_config(self):
-        """Handles the save operation for the configuration."""
-        config_name = self.config_name_entry.get()  # Get the config name from the input field
+
+        """Opens a Save As dialog and saves the config to the selected path."""
+        # Open Save As dialog to get the file path where config will be saved
+        file_path = filedialog.asksaveasfilename(
+            defaultextension=".multiLogConf",
+            filetypes=[("Multi Log Config Files", "*.multiLogConf"), ("All Files", "*.*")],
+            title="Save Configuration File"
+        )
+        config_name = os.path.splitext(os.path.basename(file_path))[0]
 
         if not config_name.strip():
             print("Config name cannot be empty!")
@@ -171,7 +204,7 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
         for log_filter in self.log_processor.filters.values():
             if not log_filter.is_default_filter:
                 config.add_filter(log_filter=log_filter)
-        config.save_to_file()
+        config.save_to_file(file_path=file_path)
 
 
     def on_log_lines_process_range_input_change(self, event):
@@ -240,9 +273,20 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
     def add_line(self, ind, line, filter_to_line_msgs, to_default=True):
         if to_default:
             self.add_line_to_main_log(ind, line)
+        win_name_to_log_filters = {}
+
         for log_filter in filter_to_line_msgs:
-            for msg in filter_to_line_msgs[log_filter]:
-                self.specific_filters_mng.add_line(log_filter, msg)
+            if log_filter.filter_win_name not in win_name_to_log_filters:
+                win_name_to_log_filters[log_filter.filter_win_name] = set()
+            win_name_to_log_filters[log_filter.filter_win_name].add(log_filter)
+
+        for win_name, log_filters in win_name_to_log_filters.items():
+            msg = f'{ind}-{list(log_filters)[0].sub_ind}: {line}'
+            self.specific_filters_mng.add_line_with_filters(win_name, log_filters, msg)
+
+            #
+            # for msg in filter_to_line_msgs[log_filter]:
+            #     self.specific_filters_mng.add_line(log_filter, msg)
 
     def add_line_to_main_log(self, ind, line):
         insert_position = self.main_log_txt_widget.index(tk.END)

@@ -30,13 +30,23 @@ class SpecificFiltersUIMng(tk.Frame, NotifMngClient):
         for id, filter_top in self.id_to_filter_top_window.items():
             filter_top.destroy()
 
-
     def add_line(self, log_filter:BaseFilter, line):
         filtered_log_id = log_filter.filter_win_name
         if filtered_log_id not in self.id_to_filter_top_window:
             self.id_to_filter_top_window[filtered_log_id] = LogSpecificFilterTop(self, filtered_log_id, tag_configs=log_filter.tag_configs)
 
         self.id_to_filter_top_window[filtered_log_id].add_line(line, log_filter)
+
+    def add_line_with_filters(self, win_name, log_filters, line):
+        all_tag_configs = {}
+        for log_filter in log_filters:
+            all_tag_configs.update(log_filter.tag_configs)
+
+        if win_name not in self.id_to_filter_top_window:
+            self.id_to_filter_top_window[win_name] = LogSpecificFilterTop(self, win_name, tag_configs=all_tag_configs)
+        self.id_to_filter_top_window[win_name].add_line_with_filters(line, log_filters)
+
+
 
     def HandleNotif(self, notif_type, notif_info) -> None:
         if(notif_type == LMFNotifType.FILTER_CREATED):
@@ -45,3 +55,4 @@ class SpecificFiltersUIMng(tk.Frame, NotifMngClient):
 
     def clear_filters(self):
         NotifMng.notify(LMFNotifType.CLEAR_FILTERS, None)
+

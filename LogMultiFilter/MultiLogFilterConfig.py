@@ -75,11 +75,13 @@ class MultiLogFilterConfig:
 
         # Save MultiLogFilterConfig object to a JSON file with .multiLogConf extension
 
-    def save_to_file(self):
+    def save_to_file(self, file_path=''):
         filename = f"{self.config_name}.multiLogConf"
-        with open(filename, 'w') as f:
+        if not file_path:
+            file_path = filename
+        with open(file_path, 'w') as f:
             json.dump(self.to_dict(), f, indent=4)  # Save as JSON with indentation
-        print(f"Config saved to {filename}")
+        print(f"Config saved to {file_path}")
 
         # Load MultiLogFilterConfig from a .multiLogConf file
 

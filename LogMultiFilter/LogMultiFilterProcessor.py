@@ -24,7 +24,7 @@ class LogMultiFilterProcessor(NotifMngClient):
         self.last_processed_file_path = None
         NotifMng.register_client(LMFNotifType.FILTER_CREATED, self)
         NotifMng.register_client(LMFNotifType.CLEAR_FILTERS, self)
-        self.load_filters()
+        # self.load_filters()
 
     def register_processed_line_client(self, client):
         self._handling_processed_line_clients.add(client)
@@ -72,7 +72,7 @@ class LogMultiFilterProcessor(NotifMngClient):
             delay = 0.45  # seconds
             # timer = threading.Timer(delay, self.process_log_file)
             # timer.start()
-            self.save_filters()
+            # self.save_filters()
         elif notif_type == LMFNotifType.CLEAR_FILTERS and self.filters:
             # removing all filters except default
             default_filters = {k: v for k, v in self.filters.items() if v.is_default_filter}
@@ -155,13 +155,21 @@ class LogMultiFilterProcessor(NotifMngClient):
         if os.path.isfile(file_path):
             with open('filters.json', 'r') as file:
                 filters = json.load(file)
-                for filter in filters:
-                    bf = BaseFilter.from_dict(filter)
-                    self.filters[filter['filter_name']] = bf
+                for log_filter in filters:
+                    bf = BaseFilter.from_dict(log_filter)
+                    self.filters[log_filter['filter_name']] = bf
                     # adding the widget to the ui
-                    notif_info = {LMFNotifInfoKey.FILTER_CONFIG: filter['filter_config']}
+                    notif_info = {LMFNotifInfoKey.FILTER_CONFIG: log_filter['filter_config']}
                     NotifMng.notify(LMFNotifType.FILTER_CREATED_FROM_CONFIG, notif_info,.3)
 
             print(f'loaded filters: {self.filters}')
         else:
             print(f"The file {file_path} does not exist.")
+
+    def add_custom_filters(self, filters):
+        for i, log_filter in enumerate(filters):
+            self.filters[log_filter.filter_name] = log_filter
+            # adding the widget to the ui
+            notif_info = {LMFNotifInfoKey.FILTER_CONFIG: log_filter.filter_config}
+            NotifMng.notify(LMFNotifType.FILTER_CREATED_FROM_CONFIG, notif_info, .3+i*0.1)
+

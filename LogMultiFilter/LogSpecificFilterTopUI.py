@@ -17,6 +17,7 @@ class LogSpecificFilterTop(Toplevel):
         super().__init__(parent)
 
         LogSpecificFilterTop.log_specific_filter_tops.append(self)
+        self.title_str = id
         self.title(id)
 
         self.text_widget = None
@@ -78,6 +79,42 @@ class LogSpecificFilterTop(Toplevel):
         # Configure the text widget to use the scrollbar
         self.text_widget.config(yscrollcommand=scrollbar.set)
 
+    def add_line_with_filters(self, line, log_filters:[BaseFilter]):
+        # Append the new line and the custom line passed as an argument
+        appended_content = line + "\n"  # Include a newline to separate lines
+
+        # Insert the updated content at the end
+        start_index = self.text_widget.index("end-1c")  # Record the start index
+        self.text_widget.insert("end-1c", appended_content)
+
+        for log_filter in log_filters:
+
+            # applying format (tags)
+            for sub_filter, sub_filter_tags in log_filter.sub_filter_to_tags.items():
+                start_pos = self.text_widget.search(sub_filter, start_index, "end-1c")
+                range_conf = log_filter.sub_filter_to_range_conf.get("all", log_filter.sub_filter_to_range_conf.get(sub_filter, None))
+
+                while start_pos:
+                    end_pos = f"{start_pos}+{len(sub_filter)}c"
+
+                    # # handling range of format
+                    # if TagRangeConf.SUB_FILTER_TO_END in range_conf:
+                    #     end_pos = f"{start_pos} lineend"
+
+                    for sub_filter_tag in sub_filter_tags:
+                        self.text_widget.tag_add(sub_filter_tag, start_pos, end_pos)
+                    start_pos = self.text_widget.search(sub_filter, end_pos, "end-1c")
+
+                start_pos = self.text_widget.search(sub_filter, start_index, "end-1c")
+                if start_pos and TagRangeConf.TAG_MARK_INDEXES in range_conf:
+                    start_ind_pos = start_index
+                    colon_index = line.find(":")
+                    end_ind_pos = f"{start_pos.split('.')[0]}.{colon_index}"
+                    self.text_widget.tag_add("indexes_filter_tag", start_ind_pos, end_ind_pos)
+
+        # Scroll to the bottom
+        self.text_widget.see("end")
+
     def add_line(self, line, log_filter: BaseFilter):
 
         # Append the new line and the custom line passed as an argument
@@ -113,7 +150,9 @@ class LogSpecificFilterTop(Toplevel):
         # Scroll to the bottom
         self.text_widget.see("end")
 
+    #region handle log utils -----------------------
     def clear_log(self):
+        assert self.text_widget is not None
         # Clear all text from the text widget
         self.text_widget.delete("1.0", tk.END)
 
@@ -127,4 +166,5 @@ class LogSpecificFilterTop(Toplevel):
             log_top.clear_log()
             if destroy_wins:
                 log_top.destroy()
+    #endregion
 

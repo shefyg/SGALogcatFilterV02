@@ -63,3 +63,6 @@ class BaseFilter:
         # Basic Filter, just return line
         # change implementation for specific message on children
         return f'{main_ind}-{self.sub_ind}: {line}'
+
+    def __repr__(self):
+        return f'{self.filter_win_name}-{self.filter_name}'
