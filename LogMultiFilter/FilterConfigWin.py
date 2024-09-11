@@ -1,13 +1,13 @@
 import tkinter as tk
 from tkinter import colorchooser
+from typing import Optional
 
 from BaseFilterConfig import BaseFilterConfig
 
 
 class FilterConfigWin(tk.Toplevel):
-    def __init__(self, parent, set_filter_callback, filter_config: BaseFilterConfig, *args, **kwargs):
+    def __init__(self, parent, set_filter_callback, filter_config: Optional[BaseFilterConfig], *args, **kwargs):
         super().__init__(parent, *args, **kwargs)
-
 
         self.set_filter_callback = set_filter_callback
 

@@ -1,4 +1,3 @@
-import threading
 import tkinter as tk
 from tkinter import filedialog
 from typing import Optional
@@ -6,6 +5,7 @@ from typing import Optional
 from FilterConfigWin import FilterConfigWin
 from BaseFilterConfig import BaseFilterConfig
 from BaseFilterDispFrm import BaseFilterDispFrm
+from LogFilterInterfaces import IProcessedLineHandler
 from LogSpecificFilterTopUI import LogSpecificFilterTop
 from NotificationsMngPack.NotifMng import NotifMng
 from NotificationsMngPack.NotifMngClient import NotifMngClient
@@ -16,13 +16,22 @@ from LogMultiFilterProcessor import LogMultiFilterProcessor
 DEFAULT_TEXT_WIDGET_WIDTH = 120
 
 
-class LogMultiFilterUI(NotifMngClient):
+class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
     in_process = False
 
+    #region init and setup + ui setup ----------------------------
     def __init__(self, **kwargs):
+        # Attributes that default to None
+        default_attributes = [
+            'file_path', 'process_log_button', 'ui_lines_range_frame',
+            'end_line_entry', 'start_line_entry', 'open_log_button_test2',
+            'main_log_txt_widget', 'ui_panel_frm', 'ui_bts_frame',
+            'filters_displays_frame', 'open_log_button', 'ui_bts_frame'
+        ]
 
-
-        self.file_path = None
+        # Dynamically set default None attributes
+        for attr in default_attributes:
+            setattr(self, attr, None)
 
         # for communication
         # Retrieve processor from kwargs if it exists, otherwise set to None
@@ -32,17 +41,6 @@ class LogMultiFilterUI(NotifMngClient):
         self.log_processor: Optional[LogMultiFilterProcessor] = processor
 
         # create root window
-        self.process_log_button = None
-        self.ui_lines_range_frame = None
-        self.end_line_entry = None
-        self.start_line_entry = None
-        self.open_log_button_test2 = None
-        self.main_log_txt_widget = None
-        self.ui_panel_frm = None
-        self.ui_bts_frame = None
-        self.filters_disps_frame = None
-
-        self.open_log_button = None
         self.root = tk.Tk()
         self.root.title("LogCat Filtering Dashboard")
         self.root.geometry("1440x760")
@@ -56,6 +54,7 @@ class LogMultiFilterUI(NotifMngClient):
         # setup ui elements
         self.setup_main_ui(**kwargs)
 
+        # register for notifications.
         NotifMng.register_client(LMFNotifType.SPECIFIC_FILTER_LINE_PRESSED, self)
         NotifMng.register_client(LMFNotifType.FILTER_CREATED_FROM_CONFIG, self)
 
@@ -110,6 +109,10 @@ class LogMultiFilterUI(NotifMngClient):
         self.end_line_entry.grid(row=1, column=1, padx=5,pady=5, sticky='ew')
         self.end_line_entry.bind("<KeyRelease>", self.on_log_lines_process_range_input_change)
 
+    #endrange
+
+    #region ui actions and commands ---------------------------------------------
+
     def on_log_lines_process_range_input_change(self, event):
         """Handles updates whenever the user types in the Entry widgets."""
         start_line = self.start_line_entry.get()
@@ -152,7 +155,7 @@ class LogMultiFilterUI(NotifMngClient):
 
     def clear_custom_filters(self):
         self.specific_filters_mng.clear_filters()
-        for widget in self.filters_disps_frame.winfo_children():
+        for widget in self.filters_displays_frame.winfo_children():
             widget.destroy()
         LogSpecificFilterTop.clear_all_logs()
 
@@ -172,11 +175,11 @@ class LogMultiFilterUI(NotifMngClient):
 
     def add_filter_frame_to_ui(self, filter_config:BaseFilterConfig):
         # check if there is frame for filters
-        if not self.filters_disps_frame:
-            self.filters_disps_frame = tk.Frame(self.ui_panel_frm, bg='white')
-            self.filters_disps_frame.pack(side=tk.TOP, padx=25, pady=25, fill=tk.BOTH)
+        if not self.filters_displays_frame:
+            self.filters_displays_frame = tk.Frame(self.ui_panel_frm, bg='white')
+            self.filters_displays_frame.pack(side=tk.TOP, padx=25, pady=25, fill=tk.BOTH)
 
-        ffrm = BaseFilterDispFrm(self.filters_disps_frame, filter_config)
+        ffrm = BaseFilterDispFrm(self.filters_displays_frame, filter_config)
         ffrm.pack(pady=5)
 
     @print_class_and_method
@@ -253,6 +256,11 @@ class LogMultiFilterUI(NotifMngClient):
         # Scroll to the bottom
         self.main_log_txt_widget.see(tk.END)
 
+    #region interfaces implementations   -------------------------------------------
+
+    def handle_line_from_processor(self, ind, line, filter_to_line_msgs, to_default=True):
+        self.add_line(ind, line, filter_to_line_msgs, to_default)
+
     def HandleNotif(self, notif_type, notif_info) -> None:
         if notif_type == LMFNotifType.SPECIFIC_FILTER_LINE_PRESSED:
             # finding the line with global ind and going to it
@@ -271,6 +279,7 @@ class LogMultiFilterUI(NotifMngClient):
 
             self.set_filter(fc, from_config=True)
 
+    #endregion
     def clear_log(self):
         # Clear all text from the text widget
         self.main_log_txt_widget.delete("1.0", tk.END)

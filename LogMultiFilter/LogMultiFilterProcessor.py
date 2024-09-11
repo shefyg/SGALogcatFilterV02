@@ -11,19 +11,24 @@ from Utils import TagRangeConf, LMFNotifType, get_contrast_color, LMFNotifInfoKe
 
 class LogMultiFilterProcessor(NotifMngClient):
 
-    def __init__(self, handle_proc_line):
+    def __init__(self):
 
         self.log_start_process_line = ''
         self.log_stop_process_line = ''
 
+        self._handling_processed_line_clients = set()
 
         self.filters = None
-        self.handle_proc_line = handle_proc_line
+        # self.handle_proc_line = handle_proc_line
         self.setup_filters()
         self.last_processed_file_path = None
         NotifMng.register_client(LMFNotifType.FILTER_CREATED, self)
         NotifMng.register_client(LMFNotifType.CLEAR_FILTERS, self)
         self.load_filters()
+
+    def register_processed_line_client(self, client):
+        self._handling_processed_line_clients.add(client)
+
 
     # todo: for now setting up filters here
     def setup_filters(self):
@@ -105,7 +110,7 @@ class LogMultiFilterProcessor(NotifMngClient):
                     if is_line_nums:
                         if line_ind >= start_ind:
                             should_process = True
-                    elif self.log_start_process_line in line:
+                    elif self.log_start_process_line == '' or self.log_start_process_line in line:
                         should_process = True
 
                     if not should_process:
@@ -116,7 +121,7 @@ class LogMultiFilterProcessor(NotifMngClient):
                     line_ind += 1
                     if is_line_nums and line_ind >= end_ind:
                         break
-                    elif not is_line_nums and self.log_stop_process_line in line:
+                    elif not is_line_nums and (self.log_stop_process_line != '' and self.log_stop_process_line in line):
                         break
 
         except FileNotFoundError:
@@ -134,7 +139,9 @@ class LogMultiFilterProcessor(NotifMngClient):
                 if log_filter not in filter_to_line_msgs:
                     filter_to_line_msgs[log_filter] = []
                 filter_to_line_msgs[log_filter].append(msg)
-        self.handle_proc_line(ind, line, filter_to_line_msgs)
+
+        for client in self._handling_processed_line_clients:
+            client.handle_line_from_processor(ind, line, filter_to_line_msgs)
 
     def save_filters(self):
         # get list of filters that are not default
