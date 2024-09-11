@@ -26,7 +26,6 @@ class BaseFilter:
         if "all" in sub_filter_to_range_conf:
             sub_filter_to_range_conf["all"] = "{TagRangeConf.SUB_FILTER_TO_END | TagRangeConf.TAG_MARK_INDEXES}"
 
-
         return {"filter_win_name": self.filter_win_name,
                 "filter_name": self.filter_name,
                 "main_filter": self.main_filter if self.main_filter is not None else "",
