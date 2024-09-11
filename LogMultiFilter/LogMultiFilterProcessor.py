@@ -12,6 +12,11 @@ from Utils import TagRangeConf, LMFNotifType, get_contrast_color, LMFNotifInfoKe
 class LogMultiFilterProcessor(NotifMngClient):
 
     def __init__(self, handle_proc_line):
+
+        self.log_start_process_line = ''
+        self.log_stop_process_line = ''
+
+
         self.filters = None
         self.handle_proc_line = handle_proc_line
         self.setup_filters()
@@ -60,8 +65,8 @@ class LogMultiFilterProcessor(NotifMngClient):
             # reprocess log file - after delay
             # Call `my_function` after a 5-second delay
             delay = 0.45  # seconds
-            timer = threading.Timer(delay, self.process_log_file)
-            timer.start()
+            # timer = threading.Timer(delay, self.process_log_file)
+            # timer.start()
             self.save_filters()
         elif notif_type == LMFNotifType.CLEAR_FILTERS and self.filters:
             # removing all filters except default
@@ -70,7 +75,8 @@ class LogMultiFilterProcessor(NotifMngClient):
             # removing filters file
             if os.path.isfile('filters.json'):
                 os.remove('filters.json')
-            self.process_log_file()
+            # Removing the processing for here
+            # self.process_log_file()
 
 
     def process_log_file(self, file_path=None):
@@ -87,10 +93,32 @@ class LogMultiFilterProcessor(NotifMngClient):
         print(f'on process_log_file')
         try:
             with open(file_path, 'r') as file:
+                should_process=False
+                is_line_nums = self.log_stop_process_line.isdigit() and self.log_start_process_line.isdigit()
+                start_ind = end_ind = -1
+                if is_line_nums:
+                    start_ind = int(self.log_start_process_line)
+                    end_ind = int(self.log_stop_process_line)
+
                 line_ind = 1
                 for line in file:
+                    if is_line_nums:
+                        if line_ind >= start_ind:
+                            should_process = True
+                    elif self.log_start_process_line in line:
+                        should_process = True
+
+                    if not should_process:
+                        line_ind += 1
+                        continue
+
                     self.process_line(line_ind, line)
                     line_ind += 1
+                    if is_line_nums and line_ind >= end_ind:
+                        break
+                    elif not is_line_nums and self.log_stop_process_line in line:
+                        break
+
         except FileNotFoundError:
             print(f"The file at {file_path} does not exist.")
         except Exception as e:

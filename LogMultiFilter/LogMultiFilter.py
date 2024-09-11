@@ -10,7 +10,7 @@ class LogMultiFilter(NotifMngClient):
     def __init__(self):
 
         self.processor = LogMultiFilterProcessor(self.handle_processed_line)
-        self.ui = LogMultiFilterUI(handle_log_file=self.processor.process_log_file)
+        self.ui = LogMultiFilterUI(handle_log_file=self.processor.process_log_file, processor=self.processor)
         self.ui.start_gui_and_filtering()
         NotifMng.register_client(LMFNotifType.SPECIFIC_FILTER_LINE_PRESSED, self)
 

@@ -1,6 +1,7 @@
 import threading
 import tkinter as tk
 from tkinter import filedialog
+from typing import Optional
 
 from FilterConfigWin import FilterConfigWin
 from BaseFilterConfig import BaseFilterConfig
@@ -10,6 +11,7 @@ from NotificationsMngPack.NotifMng import NotifMng
 from NotificationsMngPack.NotifMngClient import NotifMngClient
 from SpecificFiltersUIMng import SpecificFiltersUIMng
 from Utils import print_class_and_method, LMFNotifType, LMFNotifInfoKey
+from LogMultiFilterProcessor import LogMultiFilterProcessor
 
 DEFAULT_TEXT_WIDGET_WIDTH = 120
 
@@ -19,7 +21,21 @@ class LogMultiFilterUI(NotifMngClient):
 
     def __init__(self, **kwargs):
 
+
+        self.file_path = None
+
+        # for communication
+        # Retrieve processor from kwargs if it exists, otherwise set to None
+        processor = kwargs.get('processor', None)
+
+        # for communication, assign to self.log_processor
+        self.log_processor: Optional[LogMultiFilterProcessor] = processor
+
         # create root window
+        self.process_log_button = None
+        self.ui_lines_range_frame = None
+        self.end_line_entry = None
+        self.start_line_entry = None
         self.open_log_button_test2 = None
         self.main_log_txt_widget = None
         self.ui_panel_frm = None
@@ -51,6 +67,7 @@ class LogMultiFilterUI(NotifMngClient):
         self.ui_panel_frm = tk.Frame(self.root, bg='orange')
         self.ui_panel_frm.pack(side=tk.RIGHT, padx=25, pady=25, fill=tk.BOTH, expand=True)
 
+        self.add_log_start_end_line_inputs()
         self.add_ui_bts(**kwargs)
 
     def add_main_log_to_ui(self):
@@ -73,6 +90,34 @@ class LogMultiFilterUI(NotifMngClient):
         self.main_log_txt_widget.config(yscrollcommand=scrollbar.set)
 
     @print_class_and_method
+    def add_log_start_end_line_inputs(self):
+        self.ui_lines_range_frame = tk.Frame(self.ui_panel_frm, bg='#ffffbb')
+        self.ui_lines_range_frame.pack(side=tk.TOP, padx=25, pady=25, fill=tk.X)
+
+        # Configure column 1 (the column where Entry widgets are located) to expand
+        self.ui_lines_range_frame.grid_columnconfigure(1, weight=1)
+
+        # Label and input for Start Line
+        tk.Label(self.ui_lines_range_frame, text="Process Start Line:").grid(row=0, column=0, padx=5, pady=5, sticky='e')
+        self.start_line_entry = tk.Entry(self.ui_lines_range_frame)
+        self.start_line_entry.grid(row=0, column=1, padx=5, pady=5, sticky='ew')
+        self.start_line_entry.bind("<KeyRelease>", self.on_log_lines_process_range_input_change)
+
+
+        # Label and input for End Line
+        tk.Label(self.ui_lines_range_frame, text="Process End Line:").grid(row=1, column=0, padx=5, pady=5, sticky='e')
+        self.end_line_entry = tk.Entry(self.ui_lines_range_frame)
+        self.end_line_entry.grid(row=1, column=1, padx=5,pady=5, sticky='ew')
+        self.end_line_entry.bind("<KeyRelease>", self.on_log_lines_process_range_input_change)
+
+    def on_log_lines_process_range_input_change(self, event):
+        """Handles updates whenever the user types in the Entry widgets."""
+        start_line = self.start_line_entry.get()
+        end_line = self.end_line_entry.get()
+        self.log_processor.log_start_process_line = start_line
+        self.log_processor.log_stop_process_line = end_line
+
+    @print_class_and_method
     def add_ui_bts(self, **kwargs):
         # frame for bts
         self.ui_bts_frame = tk.Frame(self.ui_panel_frm, bg='white')
@@ -83,6 +128,10 @@ class LogMultiFilterUI(NotifMngClient):
                                          command=self.select_log_file_to_filter)
         self.open_log_button.pack(pady=5)
 
+        # Process Log bt
+        self.process_log_button = tk.Button(self.ui_bts_frame, text="Process Log File", command=self.process_log_file, bg="#FFA500")
+        self.process_log_button.pack(pady=5)
+
         # Add Filter bt
         self.add_filter_bt =  tk.Button(self.ui_bts_frame, text="Add Filter",
                                          command=self.open_add_filter_dialog)
@@ -92,6 +141,11 @@ class LogMultiFilterUI(NotifMngClient):
         self.add_filter_bt = tk.Button(self.ui_bts_frame, text="Clear custom Filters",
                                        command=self.clear_custom_filters)
         self.add_filter_bt.pack(pady=5)
+
+    def process_log_file(self):
+        self.clear_log()
+        LogSpecificFilterTop.clear_all_logs(destroy_wins=False)
+        self.handle_log_file(self.file_path)
 
     def open_add_filter_dialog(self):
         FilterConfigWin(self.root, self.set_filter, None)
@@ -140,9 +194,9 @@ class LogMultiFilterUI(NotifMngClient):
 
     @print_class_and_method
     def select_log_file_to_filter(self):
-        file_path = filedialog.askopenfilename(title="Open Log File (textual)",
+        self.file_path = filedialog.askopenfilename(title="Open Log File (textual)",
                                                filetypes=[("Log Files", "*.log"), ("All Files", "*.*")])
-        self.handle_log_file(file_path)
+        # self.handle_log_file(file_path)
 
     def add_line(self, ind, line, filter_to_line_msgs, to_default=True):
         if to_default:

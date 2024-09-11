@@ -122,8 +122,9 @@ class LogSpecificFilterTop(Toplevel):
             self.text_widget.tag_remove(tag, "1.0", tk.END)
 
     @staticmethod
-    def clear_all_logs():
+    def clear_all_logs(destroy_wins=True):
         for log_top in LogSpecificFilterTop.log_specific_filter_tops:
             log_top.clear_log()
-            log_top.destroy()
+            if destroy_wins:
+                log_top.destroy()
 
