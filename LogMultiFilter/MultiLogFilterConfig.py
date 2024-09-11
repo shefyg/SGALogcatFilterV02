@@ -13,9 +13,12 @@ class LogRangeType(Enum):
 
 class LogRange:
 
-    def __init__(self, range_start, range_end, range_type: LogRangeType):
+    def __init__(self, range_start, range_end, range_type: LogRangeType = LogRangeType.UNKNOWN):
         self.range_start = range_start
         self.range_end = range_end
+
+        if range_type == LogRangeType.UNKNOWN:
+            range_type = LogRangeType.LINE_NUMBER if range_start.isdigit() else LogRangeType.SUBSTRING
         self.range_type = range_type
 
     def to_dict(self):
@@ -53,7 +56,7 @@ class MultiLogFilterConfig:
     def to_dict(self):
         return {'config_name': self.config_name,
                 'log_range': self.log_range.to_dict() if self.log_range else None,
-                'filters': [log_filter.to_dict() for log_filter in self.filters if not log_filter.is_default_filter]}
+                'filters': [log_filter.to_dict() for log_filter in self.filters if isinstance(log_filter, BaseFilter) and log_filter and not log_filter.is_default_filter]}
 
     @classmethod
     def from_dict(cls, data):
@@ -86,4 +89,4 @@ class MultiLogFilterConfig:
             data = json.load(f)
         return cls.from_dict(data)
 
-    #endregion
+    # endregion

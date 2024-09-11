@@ -6,6 +6,7 @@ from FilterConfigWin import FilterConfigWin
 from BaseFilterConfig import BaseFilterConfig
 from BaseFilterDispFrm import BaseFilterDispFrm
 from LogFilterInterfaces import IProcessedLineHandler
+from MultiLogFilterConfig import MultiLogFilterConfig, LogRange, LogRangeType
 from LogSpecificFilterTopUI import LogSpecificFilterTop
 from NotificationsMngPack.NotifMng import NotifMng
 from NotificationsMngPack.NotifMngClient import NotifMngClient
@@ -22,12 +23,11 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
     #region init and setup + ui setup ----------------------------
     def __init__(self, **kwargs):
         # Attributes that default to None
-        self.filters_displays_frame = None
         default_attributes = [
             'file_path', 'process_log_button', 'ui_lines_range_frame',
             'end_line_entry', 'start_line_entry', 'open_log_button_test2',
             'main_log_txt_widget', 'ui_panel_frm', 'ui_bts_frame',
-            'open_log_button', 'ui_bts_frame'
+            'open_log_button', 'ui_bts_frame', 'filters_displays_frame'
         ]
 
         # Dynamically set default None attributes
@@ -69,13 +69,14 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
 
         self.add_log_start_end_line_inputs()
         self.add_ui_bts(**kwargs)
+        self.add_multi_filter_config_ui()
 
     def add_main_log_to_ui(self):
         # Create a Text widget to display text
         self.main_log_txt_widget = tk.Text(self.root, width=DEFAULT_TEXT_WIDGET_WIDTH, bg="black", fg="white",
                                            insertbackground="white",  # Cursor color
                                            selectbackground="gray",  # Selected text background
-                                           selectforeground="black")  # Selected text foreground)
+                                           selectforeground="black")  # Selected text foreground
         self.main_log_txt_widget.pack(side=tk.LEFT, fill=tk.Y, expand=False)
 
         # Applying default log format
@@ -109,16 +110,6 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
         self.end_line_entry.grid(row=1, column=1, padx=5, pady=5, sticky='ew')
         self.end_line_entry.bind("<KeyRelease>", self.on_log_lines_process_range_input_change)
 
-    #endrange
-
-    #region ui actions and commands ---------------------------------------------
-
-    def on_log_lines_process_range_input_change(self, event):
-        """Handles updates whenever the user types in the Entry widgets."""
-        start_line = self.start_line_entry.get()
-        end_line = self.end_line_entry.get()
-        self.log_processor.log_start_process_line = start_line
-        self.log_processor.log_stop_process_line = end_line
 
     @print_class_and_method
     def add_ui_bts(self, **kwargs):
@@ -144,6 +135,51 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
         self.add_filter_bt = tk.Button(self.ui_bts_frame, text="Clear custom Filters",
                                        command=self.clear_custom_filters)
         self.add_filter_bt.pack(pady=5)
+
+    def add_multi_filter_config_ui(self):
+        # Create a frame to hold the UI elements
+        self.ui_config_frame = tk.Frame(self.ui_panel_frm, bg='#d3d3d3')
+        self.ui_config_frame.pack(side=tk.TOP, padx=25, pady=25, fill=tk.BOTH, expand=True)
+
+        # Label and input for Config Name
+        tk.Label(self.ui_config_frame, text="Config Name:").grid(row=0, column=0, padx=5, pady=5, sticky='e')
+        self.config_name_entry = tk.Entry(self.ui_config_frame)
+        self.config_name_entry.grid(row=0, column=1, padx=5, pady=5, sticky='ew')
+
+        # Button to save the configuration
+        self.save_config_button = tk.Button(self.ui_config_frame, text="Save Config", command=self.save_config)
+        self.save_config_button.grid(row=1, column=0, columnspan=2, pady=10)
+
+        # Configure column 1 to expand to fill available space
+        self.ui_config_frame.grid_columnconfigure(1, weight=1)
+
+    #endrange
+
+    #region ui actions and commands ---------------------------------------------
+    def save_config(self):
+        """Handles the save operation for the configuration."""
+        config_name = self.config_name_entry.get()  # Get the config name from the input field
+
+        if not config_name.strip():
+            print("Config name cannot be empty!")
+            return
+
+        # Save the configuration
+        config = MultiLogFilterConfig(config_name=config_name)
+        config.set_range(LogRange(range_start=self.log_processor.log_start_process_line,
+                                  range_end=self.log_processor.log_stop_process_line))
+        for log_filter in self.log_processor.filters.values():
+            if not log_filter.is_default_filter:
+                config.add_filter(log_filter=log_filter)
+        config.save_to_file()
+
+
+    def on_log_lines_process_range_input_change(self, event):
+        """Handles updates whenever the user types in the Entry widgets."""
+        start_line = self.start_line_entry.get()
+        end_line = self.end_line_entry.get()
+        self.log_processor.log_start_process_line = start_line
+        self.log_processor.log_stop_process_line = end_line
 
     def process_log_file(self):
         self.clear_log()
