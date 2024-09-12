@@ -216,7 +216,8 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
 
     def process_log_file(self):
         self.clear_log()
-        LogSpecificFilterTop.clear_all_logs(destroy_wins=False)
+        LogSpecificFilterTop.clear_all_logs()
+        NotifMng.notify(LMFNotifType.PROCESS_LOG_FILE, None)
         self.handle_log_file(self.file_path)
 
     def open_add_filter_dialog(self):

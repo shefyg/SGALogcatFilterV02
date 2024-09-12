@@ -1,4 +1,5 @@
 import tkinter as tk
+import traceback
 from tkinter import Toplevel
 
 from BaseFilter import BaseFilter
@@ -16,6 +17,8 @@ class LogSpecificFilterTop(Toplevel, NotifMngClient):
 
     def __init__(self, parent, id="Log Filter", tag_configs=None):
         super().__init__(parent)
+
+        self.tag_configs = tag_configs
 
         LogSpecificFilterTop.log_specific_filter_tops.append(self)
         self.title_str = id
@@ -42,6 +45,16 @@ class LogSpecificFilterTop(Toplevel, NotifMngClient):
 
         # register for notification
         NotifMng.register_client(LMFNotifType.SPECIFIC_FILTER_LINE_PRESSED, self)
+
+    def update_tag_configs(self, tag_configs):
+        need_tags_reconfigure = False
+        for k,v in tag_configs.items():
+            if k not in self.tag_configs or self.tag_configs[k] != v:
+                self.tag_configs[k] = v
+                need_tags_reconfigure = True
+        if tag_configs and need_tags_reconfigure:
+            for tag_name, tag_settings in tag_configs.items():
+                self.text_widget.tag_configure(tag_name, **tag_settings)
 
     def get_pressed_line(self, event):
         # Get the index of the mouse click
@@ -156,13 +169,19 @@ class LogSpecificFilterTop(Toplevel, NotifMngClient):
 
     #region handle log utils -----------------------
     def clear_log(self):
-        assert self.text_widget is not None
-        # Clear all text from the text widget
-        self.text_widget.delete("1.0", tk.END)
+        if not self.text_widget or not self.text_widget.winfo_exists():
+            return
+        try:
+            # Clear all text from the text widget
+            self.text_widget.delete("1.0", tk.END)
 
-        # Remove all tags from the text widget
-        for tag in self.text_widget.tag_names():
-            self.text_widget.tag_remove(tag, "1.0", tk.END)
+            # Remove all tags from the text widget
+            for tag in self.text_widget.tag_names():
+                self.text_widget.tag_remove(tag, "1.0", tk.END)
+        except Exception as e:
+            print(f'Exception occurred: {e} for {self.title_str}')
+            print("Call stack:\n%s", ''.join(traceback.format_exc()))
+
 
     @staticmethod
     def clear_all_logs(destroy_wins=True):

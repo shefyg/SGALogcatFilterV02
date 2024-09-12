@@ -25,6 +25,7 @@ class SpecificFiltersUIMng(tk.Frame, NotifMngClient):
         self.all_text_widgets_frm.pack(side=tk.TOP, padx=5, pady=5, fill=tk.X)
 
         NotifMng.register_client(LMFNotifType.FILTER_CREATED, self)
+        NotifMng.register_client(LMFNotifType.PROCESS_LOG_FILE, self)
 
     def reset_everything(self):
         for id, filter_top in self.id_to_filter_top_window.items():
@@ -44,6 +45,8 @@ class SpecificFiltersUIMng(tk.Frame, NotifMngClient):
 
         if win_name not in self.id_to_filter_top_window:
             self.id_to_filter_top_window[win_name] = LogSpecificFilterTop(self, win_name, tag_configs=all_tag_configs)
+        else:
+            self.id_to_filter_top_window[win_name].update_tag_configs(all_tag_configs)
         self.id_to_filter_top_window[win_name].add_line_with_filters(line, log_filters)
 
 
@@ -52,6 +55,16 @@ class SpecificFiltersUIMng(tk.Frame, NotifMngClient):
         if(notif_type == LMFNotifType.FILTER_CREATED):
             for spec_filter_top in self.id_to_filter_top_window.values():
                 spec_filter_top.clear_log()
+        elif(notif_type == LMFNotifType.PROCESS_LOG_FILE):
+            win_ids_to_del = []
+            for win_id, win in self.id_to_filter_top_window.items():
+                if 'INFO' not in win_id and "Errors or" not in win_id:
+                    win_ids_to_del.append(win_id)
+
+            for win_id in win_ids_to_del:
+                del self.id_to_filter_top_window[win_id]
+
+            self.id_to_filter_top_window.clear()
 
     def clear_filters(self):
         NotifMng.notify(LMFNotifType.CLEAR_FILTERS, None)
