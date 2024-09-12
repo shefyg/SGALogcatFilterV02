@@ -3,13 +3,14 @@ from tkinter import Toplevel
 
 from BaseFilter import BaseFilter
 from NotificationsMngPack.NotifMng import NotifMng
+from NotificationsMngPack.NotifMngClient import NotifMngClient
 from Utils import TagRangeConf, LMFNotifType, LMFNotifInfoKey
 from SGAUtils2024.SGAUtils import SGAUtils
 
 TEXT_WIDGET_HEIGHT = 75
 
 
-class LogSpecificFilterTop(Toplevel):
+class LogSpecificFilterTop(Toplevel, NotifMngClient):
     filters_top_count = 0
     log_specific_filter_tops = []
 
@@ -38,6 +39,9 @@ class LogSpecificFilterTop(Toplevel):
         self.bg_color = SGAUtils.bg_color_from_string(id)
         self.configure(bg=self.bg_color)
         self.add_text_widget(id, tag_configs)
+
+        # register for notification
+        NotifMng.register_client(LMFNotifType.SPECIFIC_FILTER_LINE_PRESSED, self)
 
     def get_pressed_line(self, event):
         # Get the index of the mouse click
@@ -166,5 +170,63 @@ class LogSpecificFilterTop(Toplevel):
             log_top.clear_log()
             if destroy_wins:
                 log_top.destroy()
+
+    def find_closest_line(self, target_number):
+        target_number = int(target_number)
+        closest_line_index = None
+        closest_difference = float('inf')  # Initialize with a large number
+
+        # Start from the beginning of the text widget
+        current_line = 1.0  # Tkinter uses '1.0' for the start position (line 1, column 0)
+
+        while True:
+            # Get the current line
+            line_text = self.text_widget.get(f'{current_line} linestart', f'{current_line} lineend')
+
+            # Check if we reached the end of the text widget (tk.END means the end of the widget)
+            if current_line >= float(self.text_widget.index(tk.END)):
+                break  # Break if we have reached the last line
+
+            # Skip empty lines (no characters)
+            if not line_text.strip():
+                current_line += 1.0
+                continue
+
+            # Try to extract the number at the start of the line
+            try:
+                line_number = int(line_text.split('-')[0])  # Assumes each line starts with a number
+            except (ValueError, IndexError):
+                # If there's no number at the start of the line or the line is empty, skip it
+                current_line += 1.0
+                continue
+
+            # Calculate the difference between the current line number and the target number
+            difference = abs(line_number - target_number)
+
+            # If this is the closest number so far, store it
+            if difference < closest_difference:
+                closest_difference = difference
+                closest_line_index = current_line
+
+            # Move to the next line
+            current_line += 1.0
+
+        # If a closest line was found, return the position of that line
+        if closest_line_index is not None:
+            return f'{int(closest_line_index)}.0'  # Return the position in the text widget
+
+        return None  # Return None if no matching line was found
+
     #endregion
 
+    #region handle notifications -----------------------
+    def HandleNotif(self, notif_type, notif_info) -> None:
+        if notif_type == LMFNotifType.SPECIFIC_FILTER_LINE_PRESSED:
+            line_start = self.find_closest_line(notif_info[LMFNotifInfoKey.GLOBAL_LINE_IND])
+
+            if line_start:
+                # Scroll to the line
+                self.text_widget.see(line_start)
+
+
+    #endregion
