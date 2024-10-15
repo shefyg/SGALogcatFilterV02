@@ -19,6 +19,9 @@ DEFAULT_TEXT_WIDGET_WIDTH = 120
 
 
 class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
+    '''
+    This is the main UI filter window. It is responsible for setting up the main UI elements, handling user actions,
+    '''
     in_process = False
 
     #region init and setup + ui setup ----------------------------
