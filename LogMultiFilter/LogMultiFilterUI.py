@@ -241,7 +241,6 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
         self.add_filter_frame_to_ui(filter_config)
 
         if not from_config:
-            self.clear_log()
             NotifMng.notify(LMFNotifType.FILTER_CREATED, filter_config)
 
     # TODO: function to add frame for custom filter

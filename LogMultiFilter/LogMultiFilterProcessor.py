@@ -80,9 +80,6 @@ class LogMultiFilterProcessor(NotifMngClient):
             # removing filters file
             if os.path.isfile('filters.json'):
                 os.remove('filters.json')
-            # Removing the processing for here
-            # self.process_log_file()
-
 
     def process_log_file(self, file_path=None):
         threading.Thread(target=self.process_log_file_async, args=(file_path,)).start()
