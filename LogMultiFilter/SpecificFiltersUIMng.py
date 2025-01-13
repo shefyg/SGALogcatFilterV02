@@ -52,9 +52,7 @@ class SpecificFiltersUIMng(tk.Frame, NotifMngClient):
 
 
     def HandleNotif(self, notif_type, notif_info) -> None:
-        # if(notif_type == LMFNotifType.FILTER_CREATED):
-        #     for spec_filter_top in self.id_to_filter_top_window.values():
-        #         spec_filter_top.clear_log()
+
         if(notif_type == LMFNotifType.PROCESS_LOG_FILE):
             win_ids_to_del = []
             for win_id, win in self.id_to_filter_top_window.items():

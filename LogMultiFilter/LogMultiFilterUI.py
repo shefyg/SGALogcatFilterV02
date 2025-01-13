@@ -1,4 +1,5 @@
 import os
+import tempfile
 import tkinter as tk
 from tkinter import filedialog
 from typing import Optional
@@ -126,9 +127,22 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
         self.ui_bts_frame.pack(side=tk.TOP, padx=25, pady=25, fill=tk.BOTH)
 
         # Open Log  bt
-        self.open_log_button = tk.Button(self.ui_bts_frame, text="Open Log File",
+        self.select_log_bts_frame = tk.Frame(self.ui_bts_frame, bg='white')
+        self.select_log_bts_frame.pack(side=tk.TOP, padx=25, pady=25, fill=tk.BOTH)
+
+        # Configure the grid columns to expand equally
+        self.select_log_bts_frame.grid_columnconfigure(0, weight=1)
+        self.select_log_bts_frame.grid_columnconfigure(1, weight=1)
+
+        self.open_log_button = tk.Button(self.select_log_bts_frame, text="Open Log File", width=20, bg="#4CAF50", fg="white",
                                          command=self.select_log_file_to_filter)
-        self.open_log_button.pack(pady=5)
+        self.open_log_button.grid(row=2, column=0, padx=5, pady=5, sticky='ew')
+
+        # Adding the "Use text as Log" button next to "Use as Source"
+        use_text_as_log_button = tk.Button(self.select_log_bts_frame, text="Use text as Log", width=20, bg="#4CAF50", fg="white",
+                                           command=self.open_get_pasted_text_log_dialog)
+        use_text_as_log_button.grid(row=2, column=6, padx=1, pady=5, sticky='ew')
+
 
         # Process Log bt
         self.process_log_button = tk.Button(self.ui_bts_frame, text="Process Log File", command=self.process_log_file, bg="#FFA500")
@@ -143,6 +157,49 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
         self.add_filter_bt = tk.Button(self.ui_bts_frame, text="Clear custom Filters",
                                        command=self.clear_custom_filters)
         self.add_filter_bt.pack(pady=5)
+
+    def open_get_pasted_text_log_dialog(self):
+        # Create a new top-level window (dialog)
+        dialog_tk_top_level = tk.Toplevel(self.root)
+        dialog_tk_top_level.title("Enter Log Text")
+
+        # Create a Text widget inside the dialog
+        text_widget = tk.Text(dialog_tk_top_level, wrap="word", height=10, width=50)
+        text_widget.pack(padx=10, pady=10)
+
+        # Create a frame to hold the buttons below the Text widget
+        button_frame = tk.Frame(dialog_tk_top_level)
+        button_frame.pack(pady=10)
+
+        def use_text_as_log(text_widget):
+            # Get the text from the Text widget
+            log_text = text_widget.get("1.0", tk.END).strip()  # "1.0" means get from line 1, character 0
+
+            if log_text:
+                print(f"Log text entered: {log_text}")  # You can handle the returned text here as needed
+                self.log_text = log_text  # Store the text in an instance variable or use it as needed
+
+                # Save the text to a temporary file
+                with tempfile.NamedTemporaryFile(delete=False, mode='w', suffix='.log', encoding='utf-8') as temp_file:
+                    temp_file.write(log_text)
+                    self.file_path = temp_file.name  # Save the path to self.file_path
+                    print(f"Log saved to temporary file: {self.file_path}")
+
+            # Close the dialog after use
+            dialog_tk_top_level.destroy()
+
+        def cancel():
+            # Close the dialog without saving
+            dialog_tk_top_level.destroy()
+
+        # "Use this text as log" button
+        use_log_button = tk.Button(button_frame, text="Use this text as log",
+                                   command=lambda: use_text_as_log(text_widget))
+        use_log_button.pack(side=tk.LEFT, padx=5)
+
+        # "Cancel" button to close the dialog without action
+        cancel_button = tk.Button(button_frame, text="Cancel", command=cancel)
+        cancel_button.pack(side=tk.LEFT, padx=5)
 
     def add_multi_filter_config_ui(self):
         # Create a frame to hold the UI elements
@@ -243,7 +300,6 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
         if not from_config:
             NotifMng.notify(LMFNotifType.FILTER_CREATED, filter_config)
 
-    # TODO: function to add frame for custom filter
 
     def add_filter_frame_to_ui(self, filter_config: BaseFilterConfig):
         # check if there is frame for filters
