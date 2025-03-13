@@ -32,13 +32,14 @@ class LogSpecificFilterTop(Toplevel, NotifMngClient):
 
         # Get screen width
         screen_width = self.winfo_screenwidth()
+        screen_height = self.winfo_screenheight()
 
         # Ensure the x position is within the screen width
         if x_pos + 640 > screen_width:
             x_pos %= screen_width # Adjust x_pos to fit within screen
 
         self.title(id)
-        self.geometry(f"640x1280+{x_pos}+0")
+        self.geometry(f"640x{int(screen_height*0.9)}+{x_pos}+0")
         self.bg_color = SGAUtils.bg_color_from_string(id)
         self.configure(bg=self.bg_color)
         self.add_text_widget(id, tag_configs)

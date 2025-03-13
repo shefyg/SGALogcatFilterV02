@@ -72,12 +72,21 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
         # setup main log ui
         self.add_main_log_to_ui()
 
-        # setup ui bts
-        self.ui_panel_frm = tk.Frame(self.root, bg='orange')
-        self.ui_panel_frm.pack(side=tk.RIGHT, padx=25, pady=25, fill=tk.BOTH, expand=True)
+        UI_PANEL_WIDTH = 480  # Fixed width
 
-        self.add_log_start_end_line_inputs()
+        self.ui_panel_frm = tk.Frame(self.root, bg='orange', width=UI_PANEL_WIDTH, height=760)
+        self.ui_panel_frm.pack(side=tk.RIGHT, fill=tk.Y)
+        self.ui_panel_frm.pack_propagate(False)  # Prevents resizing based on content
+
+        # Prevents shrinking beyond this size
+        self.root.minsize(UI_PANEL_WIDTH + 500, 760)  # Ensures enough space for log panel
+
+        # # Ensure only the left side expands, keeping the panel fixed
+        # self.root.grid_columnconfigure(0, weight=0)  # Log area can expand
+        # self.ui_panel_frm.grid_columnconfigure(0, weight=1)  # Keeps panel size fixed
+
         self.add_ui_bts(**kwargs)
+        self.add_log_start_end_line_inputs()
         self.add_multi_filter_config_ui()
 
     def add_main_log_to_ui(self):
@@ -134,8 +143,8 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
         self.select_log_bts_frame.grid_columnconfigure(0, weight=1)
         self.select_log_bts_frame.grid_columnconfigure(1, weight=1)
 
-        self.open_log_button = tk.Button(self.select_log_bts_frame, text="Open Log File", width=20, bg="#4CAF50", fg="white",
-                                         command=self.select_log_file_to_filter)
+        self.open_log_button = tk.Button(self.select_log_bts_frame, text="Open Log File", width=20, bg="white", fg="#4CAF50", relief="solid",  # Makes a clearer border
+          borderwidth=2, command=self.select_log_file_to_filter)
         self.open_log_button.grid(row=2, column=0, padx=5, pady=5, sticky='ew')
 
         # Adding the "Use text as Log" button next to "Use as Source"
