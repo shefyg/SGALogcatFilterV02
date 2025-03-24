@@ -136,22 +136,29 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
         self.ui_bts_frame.pack(side=tk.TOP, padx=25, pady=25, fill=tk.BOTH)
 
         # Open Log  bt
-        self.select_log_bts_frame = tk.Frame(self.ui_bts_frame, bg='white')
-        self.select_log_bts_frame.pack(side=tk.TOP, padx=25, pady=25, fill=tk.BOTH)
+        self.load_log_frame = tk.Frame(self.ui_bts_frame, bg='white')
+        self.load_log_frame.pack(side=tk.TOP, padx=25, pady=25, fill=tk.BOTH)
 
         # Configure the grid columns to expand equally
-        self.select_log_bts_frame.grid_columnconfigure(0, weight=1)
-        self.select_log_bts_frame.grid_columnconfigure(1, weight=1)
+        self.load_log_frame.grid_columnconfigure(0, weight=1)
+        self.load_log_frame.grid_columnconfigure(1, weight=1)
 
-        self.open_log_button = tk.Button(self.select_log_bts_frame, text="Open Log File", width=20, bg="white", fg="#4CAF50", relief="solid",  # Makes a clearer border
-          borderwidth=2, command=self.select_log_file_to_filter)
+        self.open_log_button = tk.Button(self.load_log_frame, text="Open Log File", width=20, bg="white", fg="#4CAF50", relief="solid",  # Makes a clearer border
+                                         borderwidth=2, command=self.select_log_file_to_filter)
         self.open_log_button.grid(row=2, column=0, padx=5, pady=5, sticky='ew')
 
         # Adding the "Use text as Log" button next to "Use as Source"
-        use_text_as_log_button = tk.Button(self.select_log_bts_frame, text="Use text as Log", width=20, bg="#4CAF50", fg="white",
+        use_text_as_log_button = tk.Button(self.load_log_frame, text="Use text as Log", width=20, bg="#4CAF50", fg="white",
                                            command=self.open_get_pasted_text_log_dialog)
         use_text_as_log_button.grid(row=2, column=6, padx=1, pady=5, sticky='ew')
 
+        # Create a frame to hold the UI elements
+        self.config_frame = tk.Frame(self.ui_bts_frame, bg='#d3d3d3')
+        self.config_frame.pack(side=tk.TOP, padx=25, pady=25, fill=tk.BOTH, expand=True)
+
+        # Button to load the configuration
+        self.load_config_button = tk.Button(self.config_frame, text="Load Config", command=self.load_config)
+        self.load_config_button.grid(row=0, column=0, columnspan=2, pady=10)
 
         # Process Log bt
         self.process_log_button = tk.Button(self.ui_bts_frame, text="Process Log File", command=self.process_log_file, bg="#FFA500")
@@ -211,13 +218,6 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
         cancel_button.pack(side=tk.LEFT, padx=5)
 
     def add_multi_filter_config_ui(self):
-        # Create a frame to hold the UI elements
-        self.ui_config_frame = tk.Frame(self.ui_panel_frm, bg='#d3d3d3')
-        self.ui_config_frame.pack(side=tk.TOP, padx=25, pady=25, fill=tk.BOTH, expand=True)
-
-        # Button to load the configuration
-        self.load_config_button = tk.Button(self.ui_config_frame, text="Load Config", command=self.load_config)
-        self.load_config_button.grid(row=0, column=0, columnspan=2, pady=10)
 
         # # Label and input for Config Name
         # tk.Label(self.ui_config_frame, text="Config Name:").grid(row=1, column=0, padx=5, pady=5, sticky='e')
@@ -225,11 +225,11 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
         # self.config_name_entry.grid(row=1, column=1, padx=5, pady=5, sticky='ew')
 
         # Button to save the configuration
-        self.save_config_button = tk.Button(self.ui_config_frame, text="Save Config", command=self.save_config)
+        self.save_config_button = tk.Button(self.config_frame, text="Save Config", command=self.save_config)
         self.save_config_button.grid(row=2, column=0, columnspan=2, pady=10)
 
         # Configure column 1 to expand to fill available space
-        self.ui_config_frame.grid_columnconfigure(1, weight=1)
+        self.config_frame.grid_columnconfigure(1, weight=1)
     #endrange
 
     #region ui actions and commands ---------------------------------------------

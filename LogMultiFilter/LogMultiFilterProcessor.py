@@ -34,7 +34,7 @@ class LogMultiFilterProcessor(NotifMngClient):
     def setup_filters(self):
         self.filters = {}
         filter_name = 'Errors or Exceptions'
-        log_filter = BaseFilter(filter_win_name=filter_name, filter_name=filter_name, sub_filters=['ERROR:', 'Exception:', 'FAIL:'],
+        log_filter = BaseFilter(filter_win_name=filter_name, filter_name=filter_name, sub_filters=['ERROR:', 'Exception:', 'FAIL:', 'FAILED'],
                                 tag_configs={"bold": {"font": ("TkDefaultFont", 10, "bold")},
                                              "danger": {"foreground": "red"},
                                              "indexes_filter_tag": {"font": ("TkDefaultFont", 10, "bold"), "foreground": "white", "background": "red"}},
