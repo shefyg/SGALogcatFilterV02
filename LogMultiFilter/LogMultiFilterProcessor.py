@@ -34,12 +34,13 @@ class LogMultiFilterProcessor(NotifMngClient):
     def setup_filters(self):
         self.filters = {}
         filter_name = 'Errors or Exceptions'
-        log_filter = BaseFilter(filter_win_name=filter_name, filter_name=filter_name, sub_filters=['ERROR:', 'Exception:', 'FAIL:', 'FAILED'],
+        log_filter = BaseFilter(filter_win_name=filter_name, filter_name=filter_name, sub_filters=['ERROR:', 'Exception:', 'FAIL:', 'FAILED', 'Failed', 'AttributeError:'],
                                 tag_configs={"bold": {"font": ("TkDefaultFont", 10, "bold")},
                                              "danger": {"foreground": "red"},
                                              "indexes_filter_tag": {"font": ("TkDefaultFont", 10, "bold"), "foreground": "white", "background": "red"}},
                                 # sub_filter_to_tags={"error": ["bold", "danger"], "ERROR": ["bold", "danger"], "exception": ["bold", "danger"], "Exception": ["bold", "danger"]},
-                                sub_filter_to_tags={"ERROR:": ["bold", "danger"], "Exception:": ["bold", "danger"], "FAIL:": ["bold", "danger"]},
+                                sub_filter_to_tags={"ERROR:": ["bold", "danger"], "Exception:": ["bold", "danger"], "FAIL:": ["bold", "danger"], "AttributeError:":
+                                    ["bold", "danger"]},
                                 sub_filter_to_range_conf={"all": "TagRangeConf.SUB_FILTER_TO_END | TagRangeConf.TAG_MARK_INDEXES"}, is_default_filter=True)
         self.filters[filter_name] = log_filter
 
