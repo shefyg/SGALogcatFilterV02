@@ -294,8 +294,12 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
 
     def clear_custom_filters(self):
         self.specific_filters_mng.clear_filters()
-        for widget in self.filters_displays_frame.winfo_children():
-            widget.destroy()
+        if self.filters_displays_frame:
+            # Clear the inner scrollable frame
+            if hasattr(self, 'filters_inner_frame'):
+                for widget in self.filters_inner_frame.winfo_children():
+                    widget.destroy()
+                self._update_scroll_region()
         LogSpecificFilterTop.clear_all_logs()
 
     def set_filter(self, filter_config: BaseFilterConfig, from_config=False):
@@ -313,11 +317,75 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
     def add_filter_frame_to_ui(self, filter_config: BaseFilterConfig):
         # check if there is frame for filters
         if not self.filters_displays_frame:
-            self.filters_displays_frame = tk.Frame(self.ui_panel_frm, bg='white')
-            self.filters_displays_frame.pack(side=tk.TOP, padx=25, pady=25, fill=tk.BOTH)
+            self._create_scrollable_filters_frame()
 
-        ffrm = BaseFilterDispFrm(self.filters_displays_frame, filter_config)
-        ffrm.pack(pady=5)
+        ffrm = BaseFilterDispFrm(self.filters_inner_frame, filter_config)
+        ffrm.pack(pady=5, fill=tk.X)
+        self._update_scroll_region()
+    
+    def _create_scrollable_filters_frame(self):
+        """Create a scrollable container for filter widgets."""
+        # Outer frame that fills remaining space
+        self.filters_displays_frame = tk.Frame(self.ui_panel_frm, bg='white')
+        self.filters_displays_frame.pack(side=tk.TOP, padx=25, pady=25, fill=tk.BOTH, expand=True)
+        
+        # Create canvas for scrolling
+        self.filters_canvas = tk.Canvas(self.filters_displays_frame, bg='white', highlightthickness=0)
+        
+        # Create scrollbar
+        self.filters_scrollbar = tk.Scrollbar(self.filters_displays_frame, orient="vertical", 
+                                               command=self.filters_canvas.yview)
+        
+        # Inner frame that holds all filter widgets
+        self.filters_inner_frame = tk.Frame(self.filters_canvas, bg='white')
+        
+        # Configure canvas scrolling
+        self.filters_canvas_window = self.filters_canvas.create_window((0, 0), window=self.filters_inner_frame, anchor="nw")
+        
+        # Configure scrollbar
+        self.filters_canvas.configure(yscrollcommand=self.filters_scrollbar.set)
+        
+        # Pack canvas and scrollbar
+        self.filters_canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+        self.filters_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+        
+        # Bind canvas resize to update inner frame width
+        def configure_canvas_window(event):
+            canvas_width = event.width
+            self.filters_canvas.itemconfig(self.filters_canvas_window, width=canvas_width)
+        
+        self.filters_canvas.bind('<Configure>', configure_canvas_window)
+        
+        # Bind mousewheel scrolling (cross-platform)
+        def on_mousewheel(event):
+            # Windows and Mac use delta attribute
+            if hasattr(event, 'delta'):
+                if event.delta > 0:
+                    self.filters_canvas.yview_scroll(-1, "units")
+                elif event.delta < 0:
+                    self.filters_canvas.yview_scroll(1, "units")
+            # Linux uses event.num
+            elif event.num == 4:
+                self.filters_canvas.yview_scroll(-1, "units")
+            elif event.num == 5:
+                self.filters_canvas.yview_scroll(1, "units")
+        
+        # Bind to canvas and inner frame for better UX
+        self.filters_canvas.bind("<MouseWheel>", on_mousewheel)
+        self.filters_canvas.bind("<Button-4>", on_mousewheel)  # Linux scroll up
+        self.filters_canvas.bind("<Button-5>", on_mousewheel)  # Linux scroll down
+        self.filters_inner_frame.bind("<MouseWheel>", on_mousewheel)
+        self.filters_inner_frame.bind("<Button-4>", on_mousewheel)  # Linux scroll up
+        self.filters_inner_frame.bind("<Button-5>", on_mousewheel)  # Linux scroll down
+        
+        # Update scroll region when inner frame size changes
+        self.filters_inner_frame.bind('<Configure>', lambda e: self._update_scroll_region())
+    
+    def _update_scroll_region(self):
+        """Update the canvas scroll region based on inner frame size."""
+        if hasattr(self, 'filters_canvas') and hasattr(self, 'filters_inner_frame'):
+            self.filters_canvas.update_idletasks()
+            self.filters_canvas.configure(scrollregion=self.filters_canvas.bbox("all"))
 
     @print_class_and_method
     def start_gui_and_filtering(self, activate_main_loop=True):
