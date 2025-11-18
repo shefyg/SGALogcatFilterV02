@@ -360,6 +360,25 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
         # Store reference to canvas for use in the closure
         canvas_ref = self.filters_canvas
         
+        def is_mouse_over_filters_area():
+            """Check if mouse is currently over the filters canvas area."""
+            try:
+                # Get mouse position in screen coordinates
+                mouse_x_screen = self.root.winfo_pointerx()
+                mouse_y_screen = self.root.winfo_pointery()
+                
+                # Get canvas position in screen coordinates
+                canvas_x_screen = self.filters_canvas.winfo_rootx()
+                canvas_y_screen = self.filters_canvas.winfo_rooty()
+                canvas_width = self.filters_canvas.winfo_width()
+                canvas_height = self.filters_canvas.winfo_height()
+                
+                # Check if mouse is within canvas bounds
+                return (canvas_x_screen <= mouse_x_screen <= canvas_x_screen + canvas_width and 
+                        canvas_y_screen <= mouse_y_screen <= canvas_y_screen + canvas_height)
+            except:
+                return False
+        
         def on_mousewheel(event):
             # Windows and Mac use delta attribute
             if hasattr(event, 'delta'):
@@ -374,7 +393,7 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
                     canvas_ref.yview_scroll(1, "units")
             return "break"
         
-        # Bind directly to canvas and inner frame
+        # Bind directly to canvas and inner frame (these work correctly when mouse is over them)
         self.filters_canvas.bind("<MouseWheel>", on_mousewheel)
         self.filters_canvas.bind("<Button-4>", on_mousewheel)  # Linux scroll up
         self.filters_canvas.bind("<Button-5>", on_mousewheel)  # Linux scroll down
@@ -383,11 +402,28 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
         self.filters_inner_frame.bind("<Button-4>", on_mousewheel)  # Linux scroll up
         self.filters_inner_frame.bind("<Button-5>", on_mousewheel)  # Linux scroll down
         
-        # Use bind_all for Windows - this ensures mouse wheel works even when canvas doesn't have focus
-        # This is the key fix for Windows mouse wheel scrolling
-        self.root.bind_all("<MouseWheel>", lambda e: on_mousewheel(e) if hasattr(self, 'filters_canvas') else None)
-        self.root.bind_all("<Button-4>", lambda e: on_mousewheel(e) if hasattr(self, 'filters_canvas') else None)  # Linux scroll up
-        self.root.bind_all("<Button-5>", lambda e: on_mousewheel(e) if hasattr(self, 'filters_canvas') else None)  # Linux scroll down
+        # Use bind_all for Windows - but only scroll filters if mouse is over filters area
+        # This ensures mouse wheel works even when canvas doesn't have focus, but doesn't interfere with main log scrolling
+        def on_mousewheel_global(event):
+            # Only handle the event if mouse is over filters area
+            if is_mouse_over_filters_area():
+                # Windows and Mac use delta attribute
+                if hasattr(event, 'delta'):
+                    scroll_amount = -1 * (event.delta // 120)
+                    canvas_ref.yview_scroll(scroll_amount, "units")
+                # Linux uses event.num
+                elif hasattr(event, 'num'):
+                    if event.num == 4:
+                        canvas_ref.yview_scroll(-1, "units")
+                    elif event.num == 5:
+                        canvas_ref.yview_scroll(1, "units")
+                return "break"
+            # If mouse is not over filters area, don't handle the event (let it propagate to main log)
+            return None
+        
+        self.root.bind_all("<MouseWheel>", on_mousewheel_global)
+        self.root.bind_all("<Button-4>", on_mousewheel_global)  # Linux scroll up
+        self.root.bind_all("<Button-5>", on_mousewheel_global)  # Linux scroll down
         
         # Update scroll region when inner frame size changes
         self.filters_inner_frame.bind('<Configure>', lambda e: self._update_scroll_region())
