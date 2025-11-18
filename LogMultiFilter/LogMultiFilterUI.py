@@ -19,6 +19,46 @@ from LogMultiFilterProcessor import LogMultiFilterProcessor
 DEFAULT_TEXT_WIDGET_WIDTH = 120
 
 
+class ProgressStopDialog(tk.Toplevel):
+    """Simple progress dialog with stop button that stays on top."""
+    
+    def __init__(self, parent, processor):
+        super().__init__(parent)
+        self.processor = processor
+        self.title("Processing Log File")
+        self.geometry("300x100")
+        self.resizable(False, False)
+        
+        # Keep window on top
+        self.attributes('-topmost', True)
+        
+        # Progress label
+        self.progress_label = tk.Label(self, text="Processing... Line: 0", font=('', 10))
+        self.progress_label.pack(pady=10)
+        
+        # Stop button
+        self.stop_button = tk.Button(self, text="Stop", command=self.stop_processing, 
+                                     bg="#ff4444", fg="white", width=10)
+        self.stop_button.pack(pady=5)
+        
+        # Update progress periodically
+        self.update_progress()
+    
+    def stop_processing(self):
+        """Set stop flag in processor."""
+        if self.processor:
+            self.processor.stop_processing = True
+            self.progress_label.config(text="Stopping...")
+            self.stop_button.config(state='disabled')
+    
+    def update_progress(self):
+        """Update progress label with current line number."""
+        if self.processor and self.processor.current_line > 0:
+            self.progress_label.config(text=f"Processing... Line: {self.processor.current_line}")
+        # Schedule next update
+        self.after(100, self.update_progress)
+
+
 class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
     '''
     This is the main UI filter window. It is responsible for setting up the main UI elements, handling user actions,
@@ -60,6 +100,9 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
 
         # collecting handlers
         self.handle_log_file = kwargs['handle_log_file']
+        
+        # Progress dialog (created when needed)
+        self.progress_dialog = None
 
         # setup ui elements
         self.setup_main_ui(**kwargs)
@@ -287,7 +330,35 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
         self.clear_log()
         LogSpecificFilterTop.clear_all_logs()
         NotifMng.notify(LMFNotifType.PROCESS_LOG_FILE, None)
+        
+        # Show progress dialog
+        if self.log_processor:
+            self.progress_dialog = ProgressStopDialog(self.root, self.log_processor)
+            # Schedule dialog cleanup check
+            self.check_processing_complete()
+        
         self.handle_log_file(self.file_path)
+    
+    def check_processing_complete(self):
+        """Check if processing is complete and hide dialog."""
+        if self.progress_dialog and self.log_processor:
+            # Check if processing is done (current_line reset to 0 means thread finished)
+            if self.log_processor.current_line == 0:
+                # Small delay to ensure thread has fully finished
+                self.root.after(200, lambda: self._close_dialog_if_done())
+            else:
+                # Still processing, check again in 500ms
+                self.root.after(500, self.check_processing_complete)
+    
+    def _close_dialog_if_done(self):
+        """Close dialog if processing is truly done."""
+        if self.progress_dialog and self.log_processor:
+            if self.log_processor.current_line == 0:
+                self.progress_dialog.destroy()
+                self.progress_dialog = None
+            else:
+                # Still processing, continue checking
+                self.root.after(500, self.check_processing_complete)
 
     def open_add_filter_dialog(self):
         FilterConfigWin(self.root, self.set_filter, None)
@@ -516,7 +587,8 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
     #region interfaces implementations   -------------------------------------------
 
     def handle_line_from_processor(self, ind, line, filter_to_line_msgs, to_default=True):
-        self.add_line(ind, line, filter_to_line_msgs, to_default)
+        # Use root.after() for thread-safe UI updates
+        self.root.after(0, lambda: self.add_line(ind, line, filter_to_line_msgs, to_default))
 
     def HandleNotif(self, notif_type, notif_info) -> None:
         if notif_type == LMFNotifType.SPECIFIC_FILTER_LINE_PRESSED:

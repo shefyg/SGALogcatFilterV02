@@ -22,6 +22,12 @@ class LogMultiFilterProcessor(NotifMngClient):
         # self.handle_proc_line = handle_proc_line
         self.setup_filters()
         self.last_processed_file_path = None
+        
+        # Stop flag and progress tracking
+        self.stop_processing = False
+        self.current_line = 0
+        self.total_lines = 0
+        
         NotifMng.register_client(LMFNotifType.FILTER_CREATED, self)
         NotifMng.register_client(LMFNotifType.CLEAR_FILTERS, self)
         # self.load_filters()
@@ -83,6 +89,9 @@ class LogMultiFilterProcessor(NotifMngClient):
                 os.remove('filters.json')
 
     def process_log_file(self, file_path=None):
+        # Reset stop flag when starting new processing
+        self.stop_processing = False
+        self.current_line = 0
         threading.Thread(target=self.process_log_file_async, args=(file_path,)).start()
 
     def process_log_file_async(self, file_path=None):
@@ -105,6 +114,11 @@ class LogMultiFilterProcessor(NotifMngClient):
 
                 line_ind = 1
                 for line in file:
+                    # Check stop flag
+                    if self.stop_processing:
+                        print("Processing stopped by user")
+                        break
+                    
                     if is_line_nums:
                         if line_ind >= start_ind:
                             should_process = True
@@ -115,6 +129,7 @@ class LogMultiFilterProcessor(NotifMngClient):
                         line_ind += 1
                         continue
 
+                    self.current_line = line_ind
                     self.process_line(line_ind, line)
                     line_ind += 1
                     if is_line_nums and line_ind >= end_ind:
@@ -126,6 +141,9 @@ class LogMultiFilterProcessor(NotifMngClient):
             print(f"The file at {file_path} does not exist.")
         except Exception as e:
             print(f"An error occurred: {e}")
+        finally:
+            # Reset current line when done
+            self.current_line = 0
 
     def process_line(self, ind, line):
         # todo: filter and add it to ui
