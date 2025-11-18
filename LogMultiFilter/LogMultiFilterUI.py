@@ -357,26 +357,37 @@ class LogMultiFilterUI(NotifMngClient, IProcessedLineHandler):
         self.filters_canvas.bind('<Configure>', configure_canvas_window)
         
         # Bind mousewheel scrolling (cross-platform)
+        # Store reference to canvas for use in the closure
+        canvas_ref = self.filters_canvas
+        
         def on_mousewheel(event):
             # Windows and Mac use delta attribute
             if hasattr(event, 'delta'):
-                if event.delta > 0:
-                    self.filters_canvas.yview_scroll(-1, "units")
-                elif event.delta < 0:
-                    self.filters_canvas.yview_scroll(1, "units")
+                # Windows delta is typically 120 or -120, divide to get smoother scrolling
+                scroll_amount = -1 * (event.delta // 120)
+                canvas_ref.yview_scroll(scroll_amount, "units")
             # Linux uses event.num
-            elif event.num == 4:
-                self.filters_canvas.yview_scroll(-1, "units")
-            elif event.num == 5:
-                self.filters_canvas.yview_scroll(1, "units")
+            elif hasattr(event, 'num'):
+                if event.num == 4:
+                    canvas_ref.yview_scroll(-1, "units")
+                elif event.num == 5:
+                    canvas_ref.yview_scroll(1, "units")
+            return "break"
         
-        # Bind to canvas and inner frame for better UX
+        # Bind directly to canvas and inner frame
         self.filters_canvas.bind("<MouseWheel>", on_mousewheel)
         self.filters_canvas.bind("<Button-4>", on_mousewheel)  # Linux scroll up
         self.filters_canvas.bind("<Button-5>", on_mousewheel)  # Linux scroll down
+        
         self.filters_inner_frame.bind("<MouseWheel>", on_mousewheel)
         self.filters_inner_frame.bind("<Button-4>", on_mousewheel)  # Linux scroll up
         self.filters_inner_frame.bind("<Button-5>", on_mousewheel)  # Linux scroll down
+        
+        # Use bind_all for Windows - this ensures mouse wheel works even when canvas doesn't have focus
+        # This is the key fix for Windows mouse wheel scrolling
+        self.root.bind_all("<MouseWheel>", lambda e: on_mousewheel(e) if hasattr(self, 'filters_canvas') else None)
+        self.root.bind_all("<Button-4>", lambda e: on_mousewheel(e) if hasattr(self, 'filters_canvas') else None)  # Linux scroll up
+        self.root.bind_all("<Button-5>", lambda e: on_mousewheel(e) if hasattr(self, 'filters_canvas') else None)  # Linux scroll down
         
         # Update scroll region when inner frame size changes
         self.filters_inner_frame.bind('<Configure>', lambda e: self._update_scroll_region())
